@@ -1,0 +1,45 @@
+<div class="login-container">
+  <div class="login-card">
+    <header class="logo">
+      <img src="assets/image/prueba.jpg" alt="CrediHogar">
+    </header>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <div class="input-container">
+          <i class="fa fa-user input-icon"></i>
+          <input
+            type="text"
+            formControlName="usuario"
+            name="usuario"
+            class="form-control"
+            placeholder="Usuario"
+          />
+        </div>
+        <div *ngIf="usuario?.invalid && usuario?.touched" class="error-message">
+          <span>{{ usuario?.errors?.['message'] }}</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="input-container">
+          <i class="fa fa-lock input-icon"></i>
+          <input
+            type="password"
+            formControlName="contrasenia"
+            name="contrasenia"
+            class="form-control"
+            placeholder="Contraseña"
+          />
+        </div>
+        <div *ngIf="contrasenia?.invalid && contrasenia?.touched" class="error-message">
+          <span>{{ contrasenia?.errors?.['message'] }}</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+
+    <a href="dashboard/inicio" class="forgot-password">Olvide mi contraseña</a>
+  </div>
+</div>
