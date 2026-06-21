@@ -1,0 +1,136 @@
+$bg-red-dark: #6e0000;
+$bg-red: #8b0000;
+$bg-red-light: #b71c1c;
+$accent-gold: #ffc107;
+$accent-gold-soft: #ffd54f;
+$text-white: #ffffff;
+$input-text: #4a2c2c;
+
+:host {
+  position: fixed;
+  inset: 0;
+  display: block;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+
+  background: linear-gradient(135deg, $bg-red-dark 0%, $bg-red 50%, $bg-red-light 100%),
+    url('/assets/image/FLogin.png') center center;
+  background-blend-mode: multiply;
+  background-size: cover;
+}
+
+.login-card {
+  width: 380px;
+  padding: 40px 30px;
+  border-radius: 30px;
+  border: 2px solid $accent-gold;
+  background: rgba(139, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.35),
+    0 0 25px rgba(255, 193, 7, 0.12);
+  text-align: center;
+
+  .logo {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 100px;
+      height: auto;
+    }
+  }
+
+  form {
+    .form-group {
+      margin-bottom: 25px;
+
+      .input-container {
+        position: relative;
+        width: 65%;
+        margin: 0 auto;
+
+        .input-icon {
+          position: absolute;
+          left: 15px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: $accent-gold;
+          font-size: 16px;
+        }
+
+        input {
+          width: 100%;
+          padding: 12px 15px 12px 40px;
+          display: block;
+          border: none;
+          border-radius: 25px;
+          background-color: #fff;
+          font-size: 16px;
+          color: $input-text;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+          &::placeholder {
+            color: darken($accent-gold, 15%);
+          }
+
+          &:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.8);
+          }
+        }
+      }
+
+      .error-message {
+        color: $accent-gold-soft;
+        font-size: 13px;
+        margin-top: 6px;
+        font-weight: 600;
+      }
+    }
+
+    .btn-primary {
+      width: 40%;
+      padding: 10px;
+      margin: 0 auto;
+      display: block;
+      background: linear-gradient(135deg, $accent-gold, darken($accent-gold, 8%));
+      border: none;
+      border-radius: 25px;
+      color: $bg-red-dark;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.15s ease;
+      font-family: 'CodecPro-Regular', Arial, sans-serif;
+
+      &:hover {
+        background: linear-gradient(135deg, darken($accent-gold, 8%), darken($accent-gold, 16%));
+        transform: translateY(-1px);
+      }
+    }
+  }
+
+  .forgot-password {
+    display: inline-block;
+    margin-top: 15px;
+    font-size: 14px;
+    color: $text-white;
+    text-decoration: none;
+    font-family: 'CodecPro-Regular', Arial, sans-serif;
+
+    &:hover {
+      text-decoration: underline;
+      color: $accent-gold-soft;
+    }
+  }
+}
