@@ -1,0 +1,36 @@
+<div class="dashboard">
+  <div class="sidebar">
+    <div class="user-info">
+      <p>Jordi Cristopher Cuesvas Arjona</p>
+      <p>jordinxx@gmail.com</p>
+    </div>
+    <div class="menu">
+      <a [routerLink]="['administrador/ventas']">
+        <mat-icon>home</mat-icon> Producto
+      </a>
+      <a [routerLink]="['administrador/ventas']">
+        <mat-icon>home</mat-icon> Inventario
+      </a>
+      <a [routerLink]="['administrador/ventas']">
+        <mat-icon>home</mat-icon> Ventas
+      </a>
+      <a [routerLink]="['administrador/ventas']">
+        <mat-icon>home</mat-icon> Contabilidad
+      </a>
+      <a [routerLink]="['administrador/ventas']">
+        <mat-icon>home</mat-icon> Facturas
+      </a>
+    </div>
+
+    <a>
+      <mat-icon>logout</mat-icon> Cerrar Sesion
+    </a>
+
+    <div class="main-content">
+    <router-outlet></router-outlet>
+    </div>
+  </div>
+
+
+
+</div>
