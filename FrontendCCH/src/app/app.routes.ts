@@ -20,7 +20,12 @@ export const routes: Routes = [
       {
         path:'',
         loadComponent: () => import('./ui/administrador/dashboard-adm/dashboard-adm').then((c)=> c.DashboardAdm),
+      },
+      {
+        path: 'clientes',
+        loadComponent: () => import('./ui/administrador/clientes/clientes').then(c => c.Clientes),
       }
     ]
   }
+
 ];
