@@ -1,26 +1,26 @@
 <h2>Clientes</h2>
 
-<form [formGroup]="formulario" (ngSubmit)="guardar()">
+<form [formGroup]="formGroup" (ngSubmit)="guardar()">
+<div class="yForm">
+  <div class="x">
+    <text-input type="text" label="Nombres" [controller]="formGroup.get('nombres')"> </text-input>
+  </div>
+  <div class="x">
+    <text-input type="text" label="Apellidos" [controller]="formGroup.get('apellidos')"> </text-input>
+  </div>
+  <div class="x">
+    <text-input type="text" label="Tipo Contacto" [controller]="formGroup.get('tipoContacto')"> </text-input>
+  </div>
+</div>
 
-  <input type="text"
-         placeholder="Nombres"
-         formControlName="nombres">
-
-  <input type="text"
-         placeholder="Apellidos"
-         formControlName="apellidos">
-
-  <input type="text"
-         placeholder="Tipo Contacto"
-         formControlName="tipoContacto">
-
-  <input type="text"
-         placeholder="Teléfono"
-         formControlName="telefono">
-
-  <input type="text"
-         placeholder="Dirección"
-         formControlName="direccion">
+  <div class="yForm">
+  <div class="x">
+    <text-input type="text" label="Telefono" [controller]="formGroup.get('telefono')"> </text-input>
+  </div>
+  <div class="x">
+    <text-input type="text" label="Dirección" [controller]="formGroup.get('direccion')"> </text-input>
+  </div>
+  </div>
 
   <button type="submit">
     Guardar
