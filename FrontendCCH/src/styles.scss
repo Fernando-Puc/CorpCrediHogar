@@ -4,7 +4,8 @@
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
-
+/* Bootstrap */
+@import 'bootstrap/scss/bootstrap';
 html {
   height: 100%;
   @include mat.theme(
@@ -36,9 +37,7 @@ body {
   margin: 0;
   height: 100%;
 }
-@use '@angular/material' as mat;
-/* Bootstrap */
-@import 'bootstrap/scss/bootstrap';
+
 
 html {
   height: 100%;
