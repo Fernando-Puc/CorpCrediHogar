@@ -1,0 +1,30 @@
+form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+input {
+  padding: 10px;
+}
+
+button {
+  width: 150px;
+  padding: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: #e53935;
+  color: white;
+}
+
+td, th {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
