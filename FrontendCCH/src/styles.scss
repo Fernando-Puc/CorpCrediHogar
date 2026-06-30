@@ -1,6 +1,8 @@
 @use '@angular/material' as mat;
 @use './assets/scss/genericStyles_';
-
+@use './assets/scss/ngSelect_';
+@use './assets/scss/reset';
+@use './assets/scss/settings';
 
 /* Bootstrap */
 @import 'bootstrap/scss/bootstrap';
