@@ -3,12 +3,15 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl } from '@angul
 import { CommonModule } from '@angular/common';
 import { TextInputComponent } from "../../generic components/input/input.component.";
 import { makeRequired } from '../../../core/validators/makeRequired.validator';
+import { ActionButtonComponent } from '../../generic components/actionButton/actionButton.component';
+
+
 
 
 @Component({
   selector: 'app-clientes',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TextInputComponent],
+  imports: [CommonModule, ReactiveFormsModule, TextInputComponent, ActionButtonComponent],
   templateUrl: './clientes.html',
   styleUrl: './clientes.scss'
 })
@@ -29,10 +32,12 @@ export class Clientes {
   }
 
   guardar() {
+    if (this.formGroup.invalid) {
+      this.formGroup.markAllAsTouched();
+      return;
+    }
 
-    this.clientes.push({
-      ...this.formGroup.value
-    });
+    this.clientes.push(this.formGroup.value);
 
     this.formGroup.reset();
   }

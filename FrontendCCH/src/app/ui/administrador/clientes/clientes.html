@@ -22,9 +22,12 @@
   </div>
   </div>
 
-  <button type="submit">
-    Guardar
-  </button>
+    <div class="actions">
+      <action-button variant="cancel" text="Cancelar" ></action-button>
+      <action-button variant="accept" text="Guardar"
+        [isDisabled]="!formGroup.valid"></action-button>
+    </div>
+
 
 </form>
 

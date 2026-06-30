@@ -1,0 +1,52 @@
+.btn_accept{
+    background-color:  #FF5252 !important;
+    color: #ffffff !important;
+    margin-left: 8px;
+    border-radius: 10px;
+    padding-top: 21px;
+    padding-bottom: 21px;
+    &:disabled{
+      background-color: rgb(199, 199, 199) !important;
+      color: #ffffff !important;
+      border-radius: 10px;
+      margin-left: 8px;
+      padding-top: 21px;
+      padding-bottom: 21px;
+    }
+  }
+
+  .btn_cancel{
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    margin-left: 8px;
+    border-radius: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border: 1px solid var(--black);
+
+    &:disabled{
+      background-color: rgb(199, 199, 199) !important;
+      color: #ffffff !important;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      margin-left: 8px;
+    }
+  }
+
+  .btn_await{
+    background-color: transparent !important;
+    &_start{
+      background-color: transparent !important;
+      border: solid 2px var(--primary) ; border-color: var(--primary);
+    }
+  }
+
+  .btn_none{
+    background-color: transparent !important;
+    margin-left: 8px;
+    &:disabled{
+      background-color: rgb(199, 199, 199) !important;
+      color: #ffffff !important;
+      margin-left: 8px;
+    }
+  }
