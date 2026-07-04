@@ -39,7 +39,7 @@ input.form-control {
 
 input.form-control:focus {
   border-color: var(--purple);
-  box-shadow: 0 0 0 0.2rem rgba(131, 58, 180, 0.25);
+  box-shadow: 0 0 0 0.2rem #FF5252;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator {
