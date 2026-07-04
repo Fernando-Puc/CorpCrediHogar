@@ -23,7 +23,11 @@ export const routes: Routes = [
       },
       {
         path: 'clientes',
-        loadComponent: () => import('./ui/administrador/clientes/clientes').then(c => c.Clientes),
+        loadComponent: () => import('./ui/administrador/clientes/clienteslist/clienteslist').then(c => c.Clientes),
+      },
+      {
+        path: 'crearcliente',
+        loadComponent: () => import('./ui/administrador/clientes/createclientes/createclientes').then(c=> c.Createclientes),
       }
     ]
   }
