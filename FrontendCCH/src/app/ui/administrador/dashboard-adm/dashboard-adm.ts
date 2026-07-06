@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { RouterLink } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-dashboard-adm',
-  imports: [RouterLink],
+  standalone: true,
+  imports: [MatIconModule],
   templateUrl: './dashboard-adm.html',
   styleUrl: './dashboard-adm.scss',
 })

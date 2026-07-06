@@ -1,5 +1,5 @@
 @use '@angular/material' as mat;
-<<<<<<< HEAD
+@use './assets/scss/genericStyles_';
 /* Bootstrap */
 @import 'bootstrap/scss/bootstrap';
 html {
@@ -33,15 +33,6 @@ body {
   margin: 0;
   height: 100%;
 }
-
-=======
-@use './assets/scss/genericStyles_';
-
-
-/* Bootstrap */
-@import 'bootstrap/scss/bootstrap';
->>>>>>> main
-
 html {
   height: 100%;
 
@@ -65,3 +56,4 @@ body {
 }
 
 /* Aquí puedes agregar tus estilos globales */
+
