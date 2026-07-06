@@ -8,7 +8,7 @@ class Empresas extends Model
 {
     protected $table = 'empresas';
 
-    protected $prymaryKey= 'IDEmpresa';
+    protected $primaryKey= 'IDEmpresa';
 
     protected $fillable= [
         'Folio',

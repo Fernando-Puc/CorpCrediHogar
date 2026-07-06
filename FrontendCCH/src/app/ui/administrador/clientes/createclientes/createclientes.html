@@ -1,0 +1,45 @@
+<div class="mainContainer">
+  <div class="subExpandForm">
+    <h1 class="titleForm">Crear Cliente</h1>
+    <div class="subExpandBorder">
+      <form [formGroup]="formGroup" (ngSubmit)="guardar()">
+        <div class="yForm">
+          <div class="x">
+            <text-input type="text" label="Nombres" [controller]="formGroup.get('nombres')"> </text-input>
+          </div>
+          <div class="x">
+            <text-input type="text" label="Apellidos" [controller]="formGroup.get('apellidos')"> </text-input>
+          </div>
+          <div class="x">
+            <text-input type="text" label="Tipo Contacto" [controller]="formGroup.get('tipoContacto')"> </text-input>
+          </div>
+        </div>
+
+        <div class="yForm">
+          <div class="x">
+            <text-input type="text" label="Telefono" [controller]="formGroup.get('telefono')"> </text-input>
+          </div>
+          <div class="x">
+            <text-input type="text" label="Dirección" [controller]="formGroup.get('direccion')"> </text-input>
+          </div>
+        <div class="x"></div>
+        </div>
+      </form>
+    </div>
+
+        <div class="actions">
+          <action-button variant="cancel" text="Cancelar" ></action-button>
+          <action-button variant="accept" text="Guardar" (click)="guardar()"
+            [isDisabled]="!formGroup.valid"></action-button>
+        </div>
+  </div>
+</div>
+
+
+
+
+
+
+<h2>Clientes</h2>
+
+
