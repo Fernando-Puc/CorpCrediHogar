@@ -12,7 +12,7 @@ $sombra-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
 .contenedor-dashboard {
     display: flex;
     align-items: flex-start;
-    gap: 24px;
+    gap: 20px;
     padding: 24px;
     font-family: $fuente-dashboard;
     flex-wrap: wrap;
@@ -28,17 +28,24 @@ $sombra-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
 .tarjeta {
     background: $color-bg-tarjeta;
     color: $color-texto-principal;
-    padding: 22px 28px;
+    padding: 16px 28px;
     border-radius: 14px;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
     box-shadow: $sombra-reposo;
     border: 1px solid rgba(0, 0, 0, 0.04);
+
     transition:
         transform 0.25s ease,
         box-shadow 0.25s ease,
-        border-color 0.25s ease;
+        border-color 0.25s ease,
+        color 0.25s ease;
 
     &:hover {
         transform: translateY(-3px);
@@ -52,11 +59,33 @@ $sombra-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
         box-shadow: $sombra-reposo;
     }
 }
-.opciones{
-  text-align: right;
-  padding-right: 40px;
 
+/* Estilo de los iconos */
+.tarjeta mat-icon {
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.opciones {
+    text-align: right;
+    padding-right: 40px;
     margin-top: 15px;
+}
+
+.opciones a {
+    text-decoration: none;
+    color: $color-texto-principal;
+    font-weight: 600;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: $color-acento-verde;
+    }
 }
 
 @media (max-width: 768px) {
@@ -73,8 +102,7 @@ $sombra-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
 
     .tarjeta {
         width: 100%;
-        padding: 18px;
+        padding: 18px 20px;
         font-size: 1rem;
-        text-align: center;
     }
 }
