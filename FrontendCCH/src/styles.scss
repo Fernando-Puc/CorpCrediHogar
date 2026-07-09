@@ -1,14 +1,11 @@
 @use '@angular/material' as mat;
 @use './assets/scss/genericStyles_';
-<<<<<<< HEAD
-=======
 @use './assets/scss/ngSelect_';
 @use './assets/scss/reset';
 @use './assets/scss/settings';
 @use './assets//scss/elements_';
-@import "@ng-select/ng-select/themes/default.theme.css";
+@import '@ng-select/ng-select/themes/default.theme.css';
 
->>>>>>> origin/main
 /* Bootstrap */
 @import 'bootstrap/scss/bootstrap';
 html {
@@ -45,14 +42,16 @@ body {
 html {
   height: 100%;
 
-  @include mat.theme((
-    color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
 }
 
 body {
@@ -65,4 +64,3 @@ body {
 }
 
 /* Aquí puedes agregar tus estilos globales */
-
