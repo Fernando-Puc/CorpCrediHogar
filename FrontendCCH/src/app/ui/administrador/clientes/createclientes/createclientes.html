@@ -10,8 +10,20 @@
           <div class="x">
             <text-input type="text" label="Apellidos" [controller]="formGroup.get('apellidos')"> </text-input>
           </div>
-          <div class="x">
-            <text-input type="text" label="Tipo Contacto" [controller]="formGroup.get('tipoContacto')"> </text-input>
+
+
+        <div class="x space">
+          <label>Tipo de Contacto</label>
+            <ng-select [clearable]="false" id="tipoContacto" formControlName="tipoContacto">
+              <ng-option value="" disabled>Seleciona...</ng-option>
+              @for (tipoContacto of TipoContacto ; track tipoContacto.id) {
+              <ng-option [value]="tipoContacto.id">{{tipoContacto.descripcion}}</ng-option>
+              }
+            </ng-select>
+            @if (!formGroup.get('tipoContacto')?.valid && formGroup.get('tipoContacto')?.touched)
+            {
+            <span class="error-message"> {{ formGroup.get('tipoContacto')?.errors?.['message'] }} </span>
+            }
           </div>
         </div>
 
@@ -37,9 +49,5 @@
 
 
 
-
-
-
-<h2>Clientes</h2>
 
 
