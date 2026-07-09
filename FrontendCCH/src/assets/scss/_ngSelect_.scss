@@ -1,32 +1,32 @@
 .ng-select .ng-arrow-wrapper:hover .ng-arrow {
-    border-top-color: rgba(94, 23, 235, 1) !important;
+    border-top-color: var(--red) !important;
   }
-  
+
   .ng-select.ng-select-opened > .ng-select-container .ng-arrow {
     top: -2px;
-    border-color: transparent transparent rgba(94, 23, 235, 1) !important;
+    border-color: transparent transparent var(--red) !important;
     border-width: 0 5px 5px;
   }
-  
+
   .ng-select .ng-arrow-wrapper .ng-arrow {
-    border-top-color: rgba(94, 23, 235, 1) !important;
+    border-top-color: var(--red) !important;
   }
-  
+
   .ng-select .ng-select-container {
-    border: 1px solid rgba(94, 23, 235, 1) !important;
+    border: 1px solid #ced4da !important;
     border-radius: 10px;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
     box-shadow: none;
 }
 
 .ng-select.ng-select-focused .ng-select-container {
-    border-color: var(--purple);
-    box-shadow: 0 0 0 0.2rem rgba(94, 23, 235, 0.25);
+    border-color: var(--red);
+    box-shadow: 0 0 0 0.2rem var(--red);
 }
 
 .ng-select.ng-select-opened .ng-select-container {
-    border-color: rgba(94, 23, 235, 1);
-    box-shadow: 0 0 0 0.2rem rgba(94, 23, 235, 0.35);
+    border-color: var(--red);
+    box-shadow: 0 0 0 0.2rem var(--red)
 }
 
 
