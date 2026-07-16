@@ -1,11 +1,9 @@
-
 <div class="opciones">
-    <a href="#">Cerrar sesion</a>
+    <a href="#" class="btn-cerrar">Cerrar sesion</a>
 </div>
-
 <div class="contenedor-dashboard">
     <div class="panel-tarjetas">
-        <div class="tarjeta">Clientes
+        <div class="tarjeta" routerLink="/administrador/clientes" >Clientes
              <mat-icon aria-hidden="false" fontIcon="assignment_ind"></mat-icon>
         </div>
         <div class="tarjeta">Ventas
@@ -14,8 +12,6 @@
         <div class="tarjeta">Reportes
           <mat-icon>assessment</mat-icon>
         </div>
-
-
     </div>
     <div class="panel-tarjetas">
       <div class="tarjeta">Inventario
@@ -23,6 +19,9 @@
       </div>
       <div class="tarjeta">Contabilidad
         <mat-icon>trending_up</mat-icon>
+      </div>
+       <div class="tarjeta" routerLink="/administrador/productos">Productos
+        <mat-icon>store</mat-icon>
       </div>
     </div>
 </div>

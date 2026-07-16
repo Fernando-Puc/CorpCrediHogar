@@ -28,7 +28,16 @@ export const routes: Routes = [
       {
         path: 'crearcliente',
         loadComponent: () => import('./ui/administrador/clientes/createclientes/createclientes').then(c=> c.Createclientes),
-      }
+      },
+      {
+        path: 'productos',
+        loadComponent: () => import('./ui/administrador/productos/productoslist/productoslist').then(c => c.Productoslist),
+      },
+      {
+        path: 'createproducts',
+        loadComponent: () => import('./ui/administrador/productos/createproducts/createproducts').then(c => c.Createproducts),
+      },
+
     ]
   }
 

@@ -5,7 +5,10 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-dashboard-adm',
   standalone: true,
-  imports: [MatIconModule],
+  imports: [
+    MatIconModule,
+    RouterLink   // <-- Agrega esto
+  ],
   templateUrl: './dashboard-adm.html',
   styleUrl: './dashboard-adm.scss',
 })

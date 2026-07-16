@@ -71,21 +71,32 @@ $sombra-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
     justify-content: center;
 }
 
-.opciones {
-    text-align: right;
-    padding-right: 40px;
-    margin-top: 15px;
+.opciones{
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px;
 }
 
-.opciones a {
+.btn-cerrar{
     text-decoration: none;
-    color: $color-texto-principal;
+    background: #d40101;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 15px;
     font-weight: 600;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+}
 
-    &:hover {
-        color: $color-acento-verde;
-    }
+.btn-cerrar:hover{
+    background: #b02a37;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(220, 53, 69, 0.4);
+}
+
+.btn-cerrar:active{
+    transform: translateY(0);
 }
 
 @media (max-width: 768px) {
