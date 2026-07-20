@@ -20,6 +20,7 @@ class ProductosController extends Controller
 
         $productosFormateados = $productos->map(function ($producto) {
             return [
+                'IDProducto' => $producto->IDProducto,
                 'codigo' => $producto->Codigo,
                 'nombre' => $producto->Nombre,
                 'claveSAT' => $producto->ClaveSAT,
