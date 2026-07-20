@@ -4,15 +4,15 @@ export interface TipoContacto{
 }
 
 export interface Linea{
-  id: number,
-  descripcion: string;
+  IDLinea: number,
+  Nombre: string;
 }
 
 export interface Marca{
-  id: number,
-  descripcion: string;
+  IDMarca: number,
+  Nombre: string;
 }
 export interface UnidadMedida{
-  id: number,
-  descripcion: string;
+  IDUnidadMedida: number,
+  Nombre: string;
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\EmpresasController;
 use App\Http\Controllers\LineaProductosController;
 use App\Http\Controllers\MarcaProductosController;
 use App\Http\Controllers\UnidadMedidaController;
+use App\Http\Controllers\ProductosController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -34,3 +35,9 @@ Route::get('catalogs/umedida/', [UnidadMedidaController::class, 'ObtenerUnidades
 Route::post('catalogs/crearunidad', [UnidadMedidaController::class, 'CrearUnidadMedida']);
 Route::put('catalogs/actualizarunidad/{id}', [UnidadMedidaController::class, 'ActualizarUnidad']);
 Route::delete('catalogs/eliminarunidad/{id}', [UnidadMedidaController::class, 'EliminarUnidad']);
+
+//Catálogo de productos
+Route::get('catalogs/productos/', [ProductosController::class, 'ObtenerProductos']);
+Route::post('catalogs/registrarproducto', [ProductosController::class, 'CrearProducto']);
+Route::put('catalogs/actualizarproducto/{id}', [ProductosController::class, 'ActualizarProducto']);
+Route::delete('catalogs/eliminarproducto/{id}', [ProductosController::class, 'EliminarProducto']);
