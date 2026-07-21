@@ -19,10 +19,14 @@ export class ProductsService{
     }
 
     createproduct(product: createProductDto): Observable<ResponsePPD>{
-      return this.http.post<ResponsePPD>(this.URL + "registrarproducto", product )
+      return this.http.post<ResponsePPD>(this.URL + "registrarproducto", product );
     }
 
     getProduct(IDProducto:number): Observable<ResponseGet<getproductDto>>{
-      return this.http.get<ResponseGet<getproductDto>>(this.URL + 'verproducto/'+ IDProducto )
+      return this.http.get<ResponseGet<getproductDto>>(this.URL + 'verproducto/'+ IDProducto );
+    }
+
+    deleteProduct(IDproducto:number): Observable<ResponsePPD>{
+      return this.http.delete<ResponsePPD>(this.URL + 'eliminarproducto/' + IDproducto);
     }
 }

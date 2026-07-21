@@ -65,7 +65,7 @@
                           <span [innerHTML]="actionIcons[1] | safeHtml"></span>
                         </button>
                         <button type="button" title="Eliminar producto">
-                          <span [innerHTML]="actionIcons[2] | safeHtml"></span>
+                          <span (click)="deleteProduct(producto.IDProducto)" [innerHTML]="actionIcons[2] | safeHtml"></span>
                         </button>
                       </div>
                     </td>

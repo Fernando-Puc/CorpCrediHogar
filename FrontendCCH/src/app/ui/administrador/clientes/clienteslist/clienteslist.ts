@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { TextInputComponent } from "../../../generic components/input/input.component.";
 import { makeRequired } from '../../../../core/validators/makeRequired.validator';
 import { ActionButtonComponent } from '../../../generic components/actionButton/actionButton.component';
 import { chevronLeftIcon, chevronRightIcon, editIcon, eyeIcon, trashIcon } from '../../../../core/shared/shared/constants/icons.constants';
@@ -13,7 +12,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-clientes',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TextInputComponent, ActionButtonComponent, SafeHtmlPipe],
+  imports: [CommonModule, ReactiveFormsModule, ActionButtonComponent, SafeHtmlPipe],
   templateUrl: './clienteslist.html',
   styleUrl: './clienteslist.scss'
 })
