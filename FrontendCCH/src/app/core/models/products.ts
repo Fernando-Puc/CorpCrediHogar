@@ -8,10 +8,21 @@ export interface getproductsDto {
   codigo: string;
   nombre: string;
   claveSAT: string;
-  fechaRegistro: string;
-  activo: number;
-
+  fechaRegistro: number;
+  activo: boolean;
   linea: CatalogoProductoDto;
   marca: CatalogoProductoDto;
   unidadMedida: CatalogoProductoDto;
 }
+
+export interface createProductDto {
+  Codigo: string;
+  Nombre: string;
+  IDLinea: number;
+  IDMarca: number;
+  IDUnidadMedida: number;
+  ClaveSAT: string | null;
+}
+
+
+

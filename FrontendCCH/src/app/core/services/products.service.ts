@@ -1,4 +1,5 @@
-import { getproductsDto } from './../models/products';
+import { Createproducts } from './../../ui/administrador/productos/createproducts/createproducts';
+import { createProductDto, getproductsDto } from './../models/products';
 import { Injectable } from "@angular/core";
 import { ConstantsService } from "./constants.service";
 import { HttpClient } from "@angular/common/http";
@@ -15,6 +16,9 @@ export class ProductsService{
 
     getProducts(): Observable<ResponseGet<getproductsDto[]>>{
       return this.http.get<ResponseGet<getproductsDto[]>>(this.URL+'productos');
+    }
 
-  }
+    createproduct(product: createProductDto): Observable<ResponsePPD>{
+      return this.http.post<ResponsePPD>(this.URL + "registrarproducto", product )
+    }
 }
