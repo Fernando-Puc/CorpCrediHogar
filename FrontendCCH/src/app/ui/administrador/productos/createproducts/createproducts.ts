@@ -1,17 +1,17 @@
-import { TipoContacto } from './../../../../core/models/catalogs';
+import { Linea, Marca, UnidadMedida } from './../../../../core/models/catalogs';
+import { createProductDto } from './../../../../core/models/products';
+import { ProductsService } from './../../../../core/services/products.service';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-//import { Component } from '@angular/core';
 import {ReactiveFormsModule, FormGroup, FormBuilder, FormControl, FormsModule,} from '@angular/forms';
 import { TextInputComponent } from '../../../generic components/input/input.component.';
 import { ActionButtonComponent } from '../../../generic components/actionButton/actionButton.component';
 import { makeRequired } from '../../../../core/validators/makeRequired.validator';
 import { Router } from '@angular/router';
-import { Linea } from '../../../../core/models/catalogs';
-import { Marca } from '../../../../core/models/catalogs';
-import { UnidadMedida } from '../../../../core/models/catalogs';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CatalogsService } from '../../../../core/services/catalogs.service';
+import { ResponseGet } from '../../../../core/models/responses';
 
 @Component({
   selector: 'app-createproducts',
@@ -29,78 +29,16 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   styleUrl: './createproducts.scss',
 })
 
-//catalogo de las lineas de los productos
 export class Createproducts implements OnInit {
-  productos: any[] = [];
-  Linea: Linea[] = [
-    {
-      id: 1,
-      descripcion: 'Linea Blanca',
-    },
-    {
-      id: 2,
-      descripcion: 'Electronica',
-    },
-    {
-      id: 3,
-      descripcion: 'Electrodomesticos',
-    },
-    {
-      id: 4,
-      descripcion: 'Muebles',
-    },
-    {
-      id: 5,
-      descripcion: 'Rodada',
-    },
-    {
-      id: 6,
-      descripcion: 'Otros',
-    },
-  ];
-
-  //catalogo de marcas
-
+  Linea: Linea[] = [];
   formGroup: FormGroup;
-  marca: any[] = [];
-  Marca: Marca[] = [
-    {
-      id: 1,
-      descripcion: 'Mabe',
-    },
-    {
-      id: 2,
-      descripcion: 'Midea',
-    },
-    {
-      id: 3,
-      descripcion: 'Hisense',
-    },
-    {
-      id: 4,
-      descripcion: 'Mirage',
-    },
-    {
-      id: 5,
-      descripcion: 'Aiwa',
-    },
-    {
-      id: 6,
-      descripcion: 'Misik',
-    },
-  ];
-
-  //catalogo de unidades de medida
-  UnidadMedida: UnidadMedida[] = [
-    {
-      id: 1,
-      descripcion: 'Pieza',
-    }
-  ];
+  Marca: Marca[] = [];
+  UnidadMedida: UnidadMedida[] = [];
 
   constructor(
-    private fb: FormBuilder,
     private router: Router,
+    private catalogs: CatalogsService,
+    private  productService: ProductsService,
   ) {
     this.formGroup = new FormGroup({
       codigo: new FormControl('', [makeRequired]),
@@ -110,20 +48,47 @@ export class Createproducts implements OnInit {
       unidadMedida: new FormControl('', [makeRequired]),
       claveSAT: new FormControl('', [makeRequired]),
       sinClaveSAT: new FormControl(false),
-      fechaRegistro: new FormControl('', [makeRequired]),
+    });
+
+    this.catalogs.getProductLines().subscribe((response: ResponseGet<Linea[]>) => {
+      this.Linea = response.data;
+    });
+
+    this.catalogs.getProductBrands().subscribe((response: ResponseGet<Marca[]>) => {
+      this.Marca = response.data;
+    });
+
+    this.catalogs.getUnitMeasurement().subscribe((response: ResponseGet<UnidadMedida[]>) => {
+      this.UnidadMedida = response.data;
     });
   }
 
-  guardar() {
-    if (this.formGroup.invalid) {
+  onSubmit(){
+    if (this.formGroup.invalid){
       this.formGroup.markAllAsTouched();
-      return;
-    }
+    }else{
+      const createProductDto: createProductDto = {
+        Codigo: this.formGroup.value.codigo,
+        Nombre: this.formGroup.value.nombre,
+        ClaveSAT: this.formGroup.value.claveSAT,
+        IDLinea: this.formGroup.value.linea,
+        IDMarca: this.formGroup.value.marca,
+        IDUnidadMedida: this.formGroup.value.unidadMedida,
 
-    this.productos.push(this.formGroup.value);
-    this.formGroup.reset();
-    this.router.navigate(['administrador/productos']);
+      };
+
+      this.productService.createproduct(createProductDto).subscribe(
+        (response) => {
+          console.log('Producto creado exitosamente', response);
+          this.router.navigate(['administrador/productos']);
+        },
+        (error) => {
+          console.error('Error al registrar el producto', error);
+        }
+      )
+    }
   }
+
   ngOnInit(): void {
   this.formGroup.get('sinClaveSAT')?.valueChanges.subscribe((sinClave) => {
     const claveSAT = this.formGroup.get('claveSAT');

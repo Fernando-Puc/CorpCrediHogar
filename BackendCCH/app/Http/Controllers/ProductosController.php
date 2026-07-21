@@ -45,6 +45,40 @@ class ProductosController extends Controller
         return ResponseHelper::success($productosFormateados, 'Catálogo de productos obtenido correctamente');
     }
 
+    //Ver Producto
+    public function VerProducto($id)
+    {
+        $producto = Productos::with('linea', 'marca', 'unidadMedida')->findOrFail($id);
+        $productoFormateado = [
+            'IDProducto' => $producto->IDProducto,
+            'codigo' => $producto->Codigo,
+            'nombre' => $producto->Nombre,
+            'claveSAT' => $producto->ClaveSAT,
+            'fechaRegistro' => $producto->FechaRegistro,
+            'activo' => $producto->Activo,
+
+            'linea' => [
+                'id' => $producto->linea?->IDLinea,
+                'nombre' => $producto->linea?->Nombre,
+            ],
+            'marca' => [
+                'id' => $producto->marca?->IDMarca,
+                'nombre' => $producto->marca?->Nombre,
+            ],
+            'unidadMedida' => [
+                'id' => $producto->unidadMedida?->IDUnidadMedida,
+                'nombre' => $producto->unidadMedida?->Nombre,
+            ],
+        ];
+
+        return ResponseHelper::success($productoFormateado, "Detalles del producto obtenidos correctamente.");
+    }
+
+
+
+
+
+
     //Registrar Productos
     public function CrearProducto(Request $request)
     {

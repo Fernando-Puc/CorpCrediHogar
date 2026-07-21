@@ -1,0 +1,7 @@
+<div class="header" [align]="'center'">
+    <h2 mat-dialog-title>{{data.title}}</h2>
+</div>
+<div mat-dialog-actions [align]="'center'">
+    <action-button variant="cancel" text="No" [mat-dialog-close]="false"></action-button>
+    <action-button variant="accept" text="Si" [mat-dialog-close]="true"></action-button>
+</div>

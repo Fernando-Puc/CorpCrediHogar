@@ -2,7 +2,7 @@
   <div class="subExpandForm">
     <h1 class="titleForm">Agregar Producto</h1>
     <div class="subExpandBorder">
-      <form [formGroup]="formGroup" (ngSubmit)="guardar()">
+      <form [formGroup]="formGroup">
         <div class="yForm">
           <div class="x">
             <text-input type="text" label="Código" [controller]="formGroup.get('codigo')"> </text-input>
@@ -16,8 +16,8 @@
             <label>Linea</label>
             <ng-select [clearable]="false" id="linea" formControlName="linea" appendTo="body">
               <ng-option value="" disabled>Seleciona...</ng-option>
-              @for (linea of Linea ; track linea.id) {
-              <ng-option [value]="linea.id">{{linea.descripcion}}</ng-option>
+              @for (linea of Linea ; track linea.IDLinea) {
+              <ng-option [value]="linea.IDLinea">{{linea.Nombre}}</ng-option>
               }
             </ng-select>
             @if (!formGroup.get('linea')?.valid && formGroup.get('linea')?.touched)
@@ -33,9 +33,9 @@
             <ng-select [clearable]="false" id="marca" formControlName="marca" appendTo="body">
 
               <ng-option value="" disabled>Seleciona...</ng-option>
-              @for (marca of Marca ; track marca.id) {
+              @for (marca of Marca ; track marca.IDMarca) {
 
-              <ng-option [value]="marca.id">{{marca.descripcion}}</ng-option>
+              <ng-option [value]="marca.IDMarca">{{marca.Nombre}}</ng-option>
               }
             </ng-select>
             @if (!formGroup.get('marca')?.valid && formGroup.get('marca')?.touched)
@@ -48,8 +48,8 @@
             <label>Unidad de medida</label>
             <ng-select [clearable]="false" id="unidadMedida" formControlName="unidadMedida" appendTo="body">
               <ng-option value="" disabled>Seleciona...</ng-option>
-              @for (unidad of UnidadMedida ; track unidad.id) {
-              <ng-option [value]="unidad.id">{{unidad.descripcion}}</ng-option>
+              @for (unidad of UnidadMedida ; track unidad.IDUnidadMedida) {
+              <ng-option [value]="unidad.IDUnidadMedida">{{unidad.Nombre}}</ng-option>
               }
             </ng-select>
             @if (!formGroup.get('unidadMedida')?.valid && formGroup.get('unidadMedida')?.touched)
@@ -68,7 +68,7 @@
     </div>
     <div class="actions">
       <action-button variant="cancel" text="Cancelar"></action-button>
-      <action-button variant="accept" text="Guardar" (click)="guardar()"
+      <action-button variant="accept" text="Guardar" (click)="onSubmit()"
         [isDisabled]="!formGroup.valid"></action-button>
     </div>
   </div>

@@ -1,0 +1,11 @@
+
+<div class="header">
+    <h2 mat-dialog-title>{{data.title}}</h2>
+</div>
+<div mat-dialog-content>
+    {{data.message}}
+</div>
+<div mat-dialog-actions [align]="'end'">
+    <action-button variant="cancel" text="Regresar" [mat-dialog-close]="false"></action-button>
+    <action-button variant="accept" text="Continuar sin guardar" [mat-dialog-close]="true"></action-button>
+</div>

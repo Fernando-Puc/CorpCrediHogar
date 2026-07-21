@@ -41,3 +41,4 @@ Route::get('catalogs/productos/', [ProductosController::class, 'ObtenerProductos
 Route::post('catalogs/registrarproducto', [ProductosController::class, 'CrearProducto']);
 Route::put('catalogs/actualizarproducto/{id}', [ProductosController::class, 'ActualizarProducto']);
 Route::delete('catalogs/eliminarproducto/{id}', [ProductosController::class, 'EliminarProducto']);
+Route::get('catalogs/verproducto/{id}', [ProductosController::class, 'VerProducto']);
