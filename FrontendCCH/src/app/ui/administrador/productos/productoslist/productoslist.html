@@ -42,8 +42,6 @@
                 <th class="table__header">MARCA</th>
                 <th class="table__header">U. MEDIDA</th>
                 <th class="table__header">CLAVE SAT</th>
-                <th class="table__header">F. REGISTRO</th>
-                <th class="table__header">ESTATUS</th>
                 <th class="table__header">ACCIONES</th>
               </tr>
             </thead>
@@ -58,12 +56,10 @@
                     <td class="table__data">{{ producto.marca?.nombre}} </td>
                     <td class="table__data"> {{ producto.unidadMedida?.nombre }} </td>
                     <td class="table__data">{{ producto.claveSAT }} </td>
-                    <td class="table__data"> {{ producto.fechaRegistro | date: 'dd/MM/yyyy' }} </td>
-                    <td class="table__data">{{ producto.activo? 'Activo' : 'Inactivo'  }} </td>
                     <td class="table__data">
                       <div class="table__column-actions">
                         <button type="button" title="Ver producto">
-                          <span [innerHTML]=" actionIcons[0] | safeHtml"> </span>
+                          <span (click)="viewProduct(producto.IDProducto)" [innerHTML]=" actionIcons[0] | safeHtml"> </span>
                         </button>
                         <button type="button" title="Editar producto" (click)="navigateToEditProduct(producto.IDProducto)">
                           <span [innerHTML]="actionIcons[1] | safeHtml"></span>

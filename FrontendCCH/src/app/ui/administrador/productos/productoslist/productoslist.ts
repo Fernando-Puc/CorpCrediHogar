@@ -7,6 +7,8 @@ import { getproductsDto } from "../../../../core/models/products";
 import { chevronLeftIcon, chevronRightIcon, editIcon, eyeIcon, trashIcon } from "../../../../core/shared/shared/constants/icons.constants";
 import { Router } from "@angular/router";
 import { ProductsService } from "../../../../core/services/products.service";
+import { MatDialog } from "@angular/material/dialog";
+import { Viewproduct } from "../viewproduct/viewproduct";
 
 
 @Component({
@@ -39,7 +41,7 @@ export class Productoslist implements OnInit {
 
   actionIcons = [ eyeIcon, editIcon, trashIcon];
 
-  constructor( private router: Router, private service: ProductsService, private changeDetectorRef: ChangeDetectorRef
+  constructor( private router: Router, private service: ProductsService, private changeDetectorRef: ChangeDetectorRef, private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -170,5 +172,12 @@ export class Productoslist implements OnInit {
   navigateToEditProduct(
     id: number): void {
       this.router.navigate(['/dashboard/edit-product', id]);
+  }
+
+  viewProduct(IDProducto:number): void{
+    this.dialog.open(Viewproduct, {
+      width: '950px',
+      data: IDProducto
+    });
   }
 }

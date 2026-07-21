@@ -1,0 +1,54 @@
+<div>
+  <h2 mat-dialog-title>Información del Producto</h2>
+</div>
+
+<div mat-dialog-content>
+  <div class="view-Product">
+    <div class="view-Product__ali">
+      <div class="view-Product__ali__col-3">
+        <div>
+          <label class="bold">Código</label>
+          <label>{{producto?.codigo}}</label>
+        </div>
+        <div class="view-Product__ali__nombre">
+          <label class="bold">Nombre</label>
+          <label>{{producto?.nombre}}</label>
+        </div>
+      </div>
+    
+      <div class="view-Product__ali__col-3">
+        <div>
+          <label class="bold">Linea</label>
+          <label>{{producto?.linea?.nombre}}</label>
+        </div>
+        <div>
+          <label class="bold">Marca</label>
+          <label>{{producto?.marca?.nombre}}</label>
+        </div>
+        <div>
+          <label class="bold">Unidad de Medida</label>
+          <label>{{producto?.unidadMedida?.nombre}}</label>
+        </div>
+      </div>
+
+      <div class="view-Product__ali__col-3">
+        <div>
+          <label class="bold">Clave SAT</label>
+          <label>{{producto?.claveSAT}}</label>
+        </div>
+        <div>
+          <label class="bold">Fecha Registro</label>
+          <label>{{producto?.fechaRegistro | date:'dd/MM/yyyy'}}</label>
+        </div>
+        <div>
+          <label class="bold">Estatus</label>
+          <label>{{producto?.activo? 'Activo' : 'Inactivo'}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mat-dialog-actions class="action" [align]="'end'">
+  <button mat-raised-button color="warn"  [mat-dialog-close]="false">Cerrar</button>
+</div>
