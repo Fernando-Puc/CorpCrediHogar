@@ -1,5 +1,4 @@
-import { Createproducts } from './../../ui/administrador/productos/createproducts/createproducts';
-import { createProductDto, getproductDto, getproductsDto } from './../models/products';
+import { createProductDto, editProductDto, getproductDto, getproductsDto } from './../models/products';
 import { Injectable } from "@angular/core";
 import { ConstantsService } from "./constants.service";
 import { HttpClient } from "@angular/common/http";
@@ -28,5 +27,10 @@ export class ProductsService{
 
     deleteProduct(IDproducto:number): Observable<ResponsePPD>{
       return this.http.delete<ResponsePPD>(this.URL + 'eliminarproducto/' + IDproducto);
+    }
+
+    editProduct(product: editProductDto):Observable<ResponsePPD>{
+      return this.http.put<ResponsePPD>( `${this.URL}actualizarproducto/${product.IDProducto}`, product
+      );
     }
 }

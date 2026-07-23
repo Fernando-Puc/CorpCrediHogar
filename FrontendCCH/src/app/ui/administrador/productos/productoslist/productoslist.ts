@@ -171,9 +171,9 @@ export class Productoslist implements OnInit {
   }
 
 
-  navigateToEditProduct(
-    id: number): void {
-      this.router.navigate(['/dashboard/edit-product', id]);
+  editProduct(
+    IDProducto: number): void {
+      this.router.navigate(['/administrador/editproduct', IDProducto]);
   }
 
   viewProduct(IDProducto:number): void{

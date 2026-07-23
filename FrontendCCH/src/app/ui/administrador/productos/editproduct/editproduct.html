@@ -1,0 +1,75 @@
+<div class="mainContainer">
+  <div class="subExpandForm">
+    <h1 class="titleForm">Editar Producto</h1>
+    <div class="subExpandBorder">
+      <form [formGroup]="formGroup">
+        <div class="yForm">
+          <div class="x">
+            <text-input type="text" label="Código" [controller]="formGroup.get('codigo')"> </text-input>
+          </div>
+          <div class="x">
+            <text-input type="text" label="Nombre" [controller]="formGroup.get('nombre')"> </text-input>
+          </div>
+
+
+          <div class="x space">
+            <label>Linea</label>
+            <ng-select [clearable]="false" id="linea" formControlName="linea" appendTo="body">
+              <ng-option value="" disabled>Seleciona...</ng-option>
+              @for (linea of Linea ; track linea.IDLinea) {
+              <ng-option [value]="linea.IDLinea">{{linea.Nombre}}</ng-option>
+              }
+            </ng-select>
+            @if (!formGroup.get('linea')?.valid && formGroup.get('linea')?.touched)
+            {
+            <span class="error-message"> {{ formGroup.get('linea')?.errors?.['message'] }} </span>
+            }
+          </div>
+        </div>
+
+        <div class="yForm">
+          <div class="x space">
+            <label>Marca</label>
+            <ng-select [clearable]="false" id="marca" formControlName="marca" appendTo="body">
+
+              <ng-option value="" disabled>Seleciona...</ng-option>
+              @for (marca of Marca ; track marca.IDMarca) {
+
+              <ng-option [value]="marca.IDMarca">{{marca.Nombre}}</ng-option>
+              }
+            </ng-select>
+            @if (!formGroup.get('marca')?.valid && formGroup.get('marca')?.touched)
+            {
+            <span class="error-message"> {{ formGroup.get('marca')?.errors?.['message'] }} </span>
+            }
+          </div>
+
+          <div class="x space">
+            <label>Unidad de medida</label>
+            <ng-select [clearable]="false" id="unidadMedida" formControlName="unidadMedida" appendTo="body">
+              <ng-option value="" disabled>Seleciona...</ng-option>
+              @for (unidad of UnidadMedida ; track unidad.IDUnidadMedida) {
+              <ng-option [value]="unidad.IDUnidadMedida">{{unidad.Nombre}}</ng-option>
+              }
+            </ng-select>
+            @if (!formGroup.get('unidadMedida')?.valid && formGroup.get('unidadMedida')?.touched)
+            {
+            <span class="error-message"> {{ formGroup.get('unidadMedida')?.errors?.['message'] }} </span>
+            }
+          </div>
+          <div class="x">
+            <text-input type="text" label="Clave SAT" [controller]="formGroup.get('claveSAT')"> </text-input>
+            <mat-checkbox formControlName="sinClaveSAT">
+              Sin clave SAT
+            </mat-checkbox>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="actions">
+      <action-button variant="cancel" text="Cancelar"></action-button>
+      <action-button variant="accept" text="Guardar" (click)="onSubmit()"
+        [isDisabled]="!formGroup.valid"></action-button>
+    </div>
+  </div>
+</div>

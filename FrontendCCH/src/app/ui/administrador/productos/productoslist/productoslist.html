@@ -61,8 +61,8 @@
                         <button type="button" title="Ver producto">
                           <span (click)="viewProduct(producto.IDProducto)" [innerHTML]=" actionIcons[0] | safeHtml"> </span>
                         </button>
-                        <button type="button" title="Editar producto" (click)="navigateToEditProduct(producto.IDProducto)">
-                          <span [innerHTML]="actionIcons[1] | safeHtml"></span>
+                        <button type="button" title="Editar producto">
+                          <span (click)="editProduct(producto.IDProducto)" [innerHTML]="actionIcons[1] | safeHtml"></span>
                         </button>
                         <button type="button" title="Eliminar producto">
                           <span (click)="deleteProduct(producto.IDProducto)" [innerHTML]="actionIcons[2] | safeHtml"></span>
