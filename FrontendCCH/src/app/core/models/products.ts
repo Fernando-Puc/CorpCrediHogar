@@ -36,5 +36,14 @@ export interface createProductDto {
   ClaveSAT: string | null;
 }
 
+export interface editProductDto {
+  IDProducto: number;
+  Codigo: string;
+  Nombre: string;
+  IDLinea: number;
+  IDMarca: number;
+  IDUnidadMedida: number;
+  ClaveSAT: string | null;
+}
 
 

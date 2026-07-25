@@ -5,11 +5,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import {MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { ActionButtonComponent } from "../../../generic components/actionButton/actionButton.component";
 
 @Component({
   selector: 'app-viewproduct',
   standalone: true,
-  imports: [MatIconModule, MatDialogModule, MatButtonModule, CommonModule],
+  imports: [MatIconModule, MatDialogModule, MatButtonModule, CommonModule, ActionButtonComponent],
   templateUrl: './viewproduct.html',
   styleUrl: './viewproduct.scss',
 })

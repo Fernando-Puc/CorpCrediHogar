@@ -12,6 +12,9 @@ import { Router } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CatalogsService } from '../../../../core/services/catalogs.service';
 import { ResponseGet } from '../../../../core/models/responses';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmUnsavedComponent } from '../../../dialog/confirm-unsaved/confirm-unsaved.component';
+import { UNSAVED_DIALOG } from '../../../../core/models/dialog';
 
 @Component({
   selector: 'app-createproducts',
@@ -35,10 +38,13 @@ export class Createproducts implements OnInit {
   Marca: Marca[] = [];
   UnidadMedida: UnidadMedida[] = [];
 
+  private readonly CLAVE_SAT_GENERICO = 'XAXX010101000';
+
   constructor(
     private router: Router,
     private catalogs: CatalogsService,
     private  productService: ProductsService,
+    private dialog: MatDialog,
   ) {
     this.formGroup = new FormGroup({
       codigo: new FormControl('', [makeRequired]),
@@ -70,7 +76,7 @@ export class Createproducts implements OnInit {
       const createProductDto: createProductDto = {
         Codigo: this.formGroup.value.codigo,
         Nombre: this.formGroup.value.nombre,
-        ClaveSAT: this.formGroup.value.claveSAT,
+        ClaveSAT: this.formGroup.value.claveSAT ? this.CLAVE_SAT_GENERICO : this.formGroup.value.claveSAT,
         IDLinea: this.formGroup.value.linea,
         IDMarca: this.formGroup.value.marca,
         IDUnidadMedida: this.formGroup.value.unidadMedida,
@@ -89,21 +95,40 @@ export class Createproducts implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+ngOnInit(): void {
   this.formGroup.get('sinClaveSAT')?.valueChanges.subscribe((sinClave) => {
     const claveSAT = this.formGroup.get('claveSAT');
 
     if (sinClave) {
-      claveSAT?.reset();
       claveSAT?.clearValidators();
-      claveSAT?.disable();
+      claveSAT?.setValue('XAXX010101000');
     } else {
-      claveSAT?.enable();
+      claveSAT?.setValue('');
       claveSAT?.setValidators([makeRequired]);
     }
 
     claveSAT?.updateValueAndValidity();
   });
 }
+
+
+  closeDialog(){
+    this.dialog.closeAll();
+    this.router.navigate(['administrador/productos']);
+  }
+
+    openDialog() {
+    const dialogref = this.dialog.open(ConfirmUnsavedComponent, {
+      width: '30%',
+      data: UNSAVED_DIALOG,
+      disableClose: true
+    });
+    dialogref.afterClosed().subscribe(resp =>{
+      if(resp){
+        this.closeDialog();
+      }
+    })
+  }
+
 }
 

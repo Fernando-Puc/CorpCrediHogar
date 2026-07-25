@@ -1,6 +1,6 @@
 <div class="mainContainer">
   <div class="subExpandForm">
-    <h1 class="titleForm">Agregar Producto</h1>
+    <h1 class="titleForm">Editar Producto</h1>
     <div class="subExpandBorder">
       <form [formGroup]="formGroup">
         <div class="yForm">
@@ -58,18 +58,11 @@
             }
           </div>
           <div class="x">
-          @if (!formGroup.get('sinClaveSAT')?.value) {
-            <text-input
-              type="text"
-              label="Clave SAT"
-              [controller]="formGroup.get('claveSAT')">
-            </text-input>
-          }
-
-          <mat-checkbox formControlName="sinClaveSAT">
-            Sin clave SAT
-          </mat-checkbox>
-        </div>
+            <text-input type="text" label="Clave SAT" [controller]="formGroup.get('claveSAT')"> </text-input>
+            <mat-checkbox formControlName="sinClaveSAT">
+              Sin clave SAT
+            </mat-checkbox>
+          </div>
         </div>
       </form>
     </div>
