@@ -13,6 +13,8 @@ import { MatCheckbox } from "@angular/material/checkbox";
 import { TextInputComponent } from "../../../generic components/input/input.component.";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { CommonModule } from '@angular/common';
+import { ConfirmUnsavedComponent } from '../../../dialog/confirm-unsaved/confirm-unsaved.component';
+import { UNSAVED_DIALOG } from '../../../../core/models/dialog';
 
 @Component({
   selector: 'app-editproduct',
@@ -65,50 +67,68 @@ export class Editproduct implements OnInit {
 
 
 
-    loadProductData(){
-      if (this.IDProducto) {
-        this.productService.getProduct(this.IDProducto).subscribe(resp => {
-          this.product = resp.data;
-          if(this.product){
-            this.formGroup.patchValue({
-              codigo: this.product.codigo,
-              nombre: this.product.nombre,
-              claveSAT: this.product.claveSAT,
-              linea: this.product.linea?.id,
-              marca: this. product.marca?.id,
-              unidadMedida: this.product.unidadMedida?.id
-            });
-          }
-        });
-      }
+  loadProductData(){
+    if (this.IDProducto) {
+      this.productService.getProduct(this.IDProducto).subscribe(resp => {
+        this.product = resp.data;
+        if(this.product){
+          this.formGroup.patchValue({
+            codigo: this.product.codigo,
+            nombre: this.product.nombre,
+            claveSAT: this.product.claveSAT,
+            linea: this.product.linea?.id,
+            marca: this. product.marca?.id,
+            unidadMedida: this.product.unidadMedida?.id
+          });
+        }
+      });
+    }
+  }
+
+  onSubmit(){
+    if (this.formGroup.invalid){
+      this.formGroup.markAllAsTouched();
     }
 
-    onSubmit(){
-      if (this.formGroup.invalid){
-        this.formGroup.markAllAsTouched();
-      }
+    if(this.IDProducto === undefined){
+      return;
 
-      if(this.IDProducto === undefined){
-        return;
+    }
+      const updateProductDto = {
+        IDProducto: this.IDProducto,
+        Codigo: this.formGroup.value.codigo,
+        Nombre: this.formGroup.value.nombre,
+        IDLinea: this.formGroup.value.linea,
+        IDMarca: this.formGroup.value.marca,
+        IDUnidadMedida: this.formGroup.value.unidadMedida,
+        ClaveSAT: this.formGroup.value.claveSAT,
+      };
 
-      }
-        const updateProductDto = {
-          IDProducto: this.IDProducto,
-          Codigo: this.formGroup.value.codigo,
-          Nombre: this.formGroup.value.nombre,
-          IDLinea: this.formGroup.value.linea,
-          IDMarca: this.formGroup.value.marca,
-          IDUnidadMedida: this.formGroup.value.unidadMedida,
-          ClaveSAT: this.formGroup.value.claveSAT,
-        };
+      this.productService.editProduct(updateProductDto).subscribe(
+        (response) => {
+          console.log('Producto actualizado correctamente', response);
+          this.router.navigate(['administrador/productos']);
+        },
+        (error) => {
+          console.error('Error al actualizar producto', error);
+        });
+    }
 
-        this.productService.editProduct(updateProductDto).subscribe(
-          (response) => {
-            console.log('Producto actualizado correctamente', response);
-            this.router.navigate(['administrador/productos']);
-          },
-          (error) => {
-            console.error('Error al actualizar producto', error);
-          });
+  closeDialog(){
+    this.dialog.closeAll();
+    this.router.navigate(['administrador/productos']);
+  }
+
+    openDialog() {
+    const dialogref = this.dialog.open(ConfirmUnsavedComponent, {
+      width: '30%',
+      data: UNSAVED_DIALOG,
+      disableClose: true
+    });
+    dialogref.afterClosed().subscribe(resp =>{
+      if(resp){
+        this.closeDialog();
       }
+    })
+  }
 }
