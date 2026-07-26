@@ -9,6 +9,13 @@ export const DELETE_DIALOG_PRODUCT: DialogData = {
     '¿Estás seguro que deseas eliminar a este producto?',
 };
 
+export const DELETE_DIALOG_COMPANIE: DialogData = {
+  title: 'Eliminar Empresa',
+  message:
+    '¿Estás seguro que deseas eliminar a esta empresa?',
+};
+
+
 export const DELETE_DIALOG_CONTACT: DialogData = {
   title: 'Eliminar contacto',
   message:

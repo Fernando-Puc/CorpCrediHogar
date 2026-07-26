@@ -40,6 +40,10 @@ export const routes: Routes = [
       {
         path:'editproduct/:IDProducto',
         loadComponent: () => import('./ui/administrador/productos/editproduct/editproduct').then(c => c.Editproduct),
+      },
+      {
+        path:'catalogs/empresas',
+        loadComponent: () => import('./ui/administrador/catalogos/empresas/companieslist/companieslist').then(c => c.Companieslist)
       }
 
     ]
