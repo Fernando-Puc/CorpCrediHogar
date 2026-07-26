@@ -16,3 +16,9 @@ export interface UnidadMedida{
   IDUnidadMedida: number,
   Nombre: string;
 }
+
+export interface Empresas{
+  IDEmpresa: number,
+  Folio: string,
+  Nombre: string
+}
