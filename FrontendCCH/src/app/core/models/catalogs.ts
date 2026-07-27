@@ -22,3 +22,8 @@ export interface Empresas{
   Folio: string,
   Nombre: string
 }
+
+export interface createCompanieDto{
+  Folio: string,
+  Nombre: string
+}

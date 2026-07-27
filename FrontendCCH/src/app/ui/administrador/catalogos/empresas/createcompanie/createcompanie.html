@@ -1,0 +1,23 @@
+<div class="mainContainer">
+  <div class="subExpandForm">
+    <h1 class="titleForm">Agregar Producto</h1>
+    <div class="subExpandBorder">
+      <form [formGroup]="formGroup">
+        <div class="yForm">
+          <div class="x">
+            <text-input type="text" label="Folio" [controller]="formGroup.get('folio')"></text-input>
+          </div>
+          <div class="x">
+            <text-input type="text" label="Nombre" [controller]="formGroup.get('nombre')"></text-input>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="actions">
+      <action-button variant="cancel" text="Cancelar"
+        (click)="formGroup.dirty ? openDialog():closeDialog()"></action-button>
+      <action-button variant="accept" text="Guardar"
+        (click)="onSubmit()" [isDisabled]="!formGroup.valid"></action-button>
+    </div>
+  </div>
+</div>

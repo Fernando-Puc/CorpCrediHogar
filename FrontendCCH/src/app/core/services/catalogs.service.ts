@@ -3,7 +3,7 @@ import { ConstantsService } from './constants.service';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { ResponseGet, ResponsePPD } from '../models/responses';
-import { Empresas, Linea, Marca, UnidadMedida } from '../models/catalogs';
+import { createCompanieDto, Empresas, Linea, Marca, UnidadMedida } from '../models/catalogs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +24,10 @@ export class CatalogsService{
 
   getUnitMeasurement(): Observable<ResponseGet<UnidadMedida[]>>{
     return this.http.get<ResponseGet<UnidadMedida[]>>(this.URL + "umedida")
+  }
+
+  createCompanie(companie: createCompanieDto): Observable<ResponsePPD>{
+    return this.http.post<ResponsePPD>(this.URL + "crearempresa", companie);
   }
 
   getCompanies(): Observable<ResponseGet<Empresas[]>>{
