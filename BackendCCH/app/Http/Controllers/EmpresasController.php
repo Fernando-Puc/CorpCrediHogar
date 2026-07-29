@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Empresas;
 use App\Helpers\ResponseHelper;
 use Illuminate\Support\Facades\Validator;
@@ -18,24 +19,26 @@ class EmpresasController extends Controller
     //Crear una empresa
     public function CrearEmpresa(Request $request)
     {
-        $validator = Validator::make($request->all(),
-        [
-            'Folio' => 'required|string|max:255|unique:empresas,Folio',
-            'Nombre' => 'required|string|max:255|unique:empresas,Nombre'
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'Folio' => 'required|string|max:255|unique:empresas,Folio',
+                'Nombre' => 'required|string|max:255|unique:empresas,Nombre'
+            ]
+        );
 
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return ResponseHelper::error($validator->errors()->first(), 400);
         }
 
         $empresa = new Empresas();
-        $empresa-> Folio = $request->input('Folio');
-        $empresa-> Nombre = $request->input('Nombre');
+        $empresa->Folio = $request->input('Folio');
+        $empresa->Nombre = $request->input('Nombre');
 
-        if ($empresa->save()){
+        if ($empresa->save()) {
             return ResponseHelper::success($empresa, 'Empresa creada exitosamente', 201);
-        }else{
-            return ResponseHelper::error ('Error al crear empresa', 500);
+        } else {
+            return ResponseHelper::error('Error al crear empresa', 500);
         }
     }
 
@@ -75,6 +78,19 @@ class EmpresasController extends Controller
         $empresa = Empresas::findOrFail($id);
         $empresa->delete();
 
-        Return ResponseHelper::success($empresa, 'Empresa eliminiada correctamente');
+        return ResponseHelper::success($empresa, 'Empresa eliminiada correctamente');
+    }
+
+
+    //Ver Empresa
+    public function verEmpresa($id)
+    {
+        $empresa = Empresas::find($id);
+        $empresaFormateada = [
+            'IDEmpresa' => $empresa->IDEmpresa,
+            'Folio' => $empresa->Folio,
+            'Nombre' => $empresa->Nombre
+        ];
+        return ResponseHelper::success($empresaFormateada, "Detalles de la empresa obtenidas correctamente");
     }
 }

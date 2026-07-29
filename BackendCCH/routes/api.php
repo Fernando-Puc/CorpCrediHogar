@@ -17,6 +17,7 @@ Route::get('catalogs/empresas/', [EmpresasController::class, 'Obtenerempresas'])
 Route::post('catalogs/crearempresa/', [EmpresasController::class, 'CrearEmpresa']);
 Route::put('catalogs/actualizarempresa/{id}', [EmpresasController::class, 'ActualizarEmpresa']);
 Route::delete('catalogs/eliminarempresa/{id}', [EmpresasController::class, 'EliminarEmpresa']);
+Route::get('catalogs/verempresa/{id}', [EmpresasController::class, 'verEmpresa']);
 
 //Lineas o clasificación de productos
 Route::get('catalogs/lineas/', [LineaProductosController::class, 'ObtenerLineas']);
