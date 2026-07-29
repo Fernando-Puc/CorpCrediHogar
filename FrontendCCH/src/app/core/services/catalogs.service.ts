@@ -3,7 +3,9 @@ import { ConstantsService } from './constants.service';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { ResponseGet, ResponsePPD } from '../models/responses';
-import { createCompanieDto, Empresas, Linea, Marca, UnidadMedida } from '../models/catalogs';
+import { createCompanieDto, editEmpresaDto, Empresas, getEmpresaDto, Linea, Marca, UnidadMedida } from '../models/catalogs';
+import { Editcompanie } from '../../ui/administrador/catalogos/empresas/editcompanie/editcompanie';
+import { editProductDto } from '../models/products';
 
 @Injectable({
   providedIn: 'root'
@@ -38,8 +40,12 @@ export class CatalogsService{
     return this.http.delete<ResponsePPD>(this.URL + "eliminarempresa/" + IDEmpresa);
   }
 
+  getCompanie(IDEmpresa: number): Observable<ResponseGet<getEmpresaDto>>{
+    return this.http.get<ResponseGet<getEmpresaDto>>(this.URL + 'verempresa/' + IDEmpresa);
+  }
 
-
-
+  editCompanie(companie: editEmpresaDto):Observable<ResponsePPD>{
+    return this.http.put<ResponsePPD>(`${this.URL}actualizarempresa/${companie.IDEmpresa}`, companie);
+  }
 
 }

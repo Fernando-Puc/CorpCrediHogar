@@ -160,7 +160,7 @@ export class Companieslist implements OnInit{
   }
 
   editCompanie(IDEmpresa:number): void {
-    this.router.navigate(['/administrador/editcompanie', IDEmpresa]);
+    this.router.navigate(['/administrador/catalogs/editarempresa', IDEmpresa]);
   }
 
   deleteCompanie(IDEmpresa: number): void{
