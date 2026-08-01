@@ -24,6 +24,7 @@ Route::get('catalogs/lineas/', [LineaProductosController::class, 'ObtenerLineas'
 Route::post('catalogs/crearlinea/', [LineaProductosController::class, 'CrearLinea']);
 Route::put('catalogs/actualizarlinea/{id}', [LineaProductosController::class, 'ActualizarLinea']);
 Route::delete('catalogs/eliminarlinea/{id}', [LineaProductosController::class, 'EliminarLinea']);
+Route::get('catalogs/verlinea/{id}', [LineaProductosController::class, 'verLinea']);
 
 //Marcas de Productos
 Route::get('catalogs/marcas/', [MarcaProductosController::class, 'ObtenerMarcas']);

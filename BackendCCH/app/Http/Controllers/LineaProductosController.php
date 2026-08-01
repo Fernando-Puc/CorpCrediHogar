@@ -75,4 +75,16 @@ class LineaProductosController extends Controller
 
         return ResponseHelper::success($linea, 'Linea eliminada correctamente');
     }
+
+
+    //Ver Linea
+    public function verLinea($id)
+    {
+        $linea = Lineas::find($id);
+        $lineaFormateada = [
+            'IDLinea' => $linea->IDLinea,
+            'Nombre' => $linea->Nombre
+        ];
+        return ResponseHelper::success($lineaFormateada, "Detalles de la linea obtenidas correctamente");
+    }
 }
