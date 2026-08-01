@@ -44,6 +44,14 @@ export const routes: Routes = [
       {
         path:'catalogs/empresas',
         loadComponent: () => import('./ui/administrador/catalogos/empresas/companieslist/companieslist').then(c => c.Companieslist)
+      },
+      {
+        path:'catalogs/crearempresa',
+        loadComponent: () => import('./ui/administrador/catalogos/empresas/createcompanie/createcompanie').then(c => c.Createcompanie)
+      },
+      {
+        path:'catalogs/editarempresa/:IDEmpresa',
+        loadComponent:() => import('./ui/administrador/catalogos/empresas/editcompanie/editcompanie').then(c => c.Editcompanie)
       }
 
     ]

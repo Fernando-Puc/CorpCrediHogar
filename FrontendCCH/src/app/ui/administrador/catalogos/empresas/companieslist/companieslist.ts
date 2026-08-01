@@ -156,11 +156,11 @@ export class Companieslist implements OnInit{
   }
 
   navigateToAddNew(): void{
-    this.router.navigate(['/administrador/createcompanie']);
+    this.router.navigate(['/administrador/catalogs/crearempresa']);
   }
 
   editCompanie(IDEmpresa:number): void {
-    this.router.navigate(['/administrador/editcompanie', IDEmpresa]);
+    this.router.navigate(['/administrador/catalogs/editarempresa', IDEmpresa]);
   }
 
   deleteCompanie(IDEmpresa: number): void{

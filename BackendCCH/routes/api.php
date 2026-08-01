@@ -17,12 +17,14 @@ Route::get('catalogs/empresas/', [EmpresasController::class, 'Obtenerempresas'])
 Route::post('catalogs/crearempresa/', [EmpresasController::class, 'CrearEmpresa']);
 Route::put('catalogs/actualizarempresa/{id}', [EmpresasController::class, 'ActualizarEmpresa']);
 Route::delete('catalogs/eliminarempresa/{id}', [EmpresasController::class, 'EliminarEmpresa']);
+Route::get('catalogs/verempresa/{id}', [EmpresasController::class, 'verEmpresa']);
 
 //Lineas o clasificación de productos
 Route::get('catalogs/lineas/', [LineaProductosController::class, 'ObtenerLineas']);
 Route::post('catalogs/crearlinea/', [LineaProductosController::class, 'CrearLinea']);
 Route::put('catalogs/actualizarlinea/{id}', [LineaProductosController::class, 'ActualizarLinea']);
 Route::delete('catalogs/eliminarlinea/{id}', [LineaProductosController::class, 'EliminarLinea']);
+Route::get('catalogs/verlinea/{id}', [LineaProductosController::class, 'verLinea']);
 
 //Marcas de Productos
 Route::get('catalogs/marcas/', [MarcaProductosController::class, 'ObtenerMarcas']);

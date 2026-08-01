@@ -14,19 +14,7 @@
       </div>
     </div>
 
-    @if (isresult === true && isloading === false ){
-      <form class="form" (submit)="$event.preventDefault()">
-        <div class="row">
-          <div class="col-5">
-            <div class="input-group">
-              <input type="text" class="filter" placeholder="Buscar registro" [(ngModel)]="searchTerm" (keydown.enter)="onSearch()"
-                (input)="onInputChange()" name="searchTerm" maxlength="30"/>
-              <i class="bi bi-funnel icon-filter"></i>
-            </div>
-          </div>
-        </div>
-      </form>
-    }
+
 
     <div class="tableWrap">
       @if (filteredCompanies.length > 0 && isloading === false){
@@ -51,7 +39,7 @@
                         <button type="button" title="Editar empresa">
                           <span (click)="editCompanie(empresa.IDEmpresa)" [innerHTML]="actionIcons[0] | safeHtml"></span>
                         </button>
-                        <button type="button" title="Editar empresa">
+                        <button type="button" title="Eliminar empresa">
                           <span (click)="deleteCompanie(empresa.IDEmpresa)" [innerHTML]="actionIcons[1] | safeHtml"></span>
                         </button>
                       </div>
