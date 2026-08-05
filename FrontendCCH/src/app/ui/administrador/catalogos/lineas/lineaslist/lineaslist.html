@@ -1,0 +1,82 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"/>
+
+<div class="mainContainer">
+  <div class="subExpand">
+    <div class="y">
+      <div class="x">
+        <h1 class="table__title"> Catálogo de Lineas</h1>
+      </div>
+
+      <div class="xend">
+        @if (isloading === false){
+          <action-button variant="accept" text="Agregar empresa" (click)="navigateToAddNew()"></action-button>
+        }
+      </div>
+    </div>
+
+
+
+    <div class="tableWrap">
+      @if (filteredLines.length > 0 && isloading === false){
+        <div class="table__responsive-container">
+          <table class="table">
+            <thead class="table__head">
+              <tr class="table__row">
+                <th class="table__header">ID LINEA</th>
+                <th class="table__header">NOMBRE</th>
+                <th class="table__header">ACCIONES</th>
+              </tr>
+            </thead>
+
+            <tbody class="table__body">
+              @for (linea of getPagedData(); track linea.IDLinea ?? $index){
+                @if (linea.IDLinea !== undefined){
+                  <tr class="table__row">
+                    <td class="table__data">{{linea.IDLinea}}</td>
+                    <td class="table__data">{{linea.Nombre}}</td>
+                    <td class="table__data">
+                      <div class="table__column-actions">
+                        <button type="button" title="Editar empresa">
+                          <span (click)="editLine(linea.IDLinea)" [innerHTML]="actionIcons[0] | safeHtml"></span>
+                        </button>
+                        <button type="button" title="Eliminar empresa">
+                          <span (click)="deleteLine(linea.IDLinea)" [innerHTML]="actionIcons[1] | safeHtml"></span>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                }
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <footer class="table__footer-controls">
+          <div class="table__pagination-buttons">
+            <span class="table__pagination-view">{{lineCount}} registros</span>
+            <button type="button" class="table__pagination-button" [disabled]="pageIndex === 0"
+              (click)="previousPage()">
+              <span [innerHTML]="paginationIcons.left | safeHtml"></span>
+            </button>
+            <span class="table__pagination-view">{{pageIndex + 1}} de {{numberOfPages}}</span>
+            <button type="button" class="table__pagination-button" [disabled]="pageIndex >= numberOfPages -1"
+              (click)="nextPage()">
+              <span [innerHTML]="paginationIcons.right | safeHtml"></span>
+            </button>
+          </div>
+        </footer>
+
+      }@else {
+          @if(isloading){
+            <div class="load"></div>
+          }@else{
+            @if (searchTerm.trim().length > 0){
+              <div class="message">No se encontraron empresas</div>
+            }@else{
+              <div class="message">No hay empresas registradas</div>
+            }
+          }
+        }
+    </div>
+  </div>
+</div>

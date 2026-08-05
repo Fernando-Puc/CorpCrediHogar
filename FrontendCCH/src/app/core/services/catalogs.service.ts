@@ -16,18 +16,27 @@ export class CatalogsService{
 
   constructor(private http: HttpClient) {}
 
+  //Lines
+
   getProductLines():Observable<ResponseGet<Linea[]>>{
     return this.http.get<ResponseGet<Linea[]>>(this.URL + "lineas")
+    
   }
+
+  //Brands
 
   getProductBrands(): Observable<ResponseGet<Marca[]>>{
     return this.http.get<ResponseGet<Marca[]>>(this.URL + "marcas")
   }
 
+  //Unit Measurement
+
   getUnitMeasurement(): Observable<ResponseGet<UnidadMedida[]>>{
     return this.http.get<ResponseGet<UnidadMedida[]>>(this.URL + "umedida")
   }
 
+
+  //Companies
   createCompanie(companie: createCompanieDto): Observable<ResponsePPD>{
     return this.http.post<ResponsePPD>(this.URL + "crearempresa", companie);
   }

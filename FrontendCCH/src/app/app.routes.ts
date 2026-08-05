@@ -52,8 +52,11 @@ export const routes: Routes = [
       {
         path:'catalogs/editarempresa/:IDEmpresa',
         loadComponent:() => import('./ui/administrador/catalogos/empresas/editcompanie/editcompanie').then(c => c.Editcompanie)
+      },
+      {
+        path: 'catalogs/lineas',
+        loadComponent:() => import('./ui/administrador/catalogos/lineas/lineaslist/lineaslist').then(c => c.Lineaslist)
       }
-
     ]
   }
 
