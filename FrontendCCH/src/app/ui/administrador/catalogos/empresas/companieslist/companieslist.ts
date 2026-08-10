@@ -10,6 +10,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ConfirmDeleteComponent } from '../../../../dialog/confirm-delete/confirm-delete.component';
 import { DELETE_DIALOG_COMPANIE } from '../../../../../core/models/dialog';
+import { Createcompanie } from '../createcompanie/createcompanie';
+
 
 @Component({
   selector: 'app-companieslist',
@@ -156,7 +158,17 @@ export class Companieslist implements OnInit{
   }
 
   navigateToAddNew(): void{
-    this.router.navigate(['/administrador/catalogs/crearempresa']);
+    const dialogRef = this.dialog.open(Createcompanie, {
+      width: '800px',
+      maxWidth: '90vw',
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result){
+        this.getAllCompanies();
+      }
+    });
   }
 
   editCompanie(IDEmpresa:number): void {
