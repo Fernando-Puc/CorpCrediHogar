@@ -9,6 +9,7 @@ import { chevronLeftIcon, chevronRightIcon, editIcon, trashIcon} from '../../../
 import { CatalogsService } from '../../../../../core/services/catalogs.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Createline } from '../createline/createline';
 
 @Component({
   selector: 'app-lineaslist',
@@ -152,9 +153,19 @@ export class Lineaslist implements OnInit{
   }
 
 
-  navigateToAddNew():void{
-    this.router.navigate(['']);
+  navigateToAddNew(): void{
+    const dialogRef = this.dialog.open(Createline, {
+      width: '600px',
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result){
+        this.getAllLines();
+      }
+    });
   }
+
 
   editLine(IDLine: number):void{
     this.router.navigate(['']);

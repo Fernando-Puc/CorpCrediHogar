@@ -8,6 +8,10 @@ export interface Linea{
   Nombre: string;
 }
 
+export interface CreateLineDto{
+  Nombre: string;
+}
+
 export interface Marca{
   IDMarca: number,
   Nombre: string;

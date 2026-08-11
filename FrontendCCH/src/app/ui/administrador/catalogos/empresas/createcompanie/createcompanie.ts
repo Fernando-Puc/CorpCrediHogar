@@ -48,7 +48,7 @@ export class Createcompanie {
 
       this.catalogs.createCompanie(createCompanieDto).subscribe(
         (response) => {
-          console.log('Enpresa creada exitosamente', response);
+          console.log('Empresa creada exitosamente', response);
 
           this.isLoading = false;
           this.dialogRef.close(true);
