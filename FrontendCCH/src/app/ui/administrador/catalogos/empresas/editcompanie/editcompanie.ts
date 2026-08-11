@@ -1,12 +1,12 @@
 import { ConfirmSaveComponent } from './../../../../dialog/confirm-save/confirm-save.component';
 import { CatalogsService } from './../../../../../core/services/catalogs.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActionButtonComponent } from '../../../../generic components/actionButton/actionButton.component';
 import { TextInputComponent } from '../../../../generic components/input/input.component.';
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Empresas } from '../../../../../core/models/catalogs';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { makeRequired } from '../../../../../core/validators/makeRequired.validator';
 import { UNSAVED_DIALOG } from '../../../../../core/models/dialog';
@@ -21,12 +21,13 @@ import { UNSAVED_DIALOG } from '../../../../../core/models/dialog';
 export class Editcompanie implements OnInit {
 
 formGroup: FormGroup;
+isLoading: boolean = false;
 
 private IDEmpresa : number | undefined;
 private companie: Empresas | undefined;
 
 constructor(private router: Router, private catalogs: CatalogsService, private dialog: MatDialog,
-  private route: ActivatedRoute){
+  private dialogRef: MatDialogRef<Editcompanie>, @Inject(MAT_DIALOG_DATA) public data: {IDEmpresa: number}){
     this.formGroup = new FormGroup({
       folio: new FormControl('', [makeRequired]),
       nombre: new FormControl('', [makeRequired]),
@@ -34,8 +35,8 @@ constructor(private router: Router, private catalogs: CatalogsService, private d
   }
 
   ngOnInit(){
-    this.IDEmpresa = parseInt(this.route.snapshot.paramMap.get('IDEmpresa') ?? '');
-    if (this.IDEmpresa){
+    this.IDEmpresa = this.data.IDEmpresa;
+    if(this.IDEmpresa){
       this.loadCompanieData();
     }
   }
@@ -69,10 +70,12 @@ constructor(private router: Router, private catalogs: CatalogsService, private d
       Nombre: this.formGroup.value.nombre,
     };
 
+
+
     this.catalogs.editCompanie(updateCompanieDto).subscribe(
       (response) => {
         console.log('Producto actualizado correctamente, response');
-        this.router.navigate(['administrador/catalogs/empresas']);
+        this.dialogRef.close(true);
       },
       (error) => {
         console.error('Error al actualizar la empresa', error);
@@ -80,8 +83,7 @@ constructor(private router: Router, private catalogs: CatalogsService, private d
   }
 
   closeDialog(){
-    this.dialog.closeAll();
-    this.router.navigate(['administrador/catalogs/empresas'])
+    this.dialogRef.close(false);
   }
 
   openDialog(){
@@ -94,6 +96,6 @@ constructor(private router: Router, private catalogs: CatalogsService, private d
       if(resp){
         this.closeDialog();
       }
-    })
+    });
   }
 }
