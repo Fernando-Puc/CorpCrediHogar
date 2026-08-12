@@ -10,6 +10,9 @@ import { CatalogsService } from '../../../../../core/services/catalogs.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Createline } from '../createline/createline';
+import { Editline } from '../editline/editline';
+import { ConfirmDeleteComponent } from '../../../../dialog/confirm-delete/confirm-delete.component';
+import { DELETE_DIALOG_LINEA } from '../../../../../core/models/dialog';
 
 @Component({
   selector: 'app-lineaslist',
@@ -167,12 +170,42 @@ export class Lineaslist implements OnInit{
   }
 
 
-  editLine(IDLine: number):void{
-    this.router.navigate(['']);
+  editLine(IDLinea:number): void {
+    const dialogref = this.dialog.open(Editline, {
+      width: '600px',
+      height: 'auto',
+      disableClose: true,
+
+      data: {
+        IDLinea: IDLinea
+      }
+    });
+
+    dialogref.afterClosed().subscribe(resp => {
+
+      if (resp) {
+        this.getAllLines();
+      }
+    });
   }
 
-    deleteLine(IDLine: number):void{
-    this.router.navigate(['']);
+    deleteLine(IDLinea: number):void{
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      width: '30',
+      data: DELETE_DIALOG_LINEA,
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result=>{
+      if(result){
+        this.service.deleteLine(IDLinea).subscribe({
+          next:() => {
+            this.getAllLines();
+          },
+          error:() => {}
+        });
+      }
+    })
   }
 
 

@@ -3,7 +3,7 @@ import { ConstantsService } from './constants.service';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { ResponseGet, ResponsePPD } from '../models/responses';
-import { createCompanieDto, CreateLineDto, editEmpresaDto, Empresas, getEmpresaDto, Linea, Marca, UnidadMedida } from '../models/catalogs';
+import { createCompanieDto, CreateLineDto, editEmpresaDto, editLineDto, Empresas, getEmpresaDto, GetLineDto, Linea, Marca, UnidadMedida } from '../models/catalogs';
 import { Editcompanie } from '../../ui/administrador/catalogos/empresas/editcompanie/editcompanie';
 import { editProductDto } from '../models/products';
 
@@ -25,6 +25,19 @@ export class CatalogsService{
   createLine(line: CreateLineDto): Observable<ResponsePPD>{
     return this.http.post<ResponsePPD>(this.URL + "crearlinea", line);
   }
+
+  getLine(IDLinea: number): Observable<ResponseGet<GetLineDto>>{
+  return this.http.get<ResponseGet<GetLineDto>>(this.URL + 'verlinea/' + IDLinea);
+}
+
+  editLine(line: editLineDto):Observable<ResponsePPD>{
+    return this.http.put<ResponsePPD>(`${this.URL}actualizarlinea/${line.IDLinea}`, line);
+  }
+
+  deleteLine(IDLinea: number): Observable<ResponsePPD>{
+  return this.http.delete<ResponsePPD>(this.URL + "eliminarlinea/" + IDLinea);
+}
+
 
   //Brands
 
