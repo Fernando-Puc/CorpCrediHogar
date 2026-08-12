@@ -33,7 +33,7 @@ jobs:
         working-directory: ./FrontendCCH
 
       - name: Build Angular
-        run: npm run build -- --configuration production
+        run: npx ng build --configuration production --base-href /CorpCrediHogar/
         working-directory: ./FrontendCCH
 
       - name: Setup Pages
