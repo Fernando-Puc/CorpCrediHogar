@@ -4,12 +4,15 @@ import { FormsModule } from "@angular/forms";
 import { ActionButtonComponent } from '../../../../generic components/actionButton/actionButton.component';
 import { SafeHtmlPipe } from '../../../../../core/shared/shared/pipes/safeHtml.pipe';
 import { Empresas} from '../../../../../core/models/catalogs';
-import { chevronLeftIcon, editIcon, trashIcon } from '../../../../../core/shared/shared/constants/icons.constants';
+import { chevronLeftIcon, chevronRightIcon, editIcon, trashIcon } from '../../../../../core/shared/shared/constants/icons.constants';
 import { CatalogsService } from '../../../../../core/services/catalogs.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ConfirmDeleteComponent } from '../../../../dialog/confirm-delete/confirm-delete.component';
 import { DELETE_DIALOG_COMPANIE } from '../../../../../core/models/dialog';
+import { Createcompanie } from '../createcompanie/createcompanie';
+import { Editcompanie } from '../editcompanie/editcompanie';
+
 
 @Component({
   selector: 'app-companieslist',
@@ -28,7 +31,7 @@ export class Companieslist implements OnInit{
   searchTerm: string = '';
   isresult: boolean = true;
   isloading: boolean = true;
-  paginationIcons = {left: chevronLeftIcon, right: chevronLeftIcon };
+  paginationIcons = {left: chevronLeftIcon, right: chevronRightIcon };
   actionIcons = [editIcon, trashIcon];
 
 
@@ -156,11 +159,37 @@ export class Companieslist implements OnInit{
   }
 
   navigateToAddNew(): void{
-    this.router.navigate(['/administrador/catalogs/crearempresa']);
+    const dialogRef = this.dialog.open(Createcompanie, {
+      width: '800px',
+      maxWidth: '90vw',
+      disableClose: true,
+    });
+
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result){
+        this.getAllCompanies();
+      }
+    });
   }
 
   editCompanie(IDEmpresa:number): void {
-    this.router.navigate(['/administrador/catalogs/editarempresa', IDEmpresa]);
+  const dialogref = this.dialog.open(Editcompanie, {
+    width: '800px',
+    maxWidth: '90vw',
+    height: 'auto',
+    disableClose: true,
+
+    data: {
+      IDEmpresa: IDEmpresa
+    }
+  });
+
+  dialogref.afterClosed().subscribe(resp => {
+
+    if (resp) {
+      this.getAllCompanies();
+    }
+  });
   }
 
   deleteCompanie(IDEmpresa: number): void{

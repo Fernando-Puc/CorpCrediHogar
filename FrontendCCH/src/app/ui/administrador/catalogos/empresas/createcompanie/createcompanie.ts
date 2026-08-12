@@ -5,13 +5,14 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextInputComponent } from '../../../../generic components/input/input.component.';
 import { ActionButtonComponent } from '../../../../generic components/actionButton/actionButton.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { makeRequired } from '../../../../../core/validators/makeRequired.validator';
 import { Router } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ConfirmSaveComponent } from '../../../../dialog/confirm-save/confirm-save.component';
 import { ConfirmUnsavedComponent } from '../../../../dialog/confirm-unsaved/confirm-unsaved.component';
 import { UNSAVED_DIALOG } from '../../../../../core/models/dialog';
+
 
 @Component({
   selector: 'app-createcompanie',
@@ -21,8 +22,9 @@ import { UNSAVED_DIALOG } from '../../../../../core/models/dialog';
 })
 export class Createcompanie {
   formGroup: FormGroup;
+  isLoading: boolean = false;
 
-  constructor(private router: Router, private catalogs: CatalogsService, private dialog: MatDialog){
+  constructor(private router: Router, private catalogs: CatalogsService, private dialog: MatDialog, private dialogRef: MatDialogRef<Createcompanie>){
     this.formGroup = new FormGroup({
       folio: new FormControl('', [makeRequired]),
       nombre: new FormControl('', [makeRequired])
@@ -34,27 +36,31 @@ export class Createcompanie {
   onSubmit(){
     if(this.formGroup.invalid){
       this.formGroup.markAllAsTouched();
-    }else{
+      return;
+    }
+
       const createCompanieDto: createCompanieDto ={
         Folio: this.formGroup.value.folio,
         Nombre: this.formGroup.value.nombre,
       };
 
+      this.isLoading = true;
+
       this.catalogs.createCompanie(createCompanieDto).subscribe(
         (response) => {
-          console.log('Enpresa creada exitosamente', response);
-          this.router.navigate(['administrador/catalogs/empresas']);
+          console.log('Empresa creada exitosamente', response);
+
+          this.isLoading = false;
+          this.dialogRef.close(true);
         },
         (error) => {
           console.error('Error al registrar el producto', error);
-        }
-      )
-    }
-  }
+          this.isLoading = false;
+        });
+      }
 
-  closeDialog(){
-    this.dialog.closeAll();
-    this.router.navigate(['administrador/catalogs/empresas'])
+  closeDialog():void{
+    this.dialogRef.close(false);
   }
 
 
@@ -68,8 +74,6 @@ export class Createcompanie {
       if(resp){
         this.closeDialog();
       }
-    })
+    });
   }
-
-
 }

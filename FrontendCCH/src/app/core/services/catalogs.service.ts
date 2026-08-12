@@ -3,7 +3,7 @@ import { ConstantsService } from './constants.service';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { ResponseGet, ResponsePPD } from '../models/responses';
-import { createCompanieDto, editEmpresaDto, Empresas, getEmpresaDto, Linea, Marca, UnidadMedida } from '../models/catalogs';
+import { createCompanieDto, CreateLineDto, editEmpresaDto, editLineDto, Empresas, getEmpresaDto, GetLineDto, Linea, Marca, UnidadMedida } from '../models/catalogs';
 import { Editcompanie } from '../../ui/administrador/catalogos/empresas/editcompanie/editcompanie';
 import { editProductDto } from '../models/products';
 
@@ -16,18 +16,43 @@ export class CatalogsService{
 
   constructor(private http: HttpClient) {}
 
+  //Lines
+
   getProductLines():Observable<ResponseGet<Linea[]>>{
     return this.http.get<ResponseGet<Linea[]>>(this.URL + "lineas")
   }
+
+  createLine(line: CreateLineDto): Observable<ResponsePPD>{
+    return this.http.post<ResponsePPD>(this.URL + "crearlinea", line);
+  }
+
+  getLine(IDLinea: number): Observable<ResponseGet<GetLineDto>>{
+  return this.http.get<ResponseGet<GetLineDto>>(this.URL + 'verlinea/' + IDLinea);
+}
+
+  editLine(line: editLineDto):Observable<ResponsePPD>{
+    return this.http.put<ResponsePPD>(`${this.URL}actualizarlinea/${line.IDLinea}`, line);
+  }
+
+  deleteLine(IDLinea: number): Observable<ResponsePPD>{
+  return this.http.delete<ResponsePPD>(this.URL + "eliminarlinea/" + IDLinea);
+}
+
+
+  //Brands
 
   getProductBrands(): Observable<ResponseGet<Marca[]>>{
     return this.http.get<ResponseGet<Marca[]>>(this.URL + "marcas")
   }
 
+  //Unit Measurement
+
   getUnitMeasurement(): Observable<ResponseGet<UnidadMedida[]>>{
     return this.http.get<ResponseGet<UnidadMedida[]>>(this.URL + "umedida")
   }
 
+
+  //Companies
   createCompanie(companie: createCompanieDto): Observable<ResponsePPD>{
     return this.http.post<ResponsePPD>(this.URL + "crearempresa", companie);
   }
