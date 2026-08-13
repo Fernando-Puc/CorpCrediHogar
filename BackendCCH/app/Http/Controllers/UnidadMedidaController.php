@@ -76,4 +76,16 @@ class UnidadMedidaController extends Controller
 
         return ResponseHelper::success($unidadmedida, 'Unidad de medida eliminada correctamente');
     }
+
+    //Ver Unidad
+
+    public function verUnidadMedida($id)
+    {
+        $unidadMedida = UnidadMedida::find($id);
+        $unidadMedidaFormateada = [
+            'IDUnidadMedida' => $unidadMedida->IDUnidadMedida,
+            'Nombre' => $unidadMedida->Nombre
+        ];
+        return ResponseHelper::success($unidadMedidaFormateada, "Detalles de la unidad de medida obtenidas correctamente");
+    }
 }

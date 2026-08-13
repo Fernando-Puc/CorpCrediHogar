@@ -37,6 +37,7 @@ Route::get('catalogs/umedida/', [UnidadMedidaController::class, 'ObtenerUnidades
 Route::post('catalogs/crearunidad', [UnidadMedidaController::class, 'CrearUnidadMedida']);
 Route::put('catalogs/actualizarunidad/{id}', [UnidadMedidaController::class, 'ActualizarUnidad']);
 Route::delete('catalogs/eliminarunidad/{id}', [UnidadMedidaController::class, 'EliminarUnidad']);
+Route::get('catalogs/verunidad/{id}', [UnidadMedidaController::class, 'VerUnidadMedida']);
 
 //Catálogo de productos
 Route::get('catalogs/productos/', [ProductosController::class, 'ObtenerProductos']);
