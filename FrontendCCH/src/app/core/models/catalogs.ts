@@ -31,6 +31,10 @@ export interface UnidadMedida{
   Nombre: string;
 }
 
+export interface createUMedidaDto{
+  Nombre: string;
+}
+
 export interface GetUnidadMedidaDto{
   IDUnidadMedida: number,
   Nombre: string;

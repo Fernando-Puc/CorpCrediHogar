@@ -3,7 +3,7 @@ import { ConstantsService } from './constants.service';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { ResponseGet, ResponsePPD } from '../models/responses';
-import { createCompanieDto, CreateLineDto, editEmpresaDto, editLineDto, Empresas, getEmpresaDto, GetLineDto, GetUnidadMedidaDto, Linea, Marca, UnidadMedida } from '../models/catalogs';
+import { createCompanieDto, CreateLineDto, createUMedidaDto, editEmpresaDto, editLineDto, Empresas, getEmpresaDto, GetLineDto, GetUnidadMedidaDto, Linea, Marca, UnidadMedida } from '../models/catalogs';
 import { Editcompanie } from '../../ui/administrador/catalogos/empresas/editcompanie/editcompanie';
 import { editProductDto } from '../models/products';
 
@@ -49,6 +49,10 @@ export class CatalogsService{
 
   getUnitMeasurement(): Observable<ResponseGet<UnidadMedida[]>>{
     return this.http.get<ResponseGet<UnidadMedida[]>>(this.URL + "umedida");
+  }
+
+  createUnitMeasurement(measurement: createUMedidaDto): Observable<ResponsePPD>{
+    return this.http.post<ResponsePPD>(this.URL + "crearunidad", measurement);
   }
 
   getUMeasurment(IDUnidadMedida: number ): Observable<ResponseGet<GetUnidadMedidaDto>>{

@@ -8,6 +8,7 @@ import { chevronLeftIcon, editIcon, trailerIcon, trashIcon } from '../../../../.
 import { CatalogsService } from '../../../../../core/services/catalogs.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UnidadMedida } from '../../../../../core/models/catalogs';
+import { Createumedida } from '../createumedida/createumedida';
 
 
 @Component({
@@ -149,7 +150,16 @@ export class Umedidalist implements OnInit {
 
 
     navigateToAddNew(): void{
+      const dialogRef = this.dialog.open(Createumedida, {
+        width: '600px',
+        disableClose: true,
+      });
 
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.getAllUnits();
+        }
+      });
     }
 
     editUnit(IDUnidadMedida: number): void{
