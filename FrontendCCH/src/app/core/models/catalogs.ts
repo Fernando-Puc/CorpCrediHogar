@@ -31,6 +31,17 @@ export interface UnidadMedida{
   Nombre: string;
 }
 
+export interface GetUnidadMedidaDto{
+  IDUnidadMedida: number,
+  Nombre: string;
+}
+
+export interface editUnidadMedidaDto{
+  IDUnidadMedida: number,
+  Nombre: string;
+}
+
+
 export interface Empresas{
   IDEmpresa: number,
   Folio: string,
