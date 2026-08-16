@@ -3,7 +3,7 @@ import { ConstantsService } from './constants.service';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { ResponseGet, ResponsePPD } from '../models/responses';
-import { createCompanieDto, CreateLineDto, editEmpresaDto, editLineDto, Empresas, getEmpresaDto, GetLineDto, Linea, Marca, UnidadMedida } from '../models/catalogs';
+import { createCompanieDto, CreateLineDto, createUMedidaDto, editEmpresaDto, editLineDto, editUnidadMedidaDto, Empresas, getEmpresaDto, GetLineDto, GetUnidadMedidaDto, Linea, Marca, UnidadMedida } from '../models/catalogs';
 import { Editcompanie } from '../../ui/administrador/catalogos/empresas/editcompanie/editcompanie';
 import { editProductDto } from '../models/products';
 
@@ -48,9 +48,24 @@ export class CatalogsService{
   //Unit Measurement
 
   getUnitMeasurement(): Observable<ResponseGet<UnidadMedida[]>>{
-    return this.http.get<ResponseGet<UnidadMedida[]>>(this.URL + "umedida")
+    return this.http.get<ResponseGet<UnidadMedida[]>>(this.URL + "umedida");
   }
 
+  createUnitMeasurement(measurement: createUMedidaDto): Observable<ResponsePPD>{
+    return this.http.post<ResponsePPD>(this.URL + "crearunidad", measurement);
+  }
+
+  getUMeasurment(IDUnidadMedida: number ): Observable<ResponseGet<GetUnidadMedidaDto>>{
+    return this.http.get<ResponseGet<GetUnidadMedidaDto>>(this.URL + "verunidad/" + IDUnidadMedida);
+  }
+
+  editUMeasurement(measurement: editUnidadMedidaDto): Observable<ResponsePPD>{
+    return this.http.put<ResponsePPD>(`${this.URL}actualizarunidad/${measurement.IDUnidadMedida}`, measurement);
+  }
+
+  deleteUMeasurement(IDUnidadMedida: number): Observable<ResponsePPD>{
+    return this.http.delete<ResponsePPD>(this.URL + "eliminarunidad/" + IDUnidadMedida);
+  }
 
   //Companies
   createCompanie(companie: createCompanieDto): Observable<ResponsePPD>{

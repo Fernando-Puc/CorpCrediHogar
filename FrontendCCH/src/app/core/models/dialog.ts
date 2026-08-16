@@ -21,6 +21,14 @@ export const DELETE_DIALOG_LINEA: DialogData = {
     '¿Estás seguro que deseas eliminar a esta linea?',
 };
 
+export const DELETE_DIALOG_UMEDIDA: DialogData = {
+  title: 'Eliminar Unidad de Medida',
+  message:
+    '¿Estás seguro que deseas eliminar a esta unidad de medida?',
+};
+
+
+
 
 
 export const DELETE_DIALOG_CONTACT: DialogData = {

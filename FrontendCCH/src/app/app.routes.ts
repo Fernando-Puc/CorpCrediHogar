@@ -56,7 +56,12 @@ export const routes: Routes = [
       {
         path: 'catalogs/lineas',
         loadComponent:() => import('./ui/administrador/catalogos/lineas/lineaslist/lineaslist').then(c => c.Lineaslist)
+      },
+      {
+        path: 'catalogs/umedidas',
+        loadComponent:() => import('./ui/administrador/catalogos/unidadesmedida/umedidalist/umedidalist').then(c_=> c_.Umedidalist)
       }
+
     ]
   }
 
