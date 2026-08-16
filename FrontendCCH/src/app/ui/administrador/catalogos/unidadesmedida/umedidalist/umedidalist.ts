@@ -9,6 +9,9 @@ import { CatalogsService } from '../../../../../core/services/catalogs.service';
 import { MatDialog } from '@angular/material/dialog';
 import { UnidadMedida } from '../../../../../core/models/catalogs';
 import { Createumedida } from '../createumedida/createumedida';
+import { Editumedida } from '../editumedida/editumedida';
+import { ConfirmDeleteComponent } from '../../../../dialog/confirm-delete/confirm-delete.component';
+import { DELETE_DIALOG_UMEDIDA } from '../../../../../core/models/dialog';
 
 
 @Component({
@@ -163,11 +166,39 @@ export class Umedidalist implements OnInit {
     }
 
     editUnit(IDUnidadMedida: number): void{
+      const dialogref = this.dialog.open(Editumedida, {
+        width: '600px',
+        height: 'auto',
+        disableClose: true,
 
+        data: {
+          IDUnidadMedida: IDUnidadMedida
+        }
+      });
+      dialogref.afterClosed().subscribe(resp => {
+        if(resp){
+          this.getAllUnits();
+        }
+      });
     }
 
     deleteUnit(IDUnidadMedida: number): void{
+      const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+        width: '30',
+        data: DELETE_DIALOG_UMEDIDA,
+        disableClose: true
+      });
 
+      dialogRef.afterClosed().subscribe(result=>{
+        if(result){
+          this.service.deleteUMeasurement(IDUnidadMedida).subscribe({
+            next:() => {
+              this.getAllUnits();
+            },
+            error:() => {}
+          });
+        }
+      })
     }
 }
 
