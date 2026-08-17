@@ -8,6 +8,9 @@ import { chevronLeftIcon, chevronRightIcon, editIcon, trashIcon } from '../../..
 import { CatalogsService } from '../../../../../core/services/catalogs.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Createbrand } from '../createbrand/createbrand';
+import { Editbrand } from '../editbrand/editbrand';
+import { ConfirmDeleteComponent } from '../../../../dialog/confirm-delete/confirm-delete.component';
+import { DELETE_DIALOG_MARCA } from '../../../../../core/models/dialog';
 
 @Component({
   selector: 'app-brandlist',
@@ -167,11 +170,40 @@ export class Brandlist implements OnInit {
     });
   }
 
-  editBrand(): void{
+  editBrand(IDMarca: number): void{
+    const dialogref = this.dialog.open(Editbrand, {
+      width: '600px',
+      height: 'auto',
+      disableClose: true,
 
+      data: {
+        IDMarca: IDMarca
+      }
+    });
+
+    dialogref.afterClosed().subscribe(resp => {
+      if(resp){
+        this.getAllBrands();
+      }
+    });
   }
 
-  deleteBrand(): void{
+  deleteBrand(IDMarca: number): void{
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      width: '30',
+      data: DELETE_DIALOG_MARCA,
+      disableClose: true
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        this.service.deleteBrand(IDMarca).subscribe({
+          next:() => {
+            this.getAllBrands();
+          },
+          error:() => {}
+        });
+      }
+    })
   }
 }

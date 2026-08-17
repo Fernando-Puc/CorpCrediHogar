@@ -27,6 +27,11 @@ export const DELETE_DIALOG_UMEDIDA: DialogData = {
     '¿Estás seguro que deseas eliminar a esta unidad de medida?',
 };
 
+export const DELETE_DIALOG_MARCA: DialogData = {
+  title: 'Eliminar Marca',
+  message:
+    '¿Estás seguro que deseas eliminar a esta Marca?',
+};
 
 
 

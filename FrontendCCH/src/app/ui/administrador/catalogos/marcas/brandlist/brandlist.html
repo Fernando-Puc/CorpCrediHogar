@@ -37,10 +37,10 @@
                     <td class="table__data">
                       <div class="table__column-actions">
                         <button type="button" title="Editar empresa">
-                          <span (click)="editBrand()" [innerHTML]="actionIcons[0] | safeHtml"></span>
+                          <span (click)="editBrand(brand.IDMarca)" [innerHTML]="actionIcons[0] | safeHtml"></span>
                         </button>
                         <button type="button" title="Eliminar empresa">
-                          <span (click)="deleteBrand()" [innerHTML]="actionIcons[1] | safeHtml"></span>
+                          <span (click)="deleteBrand(brand.IDMarca)" [innerHTML]="actionIcons[1] | safeHtml"></span>
                         </button>
                       </div>
                     </td>
