@@ -59,7 +59,11 @@ export const routes: Routes = [
       },
       {
         path: 'catalogs/umedidas',
-        loadComponent:() => import('./ui/administrador/catalogos/unidadesmedida/umedidalist/umedidalist').then(c_=> c_.Umedidalist)
+        loadComponent:() => import('./ui/administrador/catalogos/unidadesmedida/umedidalist/umedidalist').then(c=> c.Umedidalist)
+      },
+      {
+        path: 'catalogs/marcas',
+        loadComponent:()=> import('./ui/administrador/catalogos/marcas/brandlist/brandlist').then(c=>c.Brandlist)
       }
 
     ]
