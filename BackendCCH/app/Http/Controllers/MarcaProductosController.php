@@ -78,4 +78,15 @@ class MarcaProductosController extends Controller
 
         return ResponseHelper::success($marca, 'Marca eliminada correctmaente');
     }
+
+    //Ver Marca
+    public function verMarca($id)
+    {
+        $marca= Marcas::find($id);
+        $marcaFormateada = [
+            'IDMarca' => $marca->IDMarca,
+            'Nombre' => $marca->Nombre
+        ];
+        return ResponseHelper::success($marcaFormateada, "Detalles de la marca obtenidas correctamente");
+    }
 }

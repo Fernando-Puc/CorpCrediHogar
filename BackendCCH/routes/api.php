@@ -31,6 +31,7 @@ Route::get('catalogs/marcas/', [MarcaProductosController::class, 'ObtenerMarcas'
 Route::post('catalogs/crearmarca/', [MarcaProductosController::class, 'CrearMarca']);
 Route::put('catalogs/actualizarmarca/{id}', [MarcaProductosController::class, 'ActualizarMarca']);
 Route::delete('catalogs/eliminarmarca/{id}', [MarcaProductosController::class, 'EliminarMarca']);
+Route::get('catalogs/vermarca/{id}', [MarcaProductosController::class, 'verMarca']);
 
 //Unidades de Medida
 Route::get('catalogs/umedida/', [UnidadMedidaController::class, 'ObtenerUnidades']);

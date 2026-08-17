@@ -26,6 +26,22 @@ export interface Marca{
   IDMarca: number,
   Nombre: string;
 }
+
+export interface CreateBrandDto{
+  Nombre: string,
+}
+
+export interface getBrandDto{
+  IDMarca: number,
+  Nombre: string
+}
+
+export interface editBrandDto{
+  IDMarca: number,
+  Nombre: string
+}
+
+
 export interface UnidadMedida{
   IDUnidadMedida: number,
   Nombre: string;

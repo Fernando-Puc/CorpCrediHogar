@@ -207,10 +207,4 @@ export class Lineaslist implements OnInit{
       }
     })
   }
-
-
-
-
-
-
 }

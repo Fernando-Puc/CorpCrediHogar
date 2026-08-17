@@ -1,9 +1,10 @@
+import { editBrandDto, getBrandDto } from './../models/catalogs';
 import { HttpClient } from '@angular/common/http';
 import { ConstantsService } from './constants.service';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { ResponseGet, ResponsePPD } from '../models/responses';
-import { createCompanieDto, CreateLineDto, createUMedidaDto, editEmpresaDto, editLineDto, editUnidadMedidaDto, Empresas, getEmpresaDto, GetLineDto, GetUnidadMedidaDto, Linea, Marca, UnidadMedida } from '../models/catalogs';
+import { CreateBrandDto, createCompanieDto, CreateLineDto, createUMedidaDto, editEmpresaDto, editLineDto, editUnidadMedidaDto, Empresas, getEmpresaDto, GetLineDto, GetUnidadMedidaDto, Linea, Marca, UnidadMedida } from '../models/catalogs';
 import { Editcompanie } from '../../ui/administrador/catalogos/empresas/editcompanie/editcompanie';
 import { editProductDto } from '../models/products';
 
@@ -43,6 +44,23 @@ export class CatalogsService{
 
   getProductBrands(): Observable<ResponseGet<Marca[]>>{
     return this.http.get<ResponseGet<Marca[]>>(this.URL + "marcas")
+  }
+
+  getBrand(IDMarca: number): Observable<ResponseGet<getBrandDto>>{
+    return this.http.get<ResponseGet<getBrandDto>>(this.URL + 'vermarca/' + IDMarca)
+
+  }
+
+  createBrand(brand: CreateBrandDto): Observable<ResponsePPD>{
+    return this.http.post<ResponsePPD>(this.URL + "crearmarca", brand);
+  }
+
+  editBrand(brand: editBrandDto): Observable<ResponsePPD>{
+    return this.http.put<ResponsePPD>(`${this.URL}actualizarmarca/${brand.IDMarca}`, brand);
+  }
+
+  deleteBrand(IDMarca: number): Observable<ResponsePPD>{
+    return this.http.delete<ResponsePPD>(this.URL + "eliminarmarca/" + IDMarca);
   }
 
   //Unit Measurement
