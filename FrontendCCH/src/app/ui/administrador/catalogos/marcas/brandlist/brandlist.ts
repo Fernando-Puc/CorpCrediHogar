@@ -7,6 +7,7 @@ import { Marca } from '../../../../../core/models/catalogs';
 import { chevronLeftIcon, chevronRightIcon, editIcon, trashIcon } from '../../../../../core/shared/shared/constants/icons.constants';
 import { CatalogsService } from '../../../../../core/services/catalogs.service';
 import { MatDialog } from '@angular/material/dialog';
+import { Createbrand } from '../createbrand/createbrand';
 
 @Component({
   selector: 'app-brandlist',
@@ -154,7 +155,16 @@ export class Brandlist implements OnInit {
   }
 
   navigateToAddNew(): void{
+    const dialogRef = this.dialog.open(Createbrand, {
+      width: '600px',
+      disableClose: true,
+    });
 
+    dialogRef.afterClosed().subscribe(result =>{
+      if(result){
+        this.getAllBrands();
+      }
+    });
   }
 
   editBrand(): void{
