@@ -1,15 +1,34 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from "@angular/router";
-import { NgModule } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
+import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
+import { SidebarComponent } from '../../dashboard/components/sidebar/sidebar.component';
+import { SidebarService } from '../../../core/services/sidebar.service';
 
 @Component({
   selector: 'app-navbar-admin',
-  imports: [RouterLink, MatIconModule, RouterOutlet],
+  standalone: true,
+  imports: [
+    RouterOutlet,
+    SidebarComponent
+  ],
   templateUrl: './navbar-admin.html',
-  styleUrl: './navbar-admin.scss',
+  styleUrl: './navbar-admin.scss'
 })
-export class NavbarAdmin {
+export class NavbarAdmin implements OnInit {
+
+  isCollapsed: boolean = false;
+
+  constructor(
+    private sidebarService: SidebarService
+  ) {}
+
+
+  ngOnInit(): void {
+
+    this.sidebarService.sidebarState.subscribe(state => {
+      this.isCollapsed = state;
+    });
+
+  }
 
 }

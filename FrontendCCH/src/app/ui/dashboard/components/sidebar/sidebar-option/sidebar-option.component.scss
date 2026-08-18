@@ -1,0 +1,36 @@
+.sidebar__menu-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  box-sizing: border-box;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  mat-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+  }
+
+  span {
+    white-space: nowrap;
+  }
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+  }
+}
+
+.sidebar__menu-option--active {
+  background-color: white;
+  color: #e00000;
+  font-weight: bold;
+  &:hover {
+    background-color: white;
+  }
+}

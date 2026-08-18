@@ -1,73 +1,45 @@
 :host {
   display: block;
-  background: #fff;
+  background-color: #fff;
 }
 
-.logo {
-  width: 100px;
-  height: auto;
-  display: block;
-  margin: 0 auto 15px;
-}
 
 .dashboard {
-  display: flex;
   min-height: 100vh;
-  font-family: Arial, sans-serif;
 
-  .sidebar {
-    width: 220px;
-    background: linear-gradient(180deg, #fa0909, #d40101);
-    color: white;
-    padding: 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    border-radius: 0 20px 20px 0;
-    overflow-y: auto;
+  padding-left: 220px;
 
-    .user-info {
-      text-align: center;
+  transition: padding-left 0.3s ease;
 
-      p {
-        margin: 5px 0;
-        font-family: Georgia, serif;
-        font-size: 15px;
-      }
+
+  &--collapsed {
+    padding-left: 80px;
+  }
+}
+
+
+.main-content {
+  min-height: 100vh;
+
+  padding: 20px;
+
+  box-sizing: border-box;
+}
+
+
+@media (max-width: 768px) {
+
+  .dashboard {
+    padding-left: 0;
+
+    &--collapsed {
+      padding-left: 0;
     }
   }
 
+
   .main-content {
-    flex: 1;
-    margin-left: 220px;
-    padding: 20px;
-  }
-}
-
-@media (max-width: 768px) {
-  .dashboard {
-    flex-direction: column;
-  }
-
-  .dashboard .sidebar {
-    position: relative;
-    width: 100%;
-    height: auto;
-    border-radius: 0;
-    padding: 20px 10px;
-  }
-
-  .dashboard .main-content {
-    margin-left: 0;
     padding: 15px;
   }
 
-  .logo {
-    width: 80px;
-  }
-
-  .user-info p {
-    font-size: 14px;
-  }
 }

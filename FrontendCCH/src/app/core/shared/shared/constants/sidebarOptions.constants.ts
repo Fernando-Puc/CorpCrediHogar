@@ -1,50 +1,48 @@
-import { calendarIcon, customerIcon, metricsIcon, operatorIcon, requestIcon, routeIcon, settingsIcon, trailerIcon} from "./icons.constants";
-
-interface SidebarOption {
-  icon: string;
-  route: string;
+export interface SidebarOption {
   optionName: string;
+  route: string;
+  icon: string;
 }
 
 export const SIDEBAR_OPTIONS: SidebarOption[] = [
   {
-    optionName: 'Inicio',
-    route: 'inicio',
-    icon: metricsIcon,
+    optionName: 'Dashboard',
+    route: '/administrador',
+    icon: 'dashboard'
   },
-  {
-    optionName: 'Operadores',
-    route: 'operators',
-    icon: operatorIcon,
-  },
-  {
-    optionName: 'Unidades',
-    route: 'units',
-    icon: trailerIcon,
+    {
+    optionName: 'Ventas',
+    route: '/Dashboard/Ventas',
+    icon: 'sell'
   },
   {
     optionName: 'Clientes',
-    route: 'customers',
-    icon: customerIcon,
+    route: '/administrador/clientes',
+    icon: 'person'
   },
   {
-    optionName: 'Rutas',
-    route: 'routes',
-    icon: routeIcon,
+    optionName: 'Catalogos',
+    route: '/administrador/catalogs',
+    icon: 'view_list'
   },
   {
-    optionName: 'Solicitudes',
-    route: 'requests',
-    icon: requestIcon,
+    optionName: 'Productos',
+    route: '/administrador/productos',
+    icon: 'inventory_2'
   },
   {
-    optionName: 'Programación',
-    route: 'travels',
-    icon: requestIcon,
+    optionName: 'Contabilidad',
+    route: '/administrador/contabilidad',
+    icon: 'show_chart'
   },
   {
-    optionName: 'Ajustes',
-    route: 'settings',
-    icon: settingsIcon,
+  optionName: 'Inventario',
+  route: '/administrador/inventario',
+  icon: 'inventory'
   },
-]
+  {
+  optionName: 'Reportes',
+  route: '/administrador/reportes',
+  icon: 'assignment'
+  },
+];
