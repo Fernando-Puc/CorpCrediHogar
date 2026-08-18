@@ -22,6 +22,10 @@ export const routes: Routes = [
         loadComponent: () => import('./ui/administrador/dashboard-adm/dashboard-adm').then((c)=> c.DashboardAdm),
       },
       {
+        path:'catalogs',
+        loadComponent: () => import('./ui/administrador/catalogos/catalogosmenu/catalogosmenu').then((c)=> c.Catalogosmenu),
+      },
+      {
         path: 'clientes',
         loadComponent: () => import('./ui/administrador/clientes/clienteslist/clienteslist').then(c => c.Clientes),
       },
