@@ -1,4 +1,4 @@
-import { editBrandDto, getBrandDto } from './../models/catalogs';
+import { editBrandDto, getBrandDto, getProvidersDto } from './../models/catalogs';
 import { HttpClient } from '@angular/common/http';
 import { ConstantsService } from './constants.service';
 import { Injectable } from "@angular/core";
@@ -104,6 +104,11 @@ export class CatalogsService{
 
   editCompanie(companie: editEmpresaDto):Observable<ResponsePPD>{
     return this.http.put<ResponsePPD>(`${this.URL}actualizarempresa/${companie.IDEmpresa}`, companie);
+  }
+
+  //Providers
+  getProviders(): Observable<ResponseGet<getProvidersDto[]>>{
+    return this.http.get<ResponseGet<getProvidersDto[]>>(this.URL + 'proveedores');
   }
 
 }

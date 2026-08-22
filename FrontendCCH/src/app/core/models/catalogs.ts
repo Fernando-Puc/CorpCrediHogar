@@ -85,3 +85,25 @@ export interface editEmpresaDto{
   Nombre: string
 }
 
+//Providers
+export interface getProvidersDto{
+  IDProveedor: number,
+  Codigo: string,
+  Nombre: string,
+  RFC: string,
+  domicilio:{
+    id: number,
+    pais: string,
+    codigoPostal: string,
+    estado: string,
+    municipio: string,
+    ciudad: string,
+    colonia: string,
+    calle: string,
+    numInterior: string,
+    numExterior: string,
+  },
+  FechaRegistro: string,
+  Activo: boolean
+}
+
