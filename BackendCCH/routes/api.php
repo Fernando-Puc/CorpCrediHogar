@@ -9,6 +9,7 @@ use App\Http\Controllers\UnidadMedidaController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\DomiciliosController;
 use App\Http\Controllers\ProveedoresController;
+use App\Http\Controllers\DomicilioController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -62,3 +63,6 @@ Route::post('catalogs/crearproveedor', [ProveedoresController::class, 'CrearProv
 Route::put('catalogs/actualizarproveedor/{id}', [ProveedoresController::class, 'ActualizarProveedor']);
 Route::get('catalogs/verproveedor/{id}', [ProveedoresController::class, 'VerProveedor']);
 Route::delete('catalogs/eliminarproveedor/{id}', [ProveedoresController::class, 'EliminarProveedor']);
+
+//Catálogo de domicilios
+Route::get('catalogs/codigopostal/{cp}', [DomicilioController::class, 'buscarPorCP']);
