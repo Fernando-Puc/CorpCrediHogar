@@ -68,3 +68,9 @@ export const UNSAVED_DIALOG: DialogData = {
   };
 
 
+    export const NOT_FOUND_POSTALG: DialogData = {
+    title: 'No existe',
+    message:
+      'No existe el codigo postal',
+  };
+

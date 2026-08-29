@@ -85,6 +85,18 @@ export interface editEmpresaDto{
   Nombre: string
 }
 
+//Search for CP
+export interface getSearchForCP{
+  cp: string;
+  pais: string;
+  estado: string;
+  municipio: string;
+  ciudad: string;
+  colonias: string[];
+}
+
+
+
 //Providers
 export interface getProvidersDto{
   IDProveedor: number,
@@ -107,3 +119,21 @@ export interface getProvidersDto{
   Activo: boolean
 }
 
+export interface createProviderDto{
+  Codigo: string,
+  Nombre: string,
+  RFC: string,
+  domicilio:{
+    Pais: string,
+    CodigoPostal: string,
+    Estado: string,
+    Municipio: string,
+    Ciudad: string,
+    Colonia: string,
+    Calle: string,
+    NumInterior: string,
+    NumExterior: string,
+  },
+  FechaRegistro: string,
+  Activo: boolean
+}

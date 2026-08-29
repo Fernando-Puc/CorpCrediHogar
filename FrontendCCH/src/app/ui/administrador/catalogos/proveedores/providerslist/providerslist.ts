@@ -142,6 +142,7 @@ export class Providerslist implements OnInit {
   }
 
   navigateToAddNew(): void{
+    this.router.navigate(['administrador/catalogs/crearproveedor']);
 
   }
 
