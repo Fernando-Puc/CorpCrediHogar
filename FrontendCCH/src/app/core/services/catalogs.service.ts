@@ -1,4 +1,4 @@
-import { editBrandDto, getBrandDto } from './../models/catalogs';
+import { createProviderDto, editBrandDto, getBrandDto, getProviderDto, getProvidersDto, getSearchForCP } from './../models/catalogs';
 import { HttpClient } from '@angular/common/http';
 import { ConstantsService } from './constants.service';
 import { Injectable } from "@angular/core";
@@ -106,4 +106,21 @@ export class CatalogsService{
     return this.http.put<ResponsePPD>(`${this.URL}actualizarempresa/${companie.IDEmpresa}`, companie);
   }
 
+  //Providers
+  getProviders(): Observable<ResponseGet<getProvidersDto[]>>{
+    return this.http.get<ResponseGet<getProvidersDto[]>>(this.URL + 'proveedores');
+  }
+
+  createProvider(provider: createProviderDto):Observable<ResponsePPD>{
+    return this.http.post<ResponsePPD>(this.URL + "crearproveedor", provider);
+  }
+
+  getProvider(IDProvider: number): Observable<ResponseGet<getProviderDto>>{
+    return this.http.get<ResponseGet<getProviderDto>>(this.URL + 'verproveedor/' + IDProvider );
+  }
+
+  //search for CP
+  searchForCP(cp: string): Observable<ResponseGet<getSearchForCP>> {
+    return this.http.get<ResponseGet<getSearchForCP>>(this.URL + 'codigopostal/' + cp);
+  }
 }

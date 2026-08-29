@@ -7,6 +7,9 @@ use App\Http\Controllers\LineaProductosController;
 use App\Http\Controllers\MarcaProductosController;
 use App\Http\Controllers\UnidadMedidaController;
 use App\Http\Controllers\ProductosController;
+use App\Http\Controllers\DomiciliosController;
+use App\Http\Controllers\ProveedoresController;
+use App\Http\Controllers\DomicilioController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -46,3 +49,20 @@ Route::post('catalogs/registrarproducto', [ProductosController::class, 'CrearPro
 Route::put('catalogs/actualizarproducto/{id}', [ProductosController::class, 'ActualizarProducto']);
 Route::delete('catalogs/eliminarproducto/{id}', [ProductosController::class, 'EliminarProducto']);
 Route::get('catalogs/verproducto/{id}', [ProductosController::class, 'VerProducto']);
+
+//Catalogo de Domicilios
+Route::get('catalogs/domicilios/', [DomiciliosController::class, 'ObtenerDomicilios']);
+Route::post('catalogs/registrardomicilio', [DomiciliosController::class, 'CrearDomicilio']);
+Route::put('catalogs/actualizardomicilio/{id}', [DomiciliosController::class, 'ActualizarDomicilio']);
+Route::get('catalogs/verdomicilio/{id}', [DomiciliosController::class, 'VerDomicilio']);
+Route::delete('catalogs/eliminardomicilio/{id}', [DomiciliosController::class, 'EliminarDomicilio']);
+
+//Catálogo de Proveedores
+Route::get('catalogs/proveedores', [ProveedoresController::class, 'ObtenerProveedores']);
+Route::post('catalogs/crearproveedor', [ProveedoresController::class, 'CrearProveedor']);
+Route::put('catalogs/actualizarproveedor/{id}', [ProveedoresController::class, 'ActualizarProveedor']);
+Route::get('catalogs/verproveedor/{id}', [ProveedoresController::class, 'VerProveedor']);
+Route::delete('catalogs/eliminarproveedor/{id}', [ProveedoresController::class, 'EliminarProveedor']);
+
+//Catálogo de domicilios
+Route::get('catalogs/codigopostal/{cp}', [DomicilioController::class, 'buscarPorCP']);

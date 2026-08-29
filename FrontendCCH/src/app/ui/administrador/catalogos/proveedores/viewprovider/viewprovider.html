@@ -1,0 +1,80 @@
+<div>
+  <h2 mat-dialog-title>Información del Proveedor</h2>
+</div>
+
+<div mat-dialog-content>
+  <div class="view-Provider">
+    <div class="view-Provider__ali">
+      <div class="view-Provider__ali__col-3">
+        <div>
+          <label class="bold">Código</label>
+          <label>{{provider?.Codigo}}</label>
+        </div>
+        <div class="view-Provider__ali__nombre">
+          <label class="bold">Razon Social</label>
+          <label>{{provider?.Nombre}}</label>
+        </div>
+
+        <div>
+          <label class="bold">RFC</label>
+          <label>{{provider?.RFC}}</label>
+        </div>
+
+        <div>
+          <label class="bold">Fecha de Registro</label>
+          <label>{{provider?.FechaRegistro}}</label>
+        </div>
+      </div>
+
+      <div class="view-Provider__ali__col-3">
+        <div>
+          <label class="bold">Pais</label>
+          <label>{{provider?.domicilio?.Pais}}</label>
+        </div>
+        <div>
+          <label class="bold">Codigo Postal</label>
+          <label>{{provider?.domicilio?.CodigoPostal}}</label>
+        </div>
+        <div>
+          <label class="bold">Estado</label>
+          <label>{{provider?.domicilio?.Estado}}</label>
+        </div>
+      </div>
+
+      <div class="view-Provider__ali__col-3">
+        <div>
+          <label class="bold">Municipio</label>
+          <label>{{provider?.domicilio?.Municipio}}</label>
+        </div>
+        <div>
+          <label class="bold">Ciudad</label>
+          <label>{{provider?.domicilio?.Ciudad}}</label>
+        </div>
+        <div>
+          <label class="bold">Colonia</label>
+          <label>{{provider?.domicilio?.Colonia}}</label>
+        </div>
+      </div>
+      <div class="view-Provider__ali__col-3">
+        <div>
+          <label class="bold">Calle</label>
+          <label>{{provider?.domicilio?.Calle}}</label>
+        </div>
+        <div>
+          <label class="bold">Numero Interior</label>
+          <label>{{provider?.domicilio?.NumInterior}}</label>
+        </div>
+        <div>
+          <label class="bold">Estatus</label>
+          <label>{{provider?.domicilio?.NumExterior}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div mat-dialog-actions class="action" [align]="'end'">
+  <button mat-raised-button color="warn"  [mat-dialog-close]="false">Cerrar</button>
+</div>
+

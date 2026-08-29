@@ -1,0 +1,106 @@
+<div class="mainContainer">
+  <div class="subExpandForm">
+    <h1 class="titleForm">Agregar Proveedor</h1>
+    <div class="subExpandBorder">
+      <form [formGroup]="formGroup">
+        <div class="yForm">
+          <div class="x">
+            <text-input type="text" label="Código" [controller]="formGroup.get('codigo')"> </text-input>
+          </div>
+          <div class="x">
+            <text-input type="text" label="Nombre" [controller]="formGroup.get('nombre')"> </text-input>
+          </div>
+          <div class="x">
+            <text-input type="text" label="RFC" [controller]="formGroup.get('rfc')"> </text-input>
+          </div>
+        </div>
+
+        <div class="yForm">
+          <div class="x">
+            <label>País</label>
+            <ng-select [clearable]="false" id="pais" formControlName="pais" appendTo="body">
+              <ng-option value="" disabled>Selecciona...</ng-option>
+              <ng-option [value]="'Mexico'">México</ng-option>
+            </ng-select>
+          </div>
+          <div class="x">
+            <text-input type="text" label="Código Postal" [controller]="formGroup.get('codigoPostal')"> </text-input>
+          </div>
+          <div class="x space">
+            <label>Estado</label>
+            <ng-select [clearable]="false" id="estado" formControlName="estado" appendTo="body">
+              <ng-option value="" disabled>Seleciona...</ng-option>
+              @for (estado of estados ; track estado) {
+              <ng-option [value]="estado">{{estado}}</ng-option>
+              }
+            </ng-select>
+            @if (!formGroup.get('estado')?.valid && formGroup.get('estado')?.touched)
+            {
+            <span class="error-message"> {{ formGroup.get('estado')?.errors?.['message'] }} </span>
+            }
+          </div>
+        </div>
+
+        <div class="yForm">
+          <div class="x space">
+            <label>Municipio</label>
+            <ng-select [clearable]="false" id="municipio" formControlName="municipio" appendTo="body">
+              <ng-option value="" disabled>Seleciona...</ng-option>
+              @for (municipio of municipios ; track municipio) {
+              <ng-option [value]="municipio">{{municipio}}</ng-option>
+              }
+            </ng-select>
+            @if (!formGroup.get('municipio')?.valid && formGroup.get('municipio')?.touched)
+            {
+            <span class="error-message"> {{ formGroup.get('municipio')?.errors?.['message'] }} </span>
+            }
+          </div>
+          <div class="x space">
+            <label>Ciudad</label>
+            <ng-select [clearable]="false" id="ciudad" formControlName="ciudad" appendTo="body">
+              <ng-option value="" disabled>Seleciona...</ng-option>
+              @for (ciudad of ciudades ; track ciudad) {
+              <ng-option [value]="ciudad">{{ciudad}}</ng-option>
+              }
+            </ng-select>
+            @if (!formGroup.get('ciudad')?.valid && formGroup.get('ciudad')?.touched)
+            {
+            <span class="error-message"> {{ formGroup.get('ciudad')?.errors?.['message'] }} </span>
+            }
+          </div>
+          <div class="x space">
+            <label>Colonia</label>
+            <ng-select [clearable]="false" id="colonia" formControlName="colonia" appendTo="body">
+              <ng-option value="" disabled>Seleciona...</ng-option>
+              @for (colonia of colonias ; track colonia) {
+              <ng-option [value]="colonia">{{colonia}}</ng-option>
+              }
+            </ng-select>
+            @if (!formGroup.get('colonia')?.valid && formGroup.get('colonia')?.touched)
+            {
+            <span class="error-message"> {{ formGroup.get('colonia')?.errors?.['message'] }} </span>
+            }
+          </div>
+        </div>
+
+        <div class="yForm">
+          <div class="x">
+            <text-input type="text" label="Calle" [controller]="formGroup.get('calle')"> </text-input>
+          </div>
+          <div class="x">
+            <text-input type="text" label="Número interior" [controller]="formGroup.get('numInterior')"> </text-input>
+          </div>
+          <div class="x">
+            <text-input type="text" label="Número exterior" [controller]="formGroup.get('numExterior')"> </text-input>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="actions">
+      <action-button variant="cancel" text="Cancelar"
+        (click)="formGroup.dirty ? openDialog():closeDialog()"></action-button>
+      <action-button variant="accept" text="Guardar" (click)="onSubmit()"
+        [isDisabled]="!formGroup.valid"></action-button>
+    </div>
+  </div>
+</div>
