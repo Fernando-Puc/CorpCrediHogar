@@ -8,6 +8,7 @@ import { chevronLeftIcon, chevronRightIcon, editIcon, eyeIcon, trashIcon } from 
 import { CatalogsService } from '../../../../../core/services/catalogs.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Viewprovider } from '../viewprovider/viewprovider';
 
 @Component({
   selector: 'app-providerslist',
@@ -146,7 +147,13 @@ export class Providerslist implements OnInit {
 
   }
 
-  viewProvider(): void{
+  viewProvider(IDProvider:number): void{
+    this.dialog.open(Viewprovider, {
+      width:'1000px',
+      height: '950',
+      data: IDProvider
+    });
+
 
   }
 

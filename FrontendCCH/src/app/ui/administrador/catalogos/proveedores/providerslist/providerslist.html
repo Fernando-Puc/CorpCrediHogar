@@ -54,13 +54,13 @@
                     <td class="table__data">{{ provider.FechaRegistro}} </td>
                     <td class="table__data">
                       <div class="table__column-actions">
-                        <button type="button" title="Ver producto">
-                          <span (click)="viewProvider()" [innerHTML]=" actionIcons[0] | safeHtml"> </span>
+                        <button type="button" title="Ver proveedor">
+                          <span (click)="viewProvider(provider.IDProveedor)" [innerHTML]=" actionIcons[0] | safeHtml"> </span>
                         </button>
-                        <button type="button" title="Editar producto">
+                        <button type="button" title="Editar provider">
                           <span (click)="editProvider()" [innerHTML]="actionIcons[1] | safeHtml"></span>
                         </button>
-                        <button type="button" title="Eliminar producto">
+                        <button type="button" title="Eliminar provider">
                           <span (click)="deleteProvider()" [innerHTML]="actionIcons[2] | safeHtml"></span>
                         </button>
                       </div>

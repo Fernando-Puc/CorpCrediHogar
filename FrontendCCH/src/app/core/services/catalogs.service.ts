@@ -1,4 +1,4 @@
-import { createProviderDto, editBrandDto, getBrandDto, getProvidersDto, getSearchForCP } from './../models/catalogs';
+import { createProviderDto, editBrandDto, getBrandDto, getProviderDto, getProvidersDto, getSearchForCP } from './../models/catalogs';
 import { HttpClient } from '@angular/common/http';
 import { ConstantsService } from './constants.service';
 import { Injectable } from "@angular/core";
@@ -113,6 +113,10 @@ export class CatalogsService{
 
   createProvider(provider: createProviderDto):Observable<ResponsePPD>{
     return this.http.post<ResponsePPD>(this.URL + "crearproveedor", provider);
+  }
+
+  getProvider(IDProvider: number): Observable<ResponseGet<getProviderDto>>{
+    return this.http.get<ResponseGet<getProviderDto>>(this.URL + 'verproveedor/' + IDProvider );
   }
 
   //search for CP
