@@ -76,6 +76,10 @@ export const routes: Routes = [
       {
         path:'catalogs/crearproveedor',
         loadComponent:()=> import('./ui/administrador/catalogos/proveedores/createprovider/createprovider').then(c=>c.Createprovider)
+      },
+      {
+        path:'editarproveedor/:IDProveedor',
+        loadComponent:()=> import('./ui/administrador/catalogos/proveedores/editprovider/editprovider').then(c=>c.Editprovider)
       }
 
     ]

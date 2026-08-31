@@ -159,3 +159,25 @@ export interface createProviderDto{
   FechaRegistro: string,
   Activo: boolean
 }
+
+export interface editProviderDto{
+  IDProveedor: number,
+  Codigo: string,
+  Nombre: string,
+  RFC: string,
+  domicilio:{
+    IDDomicilio:number,
+    Pais: string,
+    CodigoPostal: string,
+    Estado: string,
+    Municipio: string,
+    Ciudad: string,
+    Colonia: string,
+    Calle: string,
+    NumInterior: string,
+    NumExterior: string,
+  },
+  FechaRegistro: string,
+  Activo: boolean
+}
+

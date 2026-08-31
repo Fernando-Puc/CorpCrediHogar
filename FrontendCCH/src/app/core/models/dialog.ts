@@ -33,6 +33,12 @@ export const DELETE_DIALOG_MARCA: DialogData = {
     '¿Estás seguro que deseas eliminar a esta Marca?',
 };
 
+export const DELETE_DIALOG_PROVEEDOR: DialogData = {
+  title: 'Eliminar proveedor',
+  message:
+    '¿Estás seguro que deseas eliminar a este proveedor?',
+};
+
 
 
 
