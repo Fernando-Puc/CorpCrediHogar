@@ -12,16 +12,10 @@ class Sucursales extends Model
     protected $fillable = [
         'Codigo',
         'Nombre',
-        'IDEmpresa',
         'IDDomicilio',
         'FechaRegistro',
         'Activo',
     ];
-
-    public function empresa()
-    {
-        return $this->belongsTo(Empresas::class, 'IDEmpresa', 'IDEmpresa');
-    }
 
     public function domicilio()
     {

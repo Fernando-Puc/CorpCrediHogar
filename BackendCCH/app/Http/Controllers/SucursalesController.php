@@ -16,7 +16,6 @@ class SucursalesController extends Controller
     public function ObtenerSucursales()
     {
         $sucursales = Sucursales::with([
-            'empresa',
             'domicilio'
         ])->get();
 
@@ -27,11 +26,6 @@ class SucursalesController extends Controller
                 'Nombre' => $sucursal->Nombre,
                 'FechaRegistro' => $sucursal->FechaRegistro,
                 'Activo' => $sucursal->Activo,
-                'empresa' => [
-                    'IDEmpresa' => $sucursal->empresa?->IDEmpresa,
-                    'Folio' => $sucursal->empresa?->Folio,
-                    'Nombre' => $sucursal->empresa?->Nombre,
-                ],
                 'domicilios' => [
                     'IDDomicilio' => $sucursal->domicilio?->IDDomicilio,
                     'Pais' => $sucursal->domicilio?->Pais,
@@ -52,16 +46,11 @@ class SucursalesController extends Controller
 
     public function VerSucursal($id)
     {
-        $sucursal = Sucursales::with('empresa', 'domicilio')->findOrFail($id);
+        $sucursal = Sucursales::with('domicilio')->findOrFail($id);
         $sucursalFormateado = [
             'IDSucursal' => $sucursal->IDSucursal,
             'Codigo' => $sucursal->Codigo,
             'Nombre' => $sucursal->Nombre,
-            'empresa' => [
-                'IDEmpresa' => $sucursal->empresa?->IDEmpresa,
-                'Folio' => $sucursal->empresa?->Folio,
-                'Nombre' => $sucursal->empresa?->Nombre,
-            ],
             'domicilios' => [
                 'IDDomicilio' => $sucursal->domicilio?->IDDomicilio,
                 'Pais' => $sucursal->domicilio?->Pais,
@@ -90,7 +79,6 @@ class SucursalesController extends Controller
                 //Sucursal
                 'Codigo' => 'required|string|max:255|unique:sucursales,Codigo',
                 'Nombre' => 'required|string|max:255',
-                'IDEmpresa' => 'required|exists:empresas,IDEmpresa',
 
                 //Domicilio
                 'domicilio.Pais' => 'required|string|max:255',
@@ -128,7 +116,6 @@ class SucursalesController extends Controller
                 $sucursal = new Sucursales();
                 $sucursal->Codigo = $request->input('Codigo');
                 $sucursal->Nombre = $request->input('Nombre');
-                $sucursal->IDEmpresa = $request->input('IDEmpresa');
                 $sucursal->IDDomicilio = $domicilio->IDDomicilio;
                 $sucursal->FechaRegistro = now()->toDateString();
                 $sucursal->Activo = true;
@@ -162,7 +149,6 @@ class SucursalesController extends Controller
                 ],
 
                 'Nombre' => 'required|string|max:255',
-                'IDEmpresa' => 'required|exists:empresas,IDEmpresa',
 
                 //Domicilio
                 'domicilio.Pais' => 'required|string|max:255',
@@ -204,7 +190,6 @@ class SucursalesController extends Controller
 
                 $sucursal->Codigo = $request->input('Codigo');
                 $sucursal->Nombre = $request->input('Nombre');
-                $sucursal->IDEmpresa = $request->input('IDEmpresa');
                 $sucursal->IDDomicilio = $domicilio->IDDomicilio;
                 $sucursal->FechaRegistro = now()->toDateString();
                 $sucursal->Activo = true;

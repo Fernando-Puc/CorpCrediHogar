@@ -15,15 +15,13 @@ return new class extends Migration
             $table->id('IDSucursal');
             $table->string('Codigo');
             $table->string('Nombre');
-            $table->unsignedBigInteger('IDEmpresa');
             $table->unsignedBigInteger('IDDomicilio');
             $table->date('FechaRegistro');
             $table->boolean('Activo')->default(true);
             $table->timestamps();
 
-            $table->foreign('IDEmpresa')->references('IDEmpresa')->on('empresas');
             $table->foreign('IDDomicilio')->references('IDDomicilio')->on('domicilios');
-            $table->unique(['IDEmpresa', 'Codigo']);
+            $table->unique(['Codigo']);
         });
     }
 
