@@ -160,4 +160,6 @@ class ProductosController extends Controller
 
         return ResponseHelper::success('Producto eliminado correctamente');
     }
+
+    
 }

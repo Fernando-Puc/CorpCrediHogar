@@ -80,6 +80,15 @@ export const routes: Routes = [
       {
         path:'editarproveedor/:IDProveedor',
         loadComponent:()=> import('./ui/administrador/catalogos/proveedores/editprovider/editprovider').then(c=>c.Editprovider)
+      },
+
+      {
+        path:'catalogs/sucursales',
+        loadComponent:()=> import('./ui/administrador/catalogos/sucursales/brancheslist/brancheslist').then(c=>c.Brancheslist)
+      },
+      {
+        path:'catalogs/crearsucursal',
+        loadComponent:()=> import('./ui/administrador/catalogos/sucursales/createbranch/createbranch').then(c=>c.Createbranch)
       }
 
     ]

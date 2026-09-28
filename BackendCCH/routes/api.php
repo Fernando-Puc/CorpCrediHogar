@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\DomiciliosController;
 use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\DomicilioController;
+use App\Http\Controllers\SucursalesController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -66,3 +67,10 @@ Route::delete('catalogs/eliminarproveedor/{id}', [ProveedoresController::class, 
 
 //Catálogo de domicilios
 Route::get('catalogs/codigopostal/{cp}', [DomicilioController::class, 'buscarPorCP']);
+
+//Sucursales
+Route::get('catalogs/sucursales', [SucursalesController::class,  'ObtenerSucursales']);
+Route::get('catalogs/versucursal/{id}', [SucursalesController::class, 'VerSucursal']);
+Route::post('catalogs/crearsucursal', [SucursalesController::class, 'CrearSucursal']);
+Route::put('catalogs/actualizarsucursal/{id}', [SucursalesController::class, 'ActualizarSucursal']);
+Route::delete('catalogs/eliminarsucursal/{id}', [SucursalesController::class, 'EliminarSucursal']);

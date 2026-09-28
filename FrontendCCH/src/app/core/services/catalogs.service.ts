@@ -1,4 +1,4 @@
-import { createProviderDto, editBrandDto, editProviderDto, getBrandDto, getProviderDto, getProvidersDto, getSearchForCP } from './../models/catalogs';
+import { createBrancheDto, createProviderDto, editBrandDto, editProviderDto, getBranchesDto, getBrandDto, getProviderDto, getProvidersDto, getSearchForCP } from './../models/catalogs';
 import { HttpClient } from '@angular/common/http';
 import { ConstantsService } from './constants.service';
 import { Injectable } from "@angular/core";
@@ -130,5 +130,14 @@ export class CatalogsService{
   //search for CP
   searchForCP(cp: string): Observable<ResponseGet<getSearchForCP>> {
     return this.http.get<ResponseGet<getSearchForCP>>(this.URL + 'codigopostal/' + cp);
+  }
+
+  //Branches
+  getBranches(): Observable<ResponseGet<getBranchesDto[]>>{
+    return this.http.get<ResponseGet<getBranchesDto[]>>(this.URL + 'sucursales');
+  }
+
+  createBranch(branch: createBrancheDto):Observable<ResponsePPD>{
+    return this.http.post<ResponsePPD>(this.URL + "crearsucursal", branch);
   }
 }
