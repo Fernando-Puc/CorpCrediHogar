@@ -201,3 +201,22 @@ export interface getBranchesDto{
     NumExterior: string
   }
 }
+
+export interface createBrancheDto{
+  Codigo: string,
+  Nombre: string,
+  domicilio: {
+    Pais: string,
+    CodigoPostal: string,
+    Estado: string,
+    Municipio: string,
+    Ciudad: string,
+    Colonia: string,
+    Calle: string,
+    NumInterior: string,
+    NumExterior: string
+  }
+  FechaRegistro: string,
+  Activo: boolean
+}
+
