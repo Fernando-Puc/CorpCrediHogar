@@ -119,7 +119,6 @@ export interface getProvidersDto{
   Activo: boolean
 }
 
-//Providers
 export interface getProviderDto{
   IDProveedor: number,
   Codigo: string,
@@ -181,3 +180,24 @@ export interface editProviderDto{
   Activo: boolean
 }
 
+//Sucursales
+
+export interface getBranchesDto{
+  IDSucursal: number,
+  Codigo: string,
+  Nombre: string,
+  FechaRegistro: string,
+  Activo: boolean,
+  domicilios:{
+    IDDomicilio: number,
+    Pais: string,
+    CodigoPostal: string,
+    Estado: string,
+    Municipio: string,
+    Ciudad: string,
+    Colonia: string,
+    Calle: string,
+    NumInterior: string,
+    NumExterior: string
+  }
+}
