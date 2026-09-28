@@ -9,6 +9,8 @@ import { CatalogsService } from '../../../../../core/services/catalogs.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Viewprovider } from '../viewprovider/viewprovider';
+import { ConfirmDeleteComponent } from '../../../../dialog/confirm-delete/confirm-delete.component';
+import { DELETE_DIALOG_PROVEEDOR } from '../../../../../core/models/dialog';
 
 @Component({
   selector: 'app-providerslist',
@@ -153,16 +155,31 @@ export class Providerslist implements OnInit {
       height: '950',
       data: IDProvider
     });
+  }
+
+
+  editProvider(IDProveedor: number): void{
+    this.router.navigate(['/administrador/editarproveedor', IDProveedor])
 
 
   }
 
+  deleteProvider(IDProveedor: number): void{
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      width: '30%',
+      data: DELETE_DIALOG_PROVEEDOR,
+      disableClose: true
+    });
 
-  editProvider(): void{
-
-  }
-
-  deleteProvider(): void{
-
+    dialogRef.afterClosed().subscribe(result=>{
+      if(result){
+        this.service.deleteProvider(IDProveedor).subscribe({
+          next:()=>{
+            this.getAllProviders();
+          },
+          error:() => {}
+        });
+      }
+    });
   }
 }

@@ -58,10 +58,10 @@
                           <span (click)="viewProvider(provider.IDProveedor)" [innerHTML]=" actionIcons[0] | safeHtml"> </span>
                         </button>
                         <button type="button" title="Editar provider">
-                          <span (click)="editProvider()" [innerHTML]="actionIcons[1] | safeHtml"></span>
+                          <span (click)="editProvider(provider.IDProveedor)" [innerHTML]="actionIcons[1] | safeHtml"></span>
                         </button>
                         <button type="button" title="Eliminar provider">
-                          <span (click)="deleteProvider()" [innerHTML]="actionIcons[2] | safeHtml"></span>
+                          <span (click)="deleteProvider(provider.IDProveedor)" [innerHTML]="actionIcons[2] | safeHtml"></span>
                         </button>
                       </div>
                     </td>
