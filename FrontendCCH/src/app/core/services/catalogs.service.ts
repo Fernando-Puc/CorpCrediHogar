@@ -1,12 +1,11 @@
-import { createBrancheDto, createProviderDto, editBrandDto, editProviderDto, getBranchesDto, getBrandDto, getProviderDto, getProvidersDto, getSearchForCP } from './../models/catalogs';
+import { createBrancheDto, createProviderDto, editBranchDto, editBrandDto, editProviderDto, getBranchDto, getBranchesDto, getBrandDto, getProviderDto, getProvidersDto, getSearchForCP } from './../models/catalogs';
 import { HttpClient } from '@angular/common/http';
 import { ConstantsService } from './constants.service';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { ResponseGet, ResponsePPD } from '../models/responses';
 import { CreateBrandDto, createCompanieDto, CreateLineDto, createUMedidaDto, editEmpresaDto, editLineDto, editUnidadMedidaDto, Empresas, getEmpresaDto, GetLineDto, GetUnidadMedidaDto, Linea, Marca, UnidadMedida } from '../models/catalogs';
-import { Editcompanie } from '../../ui/administrador/catalogos/empresas/editcompanie/editcompanie';
-import { editProductDto } from '../models/products';
+
 
 @Injectable({
   providedIn: 'root'
@@ -137,7 +136,21 @@ export class CatalogsService{
     return this.http.get<ResponseGet<getBranchesDto[]>>(this.URL + 'sucursales');
   }
 
+  getBranch(IDBranch: number): Observable<ResponseGet<getBranchDto>>{
+    return this.http.get<ResponseGet<getBranchDto>>(this.URL + 'versucursal/' + IDBranch);
+  }
+
   createBranch(branch: createBrancheDto):Observable<ResponsePPD>{
     return this.http.post<ResponsePPD>(this.URL + "crearsucursal", branch);
   }
+
+  editBranch(branch: editBranchDto):Observable<ResponsePPD>{
+    return this.http.put<ResponsePPD>(`${this.URL}actualizarsucursal/${branch.IDSucursal}`, branch );
+  }
+
+  deleteBranch(IDSucursal: number): Observable<ResponsePPD>{
+    return this.http.delete<ResponsePPD>(this.URL + "eliminarsucursal/" + IDSucursal);
+  }
+
+
 }

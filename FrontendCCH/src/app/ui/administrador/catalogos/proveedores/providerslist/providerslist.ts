@@ -160,8 +160,6 @@ export class Providerslist implements OnInit {
 
   editProvider(IDProveedor: number): void{
     this.router.navigate(['/administrador/editarproveedor', IDProveedor])
-
-
   }
 
   deleteProvider(IDProveedor: number): void{

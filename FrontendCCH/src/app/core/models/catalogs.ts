@@ -220,3 +220,43 @@ export interface createBrancheDto{
   Activo: boolean
 }
 
+export interface getBranchDto{
+  IDSucursal: number,
+  Codigo: string,
+  Nombre: string,
+  domicilios: {
+    IDDomicilio: number,
+    Pais: string,
+    CodigoPostal: string,
+    Estado: string,
+    Municipio: string,
+    Ciudad: string,
+    Colonia: string,
+    Calle: string,
+    NumInterior: string,
+    NumExterior: string
+  }
+  FechaRegistro: string,
+  Activo: boolean
+}
+
+export interface editBranchDto{
+  IDSucursal: number,
+  Codigo: string,
+  Nombre: string,
+  domicilio: {
+    IDDomicilio: number,
+    Pais: string,
+    CodigoPostal: string,
+    Estado: string,
+    Municipio: string,
+    Ciudad: string,
+    Colonia: string,
+    Calle: string,
+    NumInterior: string,
+    NumExterior: string
+  }
+  FechaRegistro: string,
+  Activo: boolean
+}
+

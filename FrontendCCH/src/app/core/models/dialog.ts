@@ -39,6 +39,12 @@ export const DELETE_DIALOG_PROVEEDOR: DialogData = {
     '¿Estás seguro que deseas eliminar a este proveedor?',
 };
 
+export const DELETE_DIALOG_SUCURSAL: DialogData = {
+  title: 'Eliminar sucursal',
+  message:
+    '¿Estás seguro que deseas eliminar a esta sucursal?',
+};
+
 
 
 
