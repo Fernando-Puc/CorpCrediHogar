@@ -9,6 +9,9 @@ import { CatalogsService } from '../../../../../core/services/catalogs.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { _IdGenerator } from '@angular/cdk/a11y';
+import { ConfirmDeleteComponent } from '../../../../dialog/confirm-delete/confirm-delete.component';
+import { DELETE_DIALOG_SUCURSAL } from '../../../../../core/models/dialog';
+import { ViewBranch } from '../viewbranch/viewbranch';
 
 @Component({
   selector: 'app-brancheslist',
@@ -143,15 +146,34 @@ export class Brancheslist implements OnInit{
     this.router.navigate(['administrador/catalogs/crearsucursal']);
   }
 
-  // viewBranch(IDSucursal: number): void{
-  //   this.dialog.open(ViewBranch, {
-  //     width: '1000px',
-  //     height: '950',
-  //     data: IDSucursal
-  //   });
-  // }
+  viewBranch(IDSucursal: number): void{
+    this.dialog.open(ViewBranch, {
+      width: '1000px',
+      height: '950',
+      data: IDSucursal
+    });
+  }
 
-  editProvider(IDSucursal: number): void{
-    this.router.navigate(['/admininstrador/editarsucursal', IDSucursal])
+  editBranch(IDSucursal: number): void{
+    this.router.navigate(['/administrador/editarsucursal', IDSucursal]);
+  }
+
+  deleteBranch(IDSucursal: number): void{
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      width: '30%',
+      data: DELETE_DIALOG_SUCURSAL,
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(result=>{
+      if(result){
+        this.service.deleteBranch(IDSucursal).subscribe({
+          next:()=>{
+            this.getAllBranches();
+          },
+          error:() => {}
+        });
+      }
+    });
   }
 }

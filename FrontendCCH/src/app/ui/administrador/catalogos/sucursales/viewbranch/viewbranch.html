@@ -1,0 +1,74 @@
+<div>
+  <h2 mat-dialog-title> Informacion de la Sucursal</h2>
+</div>
+
+<div mat-dialog-content>
+  <div class="view-Branch">
+    <div class="view-Branch__ali">
+      <div class="view-Branch__ali__col-3">
+        <div>
+          <label class="bold">Código</label>
+          <label>{{branch?.Codigo}}</label>
+        </div>
+        <div class="view-Branch__ali__nombre">
+          <label class="bold">Nombre</label>
+          <label>{{branch?.Nombre}}</label>
+        </div>
+        <div>
+          <label class="bold">Fecha de Registro</label>
+          <label>{{branch?.FechaRegistro}}</label>
+        </div>
+      </div>
+
+      <div class="view-Branch__ali__col-3">
+        <div>
+          <label class="bold">Pais</label>
+          <label>{{branch?.domicilios?.Pais}}</label>
+        </div>
+        <div>
+          <label class="bold">Codigo Postal</label>
+          <label>{{branch?.domicilios?.CodigoPostal}}</label>
+        </div>
+        <div>
+          <label class="bold">Estado</label>
+          <label>{{branch?.domicilios?.Estado}}</label>
+        </div>
+      </div>
+
+      <div class="view-Branch__ali__col-3">
+        <div>
+          <label class="bold">Municipio</label>
+          <label>{{branch?.domicilios?.Municipio}}</label>
+        </div>
+        <div>
+          <label class="bold">Ciudad</label>
+          <label>{{branch?.domicilios?.Ciudad}}</label>
+        </div>
+        <div>
+          <label class="bold">Colonia</label>
+          <label>{{branch?.domicilios?.Colonia}}</label>
+        </div>
+      </div>
+      <div class="view-Branch__ali__col-3">
+        <div>
+          <label class="bold">Calle</label>
+          <label>{{branch?.domicilios?.Calle}}</label>
+        </div>
+        <div>
+          <label class="bold">Numero Interior</label>
+          <label>{{branch?.domicilios?.NumInterior}}</label>
+        </div>
+        <div>
+          <label class="bold">Estatus</label>
+          <label>{{branch?.domicilios?.NumExterior}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mat-dialog-actions class="action" [align]="'end'">
+  <button mat-raised-button color="warn"  [mat-dialog-close]="false">Cerrar</button>
+</div>
+
+

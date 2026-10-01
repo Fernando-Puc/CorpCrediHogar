@@ -89,7 +89,12 @@ export const routes: Routes = [
       {
         path:'catalogs/crearsucursal',
         loadComponent:()=> import('./ui/administrador/catalogos/sucursales/createbranch/createbranch').then(c=>c.Createbranch)
-      }
+      },
+      {
+        path: 'editarsucursal/:IDSucursal',
+        loadComponent:()=> import('./ui/administrador/catalogos/sucursales/editbranch/editbranch').then(c=>c.Editbranch)
+      },
+
 
     ]
   }
