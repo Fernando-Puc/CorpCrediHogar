@@ -94,6 +94,10 @@ export const routes: Routes = [
         path: 'editarsucursal/:IDSucursal',
         loadComponent:()=> import('./ui/administrador/catalogos/sucursales/editbranch/editbranch').then(c=>c.Editbranch)
       },
+      {
+        path: 'catalogs/almacenes',
+        loadComponent:()=> import('./ui/administrador/catalogos/almacenes/warehouseslist/warehouseslist').then(c=>c.Warehouseslist)
+      },
 
 
     ]

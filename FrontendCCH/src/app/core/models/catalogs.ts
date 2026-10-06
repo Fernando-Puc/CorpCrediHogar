@@ -260,3 +260,46 @@ export interface editBranchDto{
   Activo: boolean
 }
 
+//Almacenes
+export interface getWarehousesDto{
+  IDAlmacen: number,
+  Codigo: string,
+  Nombre: string,
+  FechaRegistro: string,
+  Activo: boolean,
+  empresa: {
+    IDEmpresa: number,
+    Folio: string,
+    Nombre: string,
+  }
+  sucursal: {
+    IDSucursal: number,
+    Codigo: string,
+    Nombre: string,
+  }
+}
+
+export interface getWarehouseDto{
+  IDAlmacen: number,
+  Codigo: string,
+  Nombre: string,
+  FechaRegistro: string,
+  Activo: boolean,
+  empresa: {
+    IDEmpresa: number,
+    Folio: string,
+    Nombre: string,
+  }
+  sucursal: {
+    IDSucursal: number,
+    Codigo: string,
+    Nombre: string,
+  }
+}
+
+export interface editWarehouseDto{
+  IDAlmacen: number,
+  Codigo: string,
+  Nombre: string,
+}
+

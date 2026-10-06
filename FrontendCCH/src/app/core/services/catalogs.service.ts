@@ -1,4 +1,4 @@
-import { createBrancheDto, createProviderDto, editBranchDto, editBrandDto, editProviderDto, getBranchDto, getBranchesDto, getBrandDto, getProviderDto, getProvidersDto, getSearchForCP } from './../models/catalogs';
+import { createBrancheDto, createProviderDto, editBranchDto, editBrandDto, editProviderDto, getBranchDto, getBranchesDto, getBrandDto, getProviderDto, getProvidersDto, getSearchForCP, getWarehousesDto } from './../models/catalogs';
 import { HttpClient } from '@angular/common/http';
 import { ConstantsService } from './constants.service';
 import { Injectable } from "@angular/core";
@@ -150,6 +150,11 @@ export class CatalogsService{
 
   deleteBranch(IDSucursal: number): Observable<ResponsePPD>{
     return this.http.delete<ResponsePPD>(this.URL + "eliminarsucursal/" + IDSucursal);
+  }
+
+  //Almacenes
+  getWarehouses(): Observable<ResponseGet<getWarehousesDto[]>>{
+    return this.http.get<ResponseGet<getWarehousesDto[]>>(this.URL + 'almacenes');
   }
 
 
