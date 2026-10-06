@@ -11,6 +11,7 @@ use App\Http\Controllers\DomiciliosController;
 use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\DomicilioController;
 use App\Http\Controllers\SucursalesController;
+use App\Http\Controllers\AlmacenesController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -74,3 +75,10 @@ Route::get('catalogs/versucursal/{id}', [SucursalesController::class, 'VerSucurs
 Route::post('catalogs/crearsucursal', [SucursalesController::class, 'CrearSucursal']);
 Route::put('catalogs/actualizarsucursal/{id}', [SucursalesController::class, 'ActualizarSucursal']);
 Route::delete('catalogs/eliminarsucursal/{id}', [SucursalesController::class, 'EliminarSucursal']);
+
+//almacenes
+Route::get('catalogs/almacenes', [AlmacenesController::class, 'ObtenerAlmacenes']);
+Route::get('catalogs/veralmacen/{id}', [AlmacenesController::class, 'VerAlmacen']);
+Route::post('catalogs/crearalmacen', [AlmacenesController::class, 'CrearAlmacen']);
+Route::put('catalogs/actualizaralmacen/{id}', [AlmacenesController::class, 'ActualizarAlmacen']);
+Route::delete('catalogs/eliminaralmacen/{id}', [AlmacenesController::class, 'EliminarAlmacen']);
