@@ -1,4 +1,4 @@
-import { createBrancheDto, createProviderDto, editBranchDto, editBrandDto, editProviderDto, getBranchDto, getBranchesDto, getBrandDto, getProviderDto, getProvidersDto, getSearchForCP, getWarehousesDto } from './../models/catalogs';
+import { createBrancheDto, createProviderDto, createWarehouseDto, editBranchDto, editBrandDto, editProviderDto, editWarehouseDto, getBranchDto, getBranchesDto, getBrandDto, getProviderDto, getProvidersDto, getSearchForCP, getWarehouseDto, getWarehousesDto } from './../models/catalogs';
 import { HttpClient } from '@angular/common/http';
 import { ConstantsService } from './constants.service';
 import { Injectable } from "@angular/core";
@@ -156,6 +156,23 @@ export class CatalogsService{
   getWarehouses(): Observable<ResponseGet<getWarehousesDto[]>>{
     return this.http.get<ResponseGet<getWarehousesDto[]>>(this.URL + 'almacenes');
   }
+
+  getWarehouse(IDSucursal: number): Observable<ResponseGet<getWarehouseDto>>{
+    return this.http.get<ResponseGet<getWarehouseDto>>(this.URL + 'veralmacen/' + IDSucursal);
+  }
+
+  createWarehouse(warehouse: createWarehouseDto):Observable<ResponsePPD>{
+    return this.http.post<ResponsePPD>(this.URL + "crearalmacen", warehouse);
+  }
+
+  editWarehouse(warehouse: editWarehouseDto):Observable<ResponsePPD>{
+    return this.http.put<ResponsePPD>(`${this.URL}actualizaralmacen/${warehouse.IDAlmacen}`, warehouse );
+  }
+
+  deleteWarehouse(IDWarehouse: number): Observable<ResponsePPD>{
+    return this.http.delete<ResponsePPD>(this.URL + "eliminaralmacen/" + IDWarehouse);
+  }
+
 
 
 }

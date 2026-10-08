@@ -98,6 +98,15 @@ export const routes: Routes = [
         path: 'catalogs/almacenes',
         loadComponent:()=> import('./ui/administrador/catalogos/almacenes/warehouseslist/warehouseslist').then(c=>c.Warehouseslist)
       },
+      {
+        path: 'catalogs/crearalmacen',
+        loadComponent:() => import('./ui/administrador/catalogos/almacenes/createwarehouse/createwarehouse').then(c=>c.Createwarehouse)
+      },
+
+      {
+        path: 'editaralmacen/:IDAlmacen',
+        loadComponent:()=> import('./ui/administrador/catalogos/almacenes/editwarehouse/editwarehouse').then(c=>c.Editwarehouse)
+      }
 
 
     ]

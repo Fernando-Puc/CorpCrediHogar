@@ -45,8 +45,11 @@ export const DELETE_DIALOG_SUCURSAL: DialogData = {
     '¿Estás seguro que deseas eliminar a esta sucursal?',
 };
 
-
-
+export const DELETE_DIALOG_ALMACEN: DialogData = {
+  title: 'Eliminar almacen',
+  message:
+    '¿Estás seguro que deseas eliminar este almacen?',
+};
 
 export const DELETE_DIALOG_CONTACT: DialogData = {
   title: 'Eliminar contacto',

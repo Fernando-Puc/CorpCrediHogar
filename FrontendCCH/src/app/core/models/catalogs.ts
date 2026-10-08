@@ -297,6 +297,14 @@ export interface getWarehouseDto{
   }
 }
 
+export interface createWarehouseDto{
+    IDEmpresa: number,
+    IDSucursal: number,
+    Codigo: string,
+    Nombre: string,
+}
+
+
 export interface editWarehouseDto{
   IDAlmacen: number,
   Codigo: string,

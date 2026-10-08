@@ -8,6 +8,9 @@ import { chevronLeftIcon, chevronRightIcon, editIcon, eyeIcon, trashIcon } from 
 import { CatalogsService } from '../../../../../core/services/catalogs.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Viewwarehouse } from '../viewwarehouse/viewwarehouse';
+import { ConfirmDeleteComponent } from '../../../../dialog/confirm-delete/confirm-delete.component';
+import { DELETE_DIALOG_ALMACEN } from '../../../../../core/models/dialog';
 
 @Component({
   selector: 'app-warehouseslist',
@@ -146,14 +149,33 @@ export class Warehouseslist implements OnInit{
   }
 
   viewWarehouse(IDWarehouse: number): void{
+    this.dialog.open(Viewwarehouse, {
+      width:'1600px',
+      height: '1100',
+      data: IDWarehouse
+    });
   }
 
   editWarehouse(IDWarehouse: number): void{
-
+    this.router.navigate(['/administrador/editaralmacen', IDWarehouse])
   }
 
   deleteWarehouse(IDWarehouse: number): void{
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      width: '30%',
+      data: DELETE_DIALOG_ALMACEN,
+      disableClose: true
+    });
 
+    dialogRef.afterClosed().subscribe(result=>{
+      if(result){
+        this.service.deleteWarehouse(IDWarehouse).subscribe({
+          next:()=>{
+            this.getAllWarehouses();
+          },
+          error:() => {}
+        });
+      }
+    });
   }
-
 }
