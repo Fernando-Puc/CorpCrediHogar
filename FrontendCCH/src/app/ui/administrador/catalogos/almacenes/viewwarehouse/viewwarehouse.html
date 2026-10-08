@@ -1,0 +1,30 @@
+<div>
+  <h2 mat-dialog-title> Informacion del Almacen</h2>
+</div>
+
+<div mat-dialog-content>
+  <div class="view-Warehouse">
+    <div class="view-Warehouse__ali">
+      <div class="view-Warehouse__ali__col">
+        <div>
+          <label class="bold">Empresa</label>
+          <label>{{warehouse?.empresa?.Nombre}}</label>
+        </div>
+        <div>
+          <label class="bold">Sucursal</label>
+          <label>{{warehouse?.sucursal?.Nombre}}</label>
+        </div>
+      </div>
+      <div class="view-Warehouse__ali__col">
+        <div>
+          <label class="bold">Codigo</label>
+          <label>{{warehouse?.Codigo}}</label>
+        </div>
+        <div>
+          <label class="view-Warehouse__ali__nombre">Nombre</label>
+          <label>{{warehouse?.Nombre}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
