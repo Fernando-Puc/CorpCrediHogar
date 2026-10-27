@@ -12,6 +12,7 @@ use App\Http\Controllers\ProveedoresController;
 use App\Http\Controllers\DomicilioController;
 use App\Http\Controllers\SucursalesController;
 use App\Http\Controllers\AlmacenesController;
+use App\http\Controllers\ComprasController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -82,3 +83,11 @@ Route::get('catalogs/veralmacen/{id}', [AlmacenesController::class, 'VerAlmacen'
 Route::post('catalogs/crearalmacen', [AlmacenesController::class, 'CrearAlmacen']);
 Route::put('catalogs/actualizaralmacen/{id}', [AlmacenesController::class, 'ActualizarAlmacen']);
 Route::delete('catalogs/eliminaralmacen/{id}', [AlmacenesController::class, 'EliminarAlmacen']);
+
+//Compras
+Route::get('compras/obtenercompras', [ComprasController::class, 'ObtenerCompras']);
+Route::get('compras/vercompra/{id}', [ComprasController::class, 'VerCompra']);
+Route::get('compras/crearcompra', [ComprasController::class, 'CrearCompra']);
+Route::put('/compras/actualizarcompra/{id}', [ComprasController::class, 'ActualizarCompra']);
+Route::put('/compras/{id}/cancelar', [ComprasController::class, 'CancelarCompra']);
+Route::delete('/compras/{id}', [ComprasController::class, 'EliminarCompra']);
