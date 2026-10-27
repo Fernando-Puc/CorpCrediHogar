@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
@@ -18,38 +19,41 @@ import { SidebarOptionComponent } from './sidebar-option/sidebar-option.componen
       [class.sidebar--collapsed]="isCollapsed"
     >
 
+      <!-- Parte superior -->
       <div class="sidebar__top">
+
         <div class="sidebar__logo-container">
           <img
             class="logo"
             src="assets/image/logocredi.png"
+            alt="Credi Hogar"
           />
         </div>
 
         <div class="sidebar__options">
 
           @for (option of options; track option.route) {
-
             <sidebar-option
               [optionName]="isCollapsed ? '' : option.optionName"
               [route]="option.route"
               [icon]="option.icon"
               [exactRoute]="option.route === '/administrador'"
             />
-
           }
 
         </div>
 
       </div>
 
-
+      <!-- Parte inferior -->
       <div class="sidebar__bottom">
 
         <button
           type="button"
           class="collapse-button"
           (click)="toggleSidebar()"
+          [attr.aria-label]="isCollapsed ? 'Expandir menú' : 'Contraer menú'"
+          [title]="isCollapsed ? 'Expandir menú' : 'Contraer menú'"
         >
           <mat-icon>
             {{ isCollapsed ? 'chevron_right' : 'chevron_left' }}
@@ -58,25 +62,39 @@ import { SidebarOptionComponent } from './sidebar-option/sidebar-option.componen
 
         <div class="sidebar__divider"></div>
 
-
+        <!-- Información del usuario -->
         <div class="user-info">
 
           <mat-icon class="user-icon">
             account_circle
           </mat-icon>
+
           @if (!isCollapsed) {
             <div class="user-info__text">
-              <p class="store">
-                TIENDA MATRIZ
-              </p>
-              <p class="user">
-                JUAN PABLO COLLI
-              </p>
+              <p class="store">TIENDA MATRIZ</p>
+              <p class="user">JUAN PABLO COLLI</p>
             </div>
           }
 
         </div>
+
+        <!-- Cerrar sesión -->
+        <button
+          type="button"
+          class="btn-cerrar"
+          (click)="onLogout()"
+          aria-label="Cerrar sesión"
+          title="Cerrar sesión"
+        >
+          <mat-icon>logout</mat-icon>
+
+          @if (!isCollapsed) {
+            <span>Cerrar sesión</span>
+          }
+        </button>
+
       </div>
+
     </aside>
   `,
   styleUrl: './sidebar.component.scss'
@@ -91,18 +109,15 @@ export class SidebarComponent implements OnInit {
     private router: Router
   ) {}
 
-
   ngOnInit(): void {
     this.sidebarService.sidebarState.subscribe(state => {
       this.isCollapsed = state;
     });
   }
 
-
   toggleSidebar(): void {
     this.sidebarService.toggleSidebar();
   }
-
 
   onLogout(): void {
     this.router.navigate(['/login']);
