@@ -15,7 +15,10 @@ class ComprasController extends Controller
     //Obtener Compras
     public function ObtenerCompras()
     {
-        $compras = Compras::orderByDesc('FechaRegistro')->orderByDesc('IDCompra')->get();
+        $compras = Compras::with('proveedor')
+            ->orderByDesc('FechaRegistro')
+            ->orderByDesc('IDCompra')
+            ->get();
 
         return ResponseHelper::success($compras, 'Compras obtenidas correctamente');
     }

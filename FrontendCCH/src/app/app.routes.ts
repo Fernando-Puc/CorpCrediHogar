@@ -106,9 +106,11 @@ export const routes: Routes = [
       {
         path: 'editaralmacen/:IDAlmacen',
         loadComponent:()=> import('./ui/administrador/catalogos/almacenes/editwarehouse/editwarehouse').then(c=>c.Editwarehouse)
+      },
+      {
+        path:'almacen/compras',
+        loadComponent:() => import('./ui/administrador/almacen/compras/purchaseslist/purchaseslist').then(c=>c.Purchaseslist)
       }
-
-
     ]
   }
 
