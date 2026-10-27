@@ -293,7 +293,7 @@ class ComprasController extends Controller
         $compra = Compras::with('detalle')->find($id);
 
         if (!$compra) {
-            return ResponseHelper::error('Compra no ncontrada', 400);
+            return ResponseHelper::error('Compra no encontrada', 400);
         }
 
         if (strtolower($compra->Estado) === 'cancelada') {
