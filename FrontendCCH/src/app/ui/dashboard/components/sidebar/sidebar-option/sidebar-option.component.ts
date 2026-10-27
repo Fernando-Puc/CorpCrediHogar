@@ -44,3 +44,4 @@ export class SidebarOptionComponent {
   @Input()
   exactRoute: boolean = false;
 }
+
