@@ -2,15 +2,47 @@
   class="dashboard"
   [class.dashboard--collapsed]="isCollapsed"
 >
+  <!-- exclusivo para menu hamburguesa mobile -->
+  <header class="mobile-header">
+    <button
+      type="button"
+      class="hamburger-button"
+      (click)="toggleMobileMenu()"
+      [attr.aria-expanded]="isMobileMenuOpen"
+      aria-label="Abrir o cerrar menú"
+    >
+      <span [class.open]="isMobileMenuOpen"></span>
+      <span [class.open]="isMobileMenuOpen"></span>
+      <span [class.open]="isMobileMenuOpen"></span>
+    </button>
 
-  <app-sidebar></app-sidebar>
+    <div class="mobile-title">
+      CREDIHOGAR
+    </div>
+  </header>
+
+
+  <button
+    type="button"
+    class="sidebar-backdrop"
+    [class.sidebar-backdrop--visible]="isMobileMenuOpen"
+    (click)="closeMobileMenu()"
+    aria-label="Cerrar menú"
+    tabindex="-1"
+  ></button>
+
+
+  <div
+    class="sidebar-container"
+    [class.sidebar-container--open]="isMobileMenuOpen"
+  >
+    <app-sidebar></app-sidebar>
+  </div>
+
 
   <main class="main-content">
-
     <app-back-button fallback="/dashboard" />
 
     <router-outlet></router-outlet>
-
   </main>
-
 </div>
