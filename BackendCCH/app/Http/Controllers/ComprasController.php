@@ -42,7 +42,6 @@ class ComprasController extends Controller
                 'Serie' => 'required|string|max:255',
                 'Folio' => 'required|string|max:255',
                 'IDProveedor' => 'required|integer',
-                'FechaRegistro' => 'required|date',
                 'Concepto' => 'required|string|max:255',
 
                 //movimientos
@@ -73,7 +72,7 @@ class ComprasController extends Controller
                     'Serie' => $request->input('Serie'),
                     'Folio' => $request->input('Folio'),
                     'IDProveedor' => $request->input('IDProveedor'),
-                    'FechaRegistro' => $request->input('FechaRegistro'),
+                    'FechaRegistro' => now()->toDateString(),
                     'Concepto' => $request->input('Concepto'),
                     'Estado' => 'Registrada',
                 ]);

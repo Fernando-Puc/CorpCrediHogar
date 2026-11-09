@@ -64,3 +64,72 @@ body {
 }
 
 /* Aquí puedes agregar tus estilos globales */
+.ng-dropdown-panel {
+  z-index: 10000 !important;
+}
+
+.ng-dropdown-panel.provider-select .provider-row {
+  display: grid;
+  grid-template-columns: minmax(70px, 120px) minmax(0, 1fr) minmax(90px, 120px);
+  gap: 5px;
+  align-items: center;
+
+  span {
+    white-space: normal;
+    word-break: break-word;
+  }
+}
+
+.product-select .option-row {
+  display: grid;
+  grid-template-columns: minmax(70px, 120px) minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+
+  span {
+    white-space: normal;
+    word-break: break-word;
+  }
+
+  &--header {
+    padding: 8px 12px;
+    font-weight: 600;
+    background: #f3f3f3;
+    border-bottom: 1px solid #ddd;
+  }
+}
+
+.ng-select {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.ng-select .ng-select-container .ng-value-container {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  white-space: normal;
+  word-break: break-word;
+}
+
+.yForm > .x,
+.x {
+  min-width: 0;
+}

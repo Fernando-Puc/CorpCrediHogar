@@ -1,0 +1,93 @@
+<div class="dialogContainer">
+  <h1 class="titleForm">{{ isEdit ? 'Editar producto' : 'Agregar producto' }}</h1>
+
+  <form [formGroup]="formGroup">
+    <div class="yForm">
+  <div class="x space">
+    <label>Producto</label>
+    <ng-select class="product-select" [items]="products" bindLabel="nombre" bindValue="IDProducto"
+      [clearable]="false" formControlName="producto" [searchFn]="searchProduct"
+      placeholder="Busca por código o nombre">
+
+      <ng-template ng-header-tmp>
+        <div class="option-row option-row--header">
+          <span>Código</span>
+          <span>Nombre</span>
+        </div>
+      </ng-template>
+
+      <ng-template ng-label-tmp let-item="item"> {{ item.nombre }}</ng-template>
+
+      <ng-template ng-option-tmp let-item="item">
+        <div class="option-row">
+          <span>{{ item.codigo }}</span>
+          <span>{{ item.nombre }}</span>
+        </div>
+      </ng-template>
+    </ng-select>
+    @if (!formGroup.get('producto')?.valid && formGroup.get('producto')?.touched) {
+      <span class="error-message"> {{ formGroup.get('producto')?.errors?.['message'] }} </span>
+    }
+  </div>
+
+  <div class="x space">
+    <label>Almacén</label>
+    <ng-select class="product-select" [items]="warehouses" bindLabel="Nombre" bindValue="IDAlmacen"
+      [clearable]="false" formControlName="almacen" [searchFn]="searchWarehouse"
+      placeholder="Busca por código o nombre">
+      <ng-template ng-header-tmp>
+        <div class="option-row option-row--header">
+          <span>Código</span>
+          <span>Nombre</span>
+        </div>
+      </ng-template>
+      <ng-template ng-label-tmp let-item="item"> {{ item.Nombre }}</ng-template>
+      <ng-template ng-option-tmp let-item="item">
+        <div class="option-row">
+          <span>{{ item.Codigo }}</span>
+          <span>{{ item.Nombre }}</span>
+        </div>
+      </ng-template>
+    </ng-select>
+    @if (!formGroup.get('almacen')?.valid && formGroup.get('almacen')?.touched) {
+      <span class="error-message"> {{ formGroup.get('almacen')?.errors?.['message'] }} </span>
+      }
+      </div>
+    </div>
+
+    <div class="yForm">
+      <div class="x">
+        <text-input type="text" label="Cantidad" [controller]="formGroup.get('cantidad')"> </text-input>
+      </div>
+      <div class="x">
+        <text-input type="text" label="Precio" [controller]="formGroup.get('precio')"> </text-input>
+      </div>
+      <div class="x">
+        <text-input type="text" label="Descuento %" [controller]="formGroup.get('descuentoPorcentaje')"> </text-input>
+      </div>
+      <div class="x space">
+        <label>IVA</label>
+        <ng-select [items]="ivaOptions" bindLabel="label" bindValue="value" [clearable]="false"
+          formControlName="tasaIVA" appendTo="body">
+        </ng-select>
+      </div>
+    </div>
+  </form>
+
+  <div class="preview">
+    <div><span>Neto:</span> <strong>{{ preview.neto | currency:'MXN':'symbol':'1.2-2' }}</strong></div>
+    <div><span>Descuento:</span> <strong>{{ preview.descuento | currency:'MXN':'symbol':'1.2-2' }}</strong></div>
+    <div><span>IVA:</span> <strong>{{ preview.iva | currency:'MXN':'symbol':'1.2-2' }}</strong></div>
+    <div class="preview__total"><span>Total:</span> <strong>{{ preview.total | currency:'MXN':'symbol':'1.2-2' }}</strong></div>
+  </div>
+
+  @if (errorMessage) {
+    <div class="error-message">{{ errorMessage }}</div>
+  }
+
+  <div class="actions">
+    <action-button variant="cancel" text="Cancelar" (click)="onCancel()"></action-button>
+    <action-button variant="accept" text="Guardar" (click)="onSave()"
+      [isDisabled]="!formGroup.valid"></action-button>
+  </div>
+</div>

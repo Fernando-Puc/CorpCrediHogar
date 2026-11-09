@@ -144,7 +144,7 @@ export class Purchaseslist implements OnInit {
   }
 
   navigateToAddNew(): void {
-    this.router.navigate(['administrador/crearcompra']);
+    this.router.navigate(['administrador/almacen/crearcompra']);
   }
 
   viewPurchase(IDCompra: number): void {
