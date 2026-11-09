@@ -13,7 +13,6 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
-
 jobs:
   deploy:
     environment:
