@@ -2,7 +2,7 @@ import { Injectable, Service } from '@angular/core';
 import { ConstantsService } from './constants.service';
 import { HttpClient } from '@angular/common/http';
 import { ResponseGet, ResponsePPD } from '../models/responses';
-import { getPurchasesDto } from '../models/purchases';
+import { createPurchaseDto, getPurchasesDto } from '../models/purchases';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,6 +16,10 @@ export class PurchasesService{
 
   getPurchases(): Observable<ResponseGet<getPurchasesDto[]>>{
     return this.http.get<ResponseGet<getPurchasesDto[]>>(this.URL + 'obtenercompras');
+  }
+
+  createPurchase(purchase: createPurchaseDto): Observable<ResponsePPD>{
+    return this.http.post<ResponsePPD>(this.URL + "crearcompra", purchase);
   }
 
   cancelPurchase(id: number): Observable<ResponsePPD>{

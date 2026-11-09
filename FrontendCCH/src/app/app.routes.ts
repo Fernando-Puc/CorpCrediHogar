@@ -110,6 +110,10 @@ export const routes: Routes = [
       {
         path:'almacen/compras',
         loadComponent:() => import('./ui/administrador/almacen/compras/purchaseslist/purchaseslist').then(c=>c.Purchaseslist)
+      },
+      {
+        path:'almacen/crearcompra',
+        loadComponent:() => import('./ui/administrador/almacen/compras/createpurchases/createpurchases').then(c=>c.Createpurchases)
       }
     ]
   }
