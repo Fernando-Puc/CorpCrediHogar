@@ -62,7 +62,7 @@ export class Addpurchasemovement {
   };
 
   searchWarehouse = (term: string, item: getWarehousesDto): boolean => {
-  return `${item.Codigo ?? ''} ${item.Nombre}`.toLowerCase().includes(term.trim().toLowerCase());
+  return `${item.Codigo} ${item.Nombre}`.toLowerCase().includes(term.trim().toLowerCase());
 };
 
   get preview() {
@@ -112,7 +112,8 @@ export class Addpurchasemovement {
       CodigoProducto: producto ? `${producto.codigo}` : '',
       NombreProducto: producto ? `${producto.nombre}` : '',
       UnidadMedidaProducto: producto ? `${producto.unidadMedida.nombre}`: '',
-      NombreAlmacen: almacen?.Nombre ?? '',
+      CodigoAlmacen: almacen ? `${almacen.Codigo}` : '',
+      NombreAlmacen: almacen ? `${almacen.Nombre}` : '',
       Cantidad: cantidad,
       Precio: precio,
       DescuentoPorcentaje: pct,

@@ -5,7 +5,7 @@
     <div class="yForm">
   <div class="x space">
     <label>Producto</label>
-    <ng-select class="product-select" [items]="products" bindLabel="nombre" bindValue="IDProducto"
+    <ng-select #ProductSelect class="product-select" [items]="products" bindLabel="codigo" bindValue="IDProducto"
       [clearable]="false" formControlName="producto" [searchFn]="searchProduct"
       placeholder="Busca por código o nombre">
 
@@ -16,8 +16,6 @@
         </div>
       </ng-template>
 
-      <ng-template ng-label-tmp let-item="item"> {{ item.nombre }}</ng-template>
-
       <ng-template ng-option-tmp let-item="item">
         <div class="option-row">
           <span>{{ item.codigo }}</span>
@@ -25,6 +23,16 @@
         </div>
       </ng-template>
     </ng-select>
+
+
+  @if (ProductSelect.selectedItems[0]?.value; as p) {
+      <div class="yForm">
+        <div class="x">
+            <span class="selected-info">{{ p.nombre }}</span>
+          </div>
+      </div>
+  }
+
     @if (!formGroup.get('producto')?.valid && formGroup.get('producto')?.touched) {
       <span class="error-message"> {{ formGroup.get('producto')?.errors?.['message'] }} </span>
     }
@@ -32,7 +40,7 @@
 
   <div class="x space">
     <label>Almacén</label>
-    <ng-select class="product-select" [items]="warehouses" bindLabel="Nombre" bindValue="IDAlmacen"
+    <ng-select #WarehouseSelect class="product-select" [items]="warehouses" bindLabel="Codigo" bindValue="IDAlmacen"
       [clearable]="false" formControlName="almacen" [searchFn]="searchWarehouse"
       placeholder="Busca por código o nombre">
       <ng-template ng-header-tmp>
@@ -41,7 +49,7 @@
           <span>Nombre</span>
         </div>
       </ng-template>
-      <ng-template ng-label-tmp let-item="item"> {{ item.Nombre }}</ng-template>
+
       <ng-template ng-option-tmp let-item="item">
         <div class="option-row">
           <span>{{ item.Codigo }}</span>
@@ -49,11 +57,21 @@
         </div>
       </ng-template>
     </ng-select>
+
+    @if (WarehouseSelect.selectedItems[0]?.value; as w) {
+      <div class="yForm">
+        <div class="x">
+          <span class="selected-info">{{ w.Nombre }}</span>
+        </div>
+      </div>
+    }
+
     @if (!formGroup.get('almacen')?.valid && formGroup.get('almacen')?.touched) {
       <span class="error-message"> {{ formGroup.get('almacen')?.errors?.['message'] }} </span>
       }
       </div>
     </div>
+
 
     <div class="yForm">
       <div class="x">

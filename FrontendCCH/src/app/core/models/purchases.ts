@@ -27,6 +27,7 @@ export interface PurchaseMovementView extends PurchaseMovementDto {
   CodigoProducto: string;
   NombreProducto: string;
   UnidadMedidaProducto: string;
+  CodigoAlmacen: string;
   NombreAlmacen: string;
   Neto: number;
   Descuento: number;
@@ -40,4 +41,26 @@ export interface createPurchaseDto {
   IDProveedor: number;
   Concepto: string;
   movimientos: PurchaseMovementDto[];
+}
+
+
+export interface PurchaseDetailLineDto extends PurchaseMovementView {
+  IDMovimiento: number;
+}
+
+export interface getPurchaseDto {
+  IDCompra: number;
+  Serie: string;
+  Folio: string;
+  IDProveedor: number;
+  FechaRegistro: string;
+  Concepto: string;
+  TotalProductos: number;
+  Subtotal: number;
+  Descuentos: number;
+  Impuestos: number;
+  Total: number;
+  Estado: string;
+  proveedor: { Codigo: string; Nombre: string; RFC: string } | null;
+  movimientos: PurchaseDetailLineDto[];
 }

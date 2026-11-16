@@ -26,10 +26,49 @@ class ComprasController extends Controller
     //Ver Compra
     public function VerCompra($id)
     {
-        $compra = Compras::with(['detalle.producto', 'detalle.almacen'])->findOrFail($id);
+        $compra = Compras::with(['proveedor', 'detalle.producto.unidadMedida', 'detalle.almacen'])
+            ->findOrFail($id);
 
-        return ResponseHelper::success($compra, 'Detalles de compra obtenidos correctamente');
-    }
+        $compraFormateada = [
+            'IDCompra' => $compra->IDCompra,
+            'Serie' => $compra->Serie,
+            'Folio' => $compra->Folio,
+            'IDProveedor' => $compra->IDProveedor,
+            'FechaRegistro' => $compra->FechaRegistro,
+            'Concepto' => $compra->Concepto,
+            'TotalProductos' => (float) $compra->TotalProductos,
+            'Subtotal' => (float) $compra->Subtotal,
+            'Descuentos' => (float) $compra->Descuentos,
+            'Impuestos' => (float) $compra->Impuestos,
+            'Total' => (float) $compra->Total,
+            'Estado' => $compra->Estado,
+            'proveedor' => $compra->proveedor ? [
+                'Codigo' => $compra->proveedor->Codigo,
+                'Nombre' => $compra->proveedor->Nombre,
+                'RFC' => $compra->proveedor->RFC,
+            ] : null,
+            'movimientos' => $compra->detalle->map(fn($d) => [
+                'IDMovimiento' => $d->IDMovimiento,
+                'IDProducto' => $d->IDProducto,
+                'IDAlmacen' => $d->IDAlmacen,
+                'CodigoProducto' => $d->producto?->Codigo,
+                'NombreProducto' => $d->producto?->Nombre,
+                'UnidadMedidaProducto' => $d->producto?->unidadMedida?->Nombre,
+                'CodigoAlmacen' => $d->almacen?->Codigo,
+                'NombreAlmacen' => $d->almacen?->Nombre,
+                'Cantidad' => (float) $d->Cantidad,
+                'Precio' => (float) $d->Precio,
+                'DescuentoPorcentaje' => (float) $d->DescuentoPorcentaje,
+                'TasaIVA' => (float) $d->TasaIVA,
+                'Neto' => (float) $d->Neto,
+                'Descuento' => (float) $d->Descuento,
+                'IVA' => (float) $d->IVA,
+                'Total' => (float) $d->Total,
+            ])->values(),
+        ];
+
+            return ResponseHelper::success($compraFormateada, 'Detalles de compra obtenidos correctamente');
+        }
 
     //Registrar Compra
     public function CrearCompra(Request $request)
