@@ -133,3 +133,15 @@ body {
 .x {
   min-width: 0;
 }
+
+.dialog-wide {
+  width: 1100px !important;
+  max-width: 90vw !important;
+
+  .mat-mdc-dialog-container {
+    --mat-dialog-container-max-width: 90vw;
+    --mat-dialog-container-min-width: 1000px;
+    width: 100%;
+    max-width: 90vw;
+  }
+}

@@ -29,7 +29,6 @@
             <div class="provider-row provider-row--header">
               <span>Código</span>
               <span>Nombre</span>
-         
             </div>
           </ng-template>
 
@@ -45,6 +44,7 @@
             </div>
           </ng-template>
         </ng-select>
+
         @if (!formgroup.get('proveedor')?.valid && formgroup.get('proveedor')?.touched) {
           <span class="error-message"> {{ formgroup.get('proveedor')?.errors?.['message'] }} </span>
         }

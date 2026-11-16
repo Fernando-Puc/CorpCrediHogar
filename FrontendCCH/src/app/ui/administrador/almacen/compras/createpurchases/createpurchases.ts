@@ -95,8 +95,11 @@ export class Createpurchases implements OnInit {
       movement: index !== undefined ? this.movimientos[index] : undefined,
     };
 
+
+
     const dialogRef = this.dialog.open(Addpurchasemovement, {
-      width: '1200px',
+      width: '750px',
+      maxWidth: '90vw',
       data,
       disableClose: true,
     });

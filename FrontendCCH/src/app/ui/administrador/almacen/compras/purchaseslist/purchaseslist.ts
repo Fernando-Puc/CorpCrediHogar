@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ConfirmDeleteComponent } from '../../../../dialog/confirm-delete/confirm-delete.component';
 import { CANCEL_DIALOG_COMPRA, DELETE_DIALOG_COMPRA } from '../../../../../core/models/dialog';
+import { Viewpurchases } from '../viewpurchases/viewpurchases';
 // import { Viewpurchase } from '../viewpurchase/viewpurchase';  // siguiente componente
 
 @Component({
@@ -148,8 +149,12 @@ export class Purchaseslist implements OnInit {
   }
 
   viewPurchase(IDCompra: number): void {
-    // Se activa cuando exista el componente Viewpurchase
-    // this.dialog.open(Viewpurchase, { width: '1000px', data: IDCompra });
+    this.dialog.open(Viewpurchases, {
+      width: '1000px',
+      maxWidth: '90vw',
+      panelClass: 'dialog-wide',
+      data: IDCompra
+    })
   }
 
   cancelPurchase(IDCompra: number): void {
@@ -164,7 +169,6 @@ export class Purchaseslist implements OnInit {
         this.errorMessage = '';
         this.service.cancelPurchase(IDCompra).subscribe({
           next: () => this.getAllPurchases(),
-          // el backend explica el motivo (existencia insuficiente, compras posteriores...)
           error: err => {
             this.errorMessage = err?.error?.message ?? 'No se pudo cancelar la compra';
             this.changeDetectorRef.markForCheck();
