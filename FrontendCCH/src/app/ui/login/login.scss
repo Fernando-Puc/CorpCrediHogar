@@ -20,7 +20,7 @@ $input-text: #4a2c2c;
   width: 100%;
 
   background: linear-gradient(135deg, $bg-red-dark 0%, $bg-red 50%, $bg-red-light 100%),
-    url('/assets/image/FLogin.png') center center;
+    url('/assets/image/ejemplo.jpg') center center;
   background-blend-mode: multiply;
   background-size: cover;
 }
@@ -45,7 +45,7 @@ $input-text: #4a2c2c;
     align-items: center;
 
     img {
-      width: 100px;
+      width: 225px;
       height: auto;
     }
   }
