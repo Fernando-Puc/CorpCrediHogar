@@ -1,0 +1,22 @@
+.dialogContainer {
+  padding: 24px;
+}
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  margin: 16px 0;
+
+  span {
+    margin-right: 12px;
+    color: #555;
+  }
+
+  &__total {
+    font-size: 18px;
+  }
+}
+
+

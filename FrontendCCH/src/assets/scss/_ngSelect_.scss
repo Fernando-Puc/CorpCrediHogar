@@ -71,3 +71,7 @@
 * {
   font-family: "CodecPro-Regular", sans-serif;
 }
+
+.ng-dropdown-panel {
+  z-index: 10000 !important;
+}

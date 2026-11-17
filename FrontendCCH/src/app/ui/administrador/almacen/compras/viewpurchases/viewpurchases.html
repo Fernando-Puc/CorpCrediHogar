@@ -1,0 +1,112 @@
+<div>
+  <h2 mat-dialog-title>Informacion de la compra</h2>
+</div>
+
+<div mat-dialog-content>
+  <div class="view-Provider">
+    <div class="view-Provider__ali">
+      <div class="view-Provider__ali__col-3">
+        <div>
+          <label class="bold">Fecha Registro</label>
+          <label>{{purchase?.FechaRegistro}}</label>
+        </div>
+        <div>
+          <label class="bold">Serie</label>
+          <label>{{purchase?.Serie}}</label>
+        </div>
+        <div>
+          <label class="bold">Folio</label>
+          <label>{{purchase?.Folio}}</label>
+        </div>
+      </div>
+
+      <div class="view-Provider__ali__col-3">
+        <div>
+          <label class="bold">Razón Social</label>
+          <label>{{purchase?.proveedor?.Nombre}}</label>
+        </div>
+        <div>
+          <label class="bold">Concepto</label>
+          <label>{{purchase?.Concepto}}</label>
+        </div>
+        <div>
+          <label class="bold">Total de productos</label>
+          <label>{{purchase?.TotalProductos}}</label>
+        </div>
+      </div>
+
+      <div class="view-Provider__ali__col-3">
+        <div>
+          <label class="bold">Subtotal</label>
+          <label>{{purchase?.Subtotal | currency}}</label>
+        </div>
+
+        <div>
+          <label class="bold">Descuentos</label>
+          <label>{{purchase?.Descuentos | currency}}</label>
+        </div>
+
+        <div>
+          <label class="bold">Impuestos</label>
+          <label>{{purchase?.Impuestos | currency}}</label>
+        </div>
+      </div>
+      <div class="view-Provider__ali__col-3">
+        <div>
+          <label class="bold">Total</label>
+          <label>{{purchase?.Total | currency}}</label>
+        </div>
+        <div>
+          <label class="bold">Estado</label>
+          <label>{{purchase?.Estado}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="view-products">
+  <h3 class="view-products__title">Productos comprados</h3>
+
+  <div class="table__responsive-container">
+    <table class="table">
+      <thead class="table__head">
+        <tr class="table__row">
+          <th class="table__header">CÓDIGO</th>
+          <th class="table__header">NOMBRE</th>
+          <th class="table__header">ALMACÉN</th>
+          <th class="table__header numeric">CANTIDAD</th>
+          <th class="table__header numeric">PRECIO</th>
+          <th class="table__header numeric">DESC. %</th>
+            <th class="table__header numeric">NETO</th>
+            <th class="table__header numeric">IVA</th>
+            <th class="table__header numeric">TOTAL</th>
+          </tr>
+        </thead>
+
+        <tbody class="table__body">
+          @for (m of purchase?.movimientos; track m.IDMovimiento) {
+            <tr class="table__row">
+              <td class="table__data">{{ m.CodigoProducto }}</td>
+              <td class="table__data">{{ m.NombreProducto }}</td>
+              <td class="table__data">{{ m.NombreAlmacen }}</td>
+              <td class="table__data numeric">{{ m.Cantidad }}</td>
+              <td class="table__data numeric">{{ m.Precio | currency }}</td>
+              <td class="table__data numeric">{{ m.DescuentoPorcentaje }}%</td>
+              <td class="table__data numeric">{{ m.Neto | currency }}</td>
+              <td class="table__data numeric">{{ m.IVA | currency }}</td>
+              <td class="table__data numeric">{{ m.Total | currency }}</td>
+            </tr>
+          } @empty {
+            <tr class="table__row">
+              <td class="table__data empty" colspan="10">Esta compra no tiene productos</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div mat-dialog-actions class="action" [align]="'end'">
+  <button mat-raised-button color="warn" [mat-dialog-close]="false">Cerrar</button>
+</div>

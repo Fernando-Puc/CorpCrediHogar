@@ -89,3 +89,16 @@ export const UNSAVED_DIALOG: DialogData = {
       'No existe el codigo postal',
   };
 
+  export const CANCEL_DIALOG_COMPRA: DialogData = {
+  title: 'Cancelar compra ',
+  message:
+    '¿Estás seguro que deseas cancelar esta compra?',
+};
+
+
+  export const DELETE_DIALOG_COMPRA: DialogData = {
+  title: 'Eliminar compra',
+  message:
+    '¿Estás seguro que deseas eliminar esta compra?',
+};
+
