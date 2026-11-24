@@ -58,7 +58,9 @@
         </div>
         <div>
           <label class="bold">Estado</label>
-          <label>{{purchase?.Estado}}</label>
+          <span class="status" [class.status--cancelled]="isCancelled(purchase?.Estado)">
+            {{ purchase?.Estado }}
+          </span>
         </div>
       </div>
     </div>
@@ -77,6 +79,7 @@
           <th class="table__header numeric">CANTIDAD</th>
           <th class="table__header numeric">PRECIO</th>
           <th class="table__header numeric">DESC. %</th>
+          <th class="table__header numeric">P C/DESC</th>
             <th class="table__header numeric">NETO</th>
             <th class="table__header numeric">IVA</th>
             <th class="table__header numeric">TOTAL</th>
@@ -92,6 +95,7 @@
               <td class="table__data numeric">{{ m.Cantidad }}</td>
               <td class="table__data numeric">{{ m.Precio | currency }}</td>
               <td class="table__data numeric">{{ m.DescuentoPorcentaje }}%</td>
+              <td class="table__data numeric">{{ (m.Precio * (1- m.DescuentoPorcentaje / 100)) | currency: '$'}}</td>
               <td class="table__data numeric">{{ m.Neto | currency }}</td>
               <td class="table__data numeric">{{ m.IVA | currency }}</td>
               <td class="table__data numeric">{{ m.Total | currency }}</td>
