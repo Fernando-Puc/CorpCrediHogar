@@ -1,0 +1,82 @@
+
+.existences-costs {
+  width: 100%;
+  margin: 15px 0 20px;
+  padding: 15px;
+  border: 1px solid #ced4da;
+  border-radius: 10px;
+}
+
+.existences-costs__title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.existences-costs__content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.existences-cost {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.existences-cost span {
+  color: #6c7d6e;
+  font-size: 13px;
+}
+
+.existences-cost strong {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.existences-total {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 10px;
+  font-size: 15px;
+  border-top: 1px solid #ced4da;
+}
+
+.existences-total strong {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.selected-row {
+  background-color: #f0f5ff;
+}
+
+.table__row {
+  cursor: pointer;
+}
+
+.table__row:hover {
+  background-color: #f5f5f5;
+}
+
+.selected-row:hover {
+  background-color: #e8efff;
+}
+
+:host ::ng-deep ng-select {
+  width: 100%;
+}
+
+:host ::ng-deep .ng-select .ng-select-container {
+  min-height: 38px;
+
+  border-radius: 10px;
+}
+
+:host ::ng-deep .ng-select.ng-select-focused .ng-select-container {
+  border-color: #dc3545;
+  box-shadow: none;
+}

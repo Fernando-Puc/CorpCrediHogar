@@ -24,4 +24,8 @@ export class Viewpurchases implements OnInit{
       this.ChangeDetectorRef.markForCheck();
     })
   }
+
+  isCancelled(estado?: string | null): boolean {
+    return String(estado ?? '').toLowerCase() === 'cancelada';
+  }
 }

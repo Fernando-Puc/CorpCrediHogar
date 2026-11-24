@@ -1,0 +1,254 @@
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"/>
+
+<div class="mainContainer">
+  <div class="subExpand">
+    <div class="y">
+      <div class="x">
+        <h1 class="table__title">Existencias y Precios</h1>
+      </div>
+    </div>
+
+    @if (isloading === false) {
+      <form class="form" (submit)="$event.preventDefault()">
+        <div class="row">
+          <div class="col-5">
+            <div class="x space">
+              <label for="producto">Producto</label>
+              <ng-select
+                #ProductSelect
+                id="producto"
+                class="product-select"
+                [items]="products"
+                bindLabel="nombre"
+                bindValue="IDProducto"
+                placeholder="Busca por código o nombre"
+                [(ngModel)]="selectedProductId"
+                (change)="onProductChange()"
+                name="producto"
+                [clearable]="false"
+                [searchFn]="searchProduct"
+                appendTo="body">
+
+                <ng-template ng-header-tmp>
+                  <div class="option-row option-row--header">
+                    <span>Código</span>
+                    <span>Nombre</span>
+                  </div>
+                </ng-template>
+
+                <ng-template ng-label-tmp let-item="item">
+                  {{ item.nombre }}
+                </ng-template>
+
+                <ng-template ng-option-tmp let-item="item">
+                  <div class="option-row">
+                    <span>{{ item.codigo }}</span>
+                    <span>{{ item.nombre }}</span>
+                  </div>
+                </ng-template>
+              </ng-select>
+
+                @if (ProductSelect.selectedItems[0]?.value; as p) {
+                <div class="yForm">
+                  <div class="x">
+                      <span class="selected-info"> MODELO: </span>
+                      <span>{{ p.codigo }}</span>
+                    </div>
+                </div>
+                }
+            </div>
+          </div>
+
+          <div class="col-5">
+
+              <div class="x space">
+                <label for="empresa">Empresa</label>
+                <ng-select
+                  #CompanieSelect
+                  id="empresa"
+                  class="product-select"
+                  [items]="companies"
+                  bindLabel="Nombre"
+                  bindValue="IDEmpresa"
+                  placeholder="Selecciona una empresa"
+                  [(ngModel)]="selectedCompanyId"
+                  (change)="onCompanyChange()"
+                  name="empresa"
+                  [clearable]="false"
+                  [searchFn]="searchCompany"
+                  appendTo="body">
+
+                  <ng-template ng-header-tmp>
+                    <div class="option-row option-row--header">
+                      <span>Folio</span>
+                      <span>Empresa</span>
+                    </div>
+                  </ng-template>
+
+                  <ng-template ng-label-tmp let-item="item">
+                    {{ item.Nombre }}
+                  </ng-template>
+
+                  <ng-template ng-option-tmp let-item="item">
+                    <div class="option-row">
+                      <span>{{ item.Folio }}</span>
+                      <span>{{ item.Nombre }}</span>
+                    </div>
+                  </ng-template>
+                </ng-select>
+              @if (CompanieSelect.selectedItems[0]?.value; as p) {
+                <div class="yForm">
+                  <div class="x">
+                      <span class="selected-info"> FOLIO: </span>
+                      <span>{{ p.Folio }}</span>
+                    </div>
+                </div>
+                }
+            </div>
+          </div>
+        </div>
+      </form>
+    }
+
+    @if (selectedProductId && selectedCompanyId && selectedExistence && isloading === false) {
+      <div class="existences-costs">
+        <div class="existences-costs__title">
+          Costos de la empresa seleccionada
+        </div>
+
+        <div class="existences-costs__content">
+          <div class="existences-cost">
+            <span>Empresa</span>
+            <strong>
+              {{ selectedExistence.almacen?.empresa?.Nombre ?? 'Empresa seleccionada' }}
+            </strong>
+          </div>
+
+          <div class="existences-cost">
+            <span>Costo promedio</span>
+            <strong>
+              {{ selectedExistence.CostoPromedioEmpresa ?? 0 | currency:'$ ' }}
+            </strong>
+          </div>
+
+          <div class="existences-cost">
+            <span>Último costo</span>
+            <strong>
+              {{ selectedExistence.UltimoCostoEmpresa ?? 0 | currency:'$ ' }}
+            </strong>
+          </div>
+        </div>
+      </div>
+    }
+
+    @if (selectedProductId && selectedCompanyId && isloading === false && isresult === true) {
+      <form class="form" (submit)="$event.preventDefault()">
+        <div class="row">
+          <div class="col-5">
+            <div class="input-group">
+              <input
+                type="text"
+                class="filter"
+                placeholder="Buscar almacén"
+                [(ngModel)]="searchTerm"
+                (keydown.enter)="onSearch()"
+                (input)="onInputChange()"
+                name="searchTerm"
+                maxlength="30"
+              />
+              <i class="bi bi-funnel icon-filter"></i>
+            </div>
+          </div>
+        </div>
+      </form>
+    }
+
+    <div class="tableWrap">
+      @if (selectedProductId && selectedCompanyId && filteredExistences.length > 0 && isloading === false) {
+        <div class="table__responsive-container">
+          <table class="table">
+            <thead class="table__head">
+              <tr class="table__row">
+                <th class="table__header">CÓDIGO ALMACÉN</th>
+                <th class="table__header">ALMACÉN</th>
+                <th class="table__header">EXISTENCIA</th>
+                <th class="table__header">ÚLTIMA ACTUALIZACIÓN</th>
+              </tr>
+            </thead>
+
+            <tbody class="table__body">
+              @for (existence of getPagedData(); track existence.IDExistencia ?? $index) {
+                @if (existence.IDExistencia !== undefined) {
+                  <tr
+                    class="table__row"
+                    [class.selected-row]="selectedExistence?.IDExistencia === existence.IDExistencia"
+                    (click)="selectWarehouse(existence)">
+
+                    <td class="table__data">{{ existence.CodigoAlmacen }}</td>
+                    <td class="table__data">{{ existence.NombreAlmacen }}</td>
+                    <td class="table__data">{{ existence.Existencia }}</td>
+                    <td class="table__data">
+                      {{ existence.UltimaActualizacion ? (existence.UltimaActualizacion | date:'dd/MM/yyyy HH:mm') : 'Sin actualización' }}
+                    </td>
+                  </tr>
+                }
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <footer class="table__footer-controls">
+          <div class="table__pagination-buttons">
+            <span class="table__pagination-view">{{ existenceCount }} registros</span>
+
+            <button
+              type="button"
+              class="table__pagination-button"
+              [disabled]="pageIndex === 0"
+              (click)="previousPage()">
+              <span [innerHTML]="paginationIcons.left | safeHtml"></span>
+            </button>
+
+            <span class="table__pagination-view">
+              {{ pageIndex + 1 }} de {{ numberOfPages }}
+            </span>
+
+            <button
+              type="button"
+              class="table__pagination-button"
+              [disabled]="pageIndex >= numberOfPages - 1"
+              (click)="nextPage()">
+              <span [innerHTML]="paginationIcons.right | safeHtml"></span>
+            </button>
+          </div>
+        </footer>
+
+        <div class="existences-total">
+          <span>Existencia total de la empresa:</span>
+          <strong>{{ totalExistence }}</strong>
+        </div>
+      } @else {
+        @if (errorMessage) {
+          <div class="message message--error">{{ errorMessage }}</div>
+        }
+
+        @if (isloading) {
+          <div class="load"></div>
+        } @else {
+          @if (!selectedProductId || !selectedCompanyId) {
+            <div class="message">
+              Selecciona un producto y una empresa para consultar sus existencias
+            </div>
+          } @else if (searchTerm.trim().length > 0) {
+            <div class="message">No se encontraron almacenes</div>
+          } @else {
+            <div class="message">
+              El producto no tiene existencias registradas en esta empresa
+            </div>
+          }
+        }
+      }
+    </div>
+  </div>
+</div>

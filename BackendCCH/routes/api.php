@@ -13,6 +13,7 @@ use App\Http\Controllers\DomicilioController;
 use App\Http\Controllers\SucursalesController;
 use App\Http\Controllers\AlmacenesController;
 use App\http\Controllers\ComprasController;
+use App\http\Controllers\ExistenciasController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -91,3 +92,9 @@ Route::post('compras/crearcompra', [ComprasController::class, 'CrearCompra']);
 Route::put('/compras/actualizarcompra/{id}', [ComprasController::class, 'ActualizarCompra']);
 Route::put('/compras/{id}/cancelar', [ComprasController::class, 'CancelarCompra']);
 Route::delete('compras/eliminarcompra/{id}', [ComprasController::class, 'EliminarCompra']);
+
+
+//Existencias
+Route::get('/existencias', [ExistenciasController::class, 'ObtenerExistencias']);
+Route::get('/existencias/{id}', [ExistenciasController::class, 'VerExistencia']);
+
