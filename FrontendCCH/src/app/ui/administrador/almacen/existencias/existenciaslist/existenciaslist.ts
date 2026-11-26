@@ -11,10 +11,13 @@ import { chevronLeftIcon, chevronRightIcon } from '../../../../../core/shared/sh
 import { ProductsService } from '../../../../../core/services/products.service';
 import { ExistencesService } from '../../../../../core/services/existence.service';
 import { CatalogsService } from '../../../../../core/services/catalogs.service';
+import { MatDialog } from '@angular/material/dialog';
+import { Viewcosthistory } from '../viewcosthistory/viewcosthistory';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-existenciaslist',
-  imports: [FormsModule, CommonModule, NgSelectModule, SafeHtmlPipe],
+  imports: [FormsModule, CommonModule, NgSelectModule, SafeHtmlPipe, MatIconModule],
   templateUrl: './existenciaslist.html',
   styleUrl: './existenciaslist.scss',
 })
@@ -50,7 +53,8 @@ export class Existenceslist implements OnInit {
     private productService: ProductsService,
     private service: ExistencesService,
     private catalogsService: CatalogsService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -273,4 +277,25 @@ export class Existenceslist implements OnInit {
       .toLowerCase()
       .includes(term.trim().toLowerCase());
   };
+
+  openCostHistory(): void {
+    if(!this.selectedProductId || !this.selectedCompanyId){
+      return;
+    }
+
+    const product = this.products.find(
+      item => item.IDProducto === this.selectedProductId
+    );
+
+    this.dialog.open(Viewcosthistory, {
+      width: '1100px',
+      maxWidth: '95vw',
+      data: {
+        IDProducto: this.selectedProductId,
+        IDEmpresa: this.selectedCompanyId,
+        NombreProducto: product?.nombre || '',
+        ModeloProducto: product?.codigo || ''
+      }
+    });
+  }
 }

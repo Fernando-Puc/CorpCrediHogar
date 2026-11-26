@@ -80,3 +80,46 @@
   border-color: #dc3545;
   box-shadow: none;
 }
+
+.history-costs-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  transform: translateX(20px);
+  transform: translateY(-15px);
+}
+
+.contenedor-boton {
+  display: flex;
+  width: 100%;
+}
+
+.history-costs-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px 10px;
+  margin-left: auto;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  background-color: white;
+  color: #495057;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #f8f9fa;
+    border-color: #adb5bd;
+    color: #dc3545;
+  }
+
+  mat-icon {
+    width: 17px;
+    height: 17px;
+    font-size: 17px;
+    line-height: 17px;
+  }
+}

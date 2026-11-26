@@ -29,3 +29,18 @@ export interface ExistenciaView extends ExistenciaDto {
   CodigoAlmacen: string;
   NombreAlmacen: string;
 }
+
+export interface HistorialCostoDto {
+  IDMovimiento: number;
+  FechaRegistro: string;
+  Serie: string;
+  Folio: string;
+  NombreProveedor: string;
+  NombreAlmacen: string;
+  Precio: number;
+  DescuentoPorcentaje: number;
+  Cantidad: number;
+  Neto: number;
+  Descuento: number;
+  CostoUnitario: number;
+}

@@ -5,7 +5,7 @@
   <div class="subExpand">
     <div class="y">
       <div class="x">
-        <h1 class="table__title">Existencias y Precios</h1>
+        <h1 class="table__title">Existencias y Costos</h1>
       </div>
     </div>
 
@@ -138,11 +138,24 @@
               {{ selectedExistence.UltimoCostoEmpresa ?? 0 | currency:'$ ' }}
             </strong>
           </div>
+          <div class="history-costs-container">
+            <div class="history-costs-btn">
+            <button
+            mat-stroked-button
+            color="primary"
+            class="history-button"
+            (click)="openCostHistory()">
+
+            <mat-icon>history</mat-icon> Historial de costos
+          </button>
+        </div>
+
+        </div>
         </div>
       </div>
     }
 
-    @if (selectedProductId && selectedCompanyId && isloading === false && isresult === true) {
+   <!--  @if (selectedProductId && selectedCompanyId && isloading === false && isresult === true) {
       <form class="form" (submit)="$event.preventDefault()">
         <div class="row">
           <div class="col-5">
@@ -162,7 +175,7 @@
           </div>
         </div>
       </form>
-    }
+    } -->
 
     <div class="tableWrap">
       @if (selectedProductId && selectedCompanyId && filteredExistences.length > 0 && isloading === false) {

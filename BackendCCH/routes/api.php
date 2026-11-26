@@ -14,6 +14,7 @@ use App\Http\Controllers\SucursalesController;
 use App\Http\Controllers\AlmacenesController;
 use App\http\Controllers\ComprasController;
 use App\http\Controllers\ExistenciasController;
+use App\Http\Controllers\TraspasosController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -92,6 +93,9 @@ Route::post('compras/crearcompra', [ComprasController::class, 'CrearCompra']);
 Route::put('/compras/actualizarcompra/{id}', [ComprasController::class, 'ActualizarCompra']);
 Route::put('/compras/{id}/cancelar', [ComprasController::class, 'CancelarCompra']);
 Route::delete('compras/eliminarcompra/{id}', [ComprasController::class, 'EliminarCompra']);
+
+//Historial de costos
+Route::get('/existencias/historialcostos', [ComprasController::class, 'HistorialCostos']);
 
 
 //Existencias

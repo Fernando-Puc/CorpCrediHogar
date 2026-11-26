@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseHelper;
 use App\Models\Existencias;
-use App\Models\CompraDetalle;
 use Illuminate\Support\Facades\Validator;
+use App\Models\CostoProductoEmpresa;
 
 class ExistenciasController extends Controller
 {
+
     // Obtener Existencias
     public function ObtenerExistencias(Request $request)
     {
@@ -54,30 +55,33 @@ class ExistenciasController extends Controller
         // Calcular costos y existencia total por empresa
         if ($request->filled('IDProducto') && $request->filled('IDEmpresa')) {
 
-            $existenciaTotal = $existencias->sum('Existencia');
-
-            // Costo promedio ponderado por cantidad
-            $cantidadValida = $existencias->sum('Existencia');
-
-            $costoPromedio = $cantidadValida > 0
-                ? $existencias->sum(function ($item) {
-                    return $item->Existencia * $item->CostoPromedio;
-                }) / $cantidadValida
-                : 0;
-
-            // Obtener el precio de la compra más reciente
-            $ultimoCosto = CompraDetalle::query()
-                ->join('compras', 'compra_detalle.IDCompra', '=', 'compras.IDCompra')
-                ->where('compra_detalle.IDProducto', $request->input('IDProducto'))
+            // Existencia total en todos los almacenes de la empresa.
+            $existenciaTotal = Existencias::where('IDProducto', $request->input('IDProducto'))
                 ->whereHas('almacen', function ($query) use ($request) {
                     $query->where('IDEmpresa', $request->input('IDEmpresa'));
                 })
-                ->where('compras.Estado', '!=', 'Cancelada')
-                ->orderByDesc('compras.FechaRegistro')
-                ->orderByDesc('compras.IDCompra')
-                ->value('compra_detalle.Precio');
+                ->sum('Existencia');
 
-            // Agregar el resumen a los registros
+            // Consultar los costos generales del producto y empresa.
+            $costoEmpresa = CostoProductoEmpresa::where(
+                'IDProducto',
+                $request->input('IDProducto')
+            )
+                ->where(
+                    'IDEmpresa',
+                    $request->input('IDEmpresa')
+                )
+                ->first();
+
+            $costoPromedio = $costoEmpresa
+                ? (float) $costoEmpresa->CostoPromedio
+                : 0;
+
+            $ultimoCosto = $costoEmpresa
+                ? (float) $costoEmpresa->UltimoCosto
+                : 0;
+
+            // Agregar el resumen a los registros.
             $existencias->each(function ($item) use (
                 $existenciaTotal,
                 $costoPromedio,
@@ -85,7 +89,7 @@ class ExistenciasController extends Controller
             ) {
                 $item->ExistenciaTotalEmpresa = $existenciaTotal;
                 $item->CostoPromedioEmpresa = $costoPromedio;
-                $item->UltimoCostoEmpresa = $ultimoCosto ?? 0;
+                $item->UltimoCostoEmpresa = $ultimoCosto;
             });
         }
 
@@ -94,6 +98,7 @@ class ExistenciasController extends Controller
             'Existencias obtenidas correctamente'
         );
     }
+
 
     // Ver Existencia
     public function VerExistencia($id)

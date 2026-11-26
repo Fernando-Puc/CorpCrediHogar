@@ -9,6 +9,9 @@ use App\Models\Existencias;
 use App\Helpers\ResponseHelper;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use App\Models\CostoProductoEmpresa;
+use App\Models\Almacenes;
+
 
 class ComprasController extends Controller
 {
@@ -67,8 +70,74 @@ class ComprasController extends Controller
             ])->values(),
         ];
 
-            return ResponseHelper::success($compraFormateada, 'Detalles de compra obtenidos correctamente');
+        return ResponseHelper::success($compraFormateada, 'Detalles de compra obtenidos correctamente');
+    }
+
+
+    // Actualizar costos generales por producto y empresa
+    private function ActualizarCostoEmpresa(
+        int $IDProducto,
+        int $IDAlmacen,
+        float $cantidadCompra,
+        float $costoUnitario
+    ) {
+        // Obtener la empresa del almacén seleccionado.
+        $almacen = Almacenes::findOrFail($IDAlmacen);
+
+        $IDEmpresa = $almacen->IDEmpresa;
+
+        // Bloquear el producto para evitar actualizaciones simultáneas.
+        DB::table('productos')
+            ->where('IDProducto', $IDProducto)
+            ->lockForUpdate()
+            ->first();
+
+        // Bloquear las existencias del producto en todos los almacenes
+        // pertenecientes a la misma empresa.
+        $existenciasEmpresa = Existencias::where('IDProducto', $IDProducto)
+            ->whereHas('almacen', function ($query) use ($IDEmpresa) {
+                $query->where('IDEmpresa', $IDEmpresa);
+            })
+            ->lockForUpdate()
+            ->get();
+
+        // Calcular la cantidad total antes de agregar la compra.
+        $cantidadActual = (float) $existenciasEmpresa->sum('Existencia');
+
+        // Obtener o crear el registro de costos de la empresa.
+        $costo = CostoProductoEmpresa::where('IDProducto', $IDProducto)
+            ->where('IDEmpresa', $IDEmpresa)
+            ->lockForUpdate()
+            ->first();
+
+        if (!$costo) {
+            $costo = new CostoProductoEmpresa([
+                'IDProducto' => $IDProducto,
+                'IDEmpresa' => $IDEmpresa,
+                'CostoPromedio' => 0,
+                'UltimoCosto' => 0,
+            ]);
         }
+
+        $costoPromedioActual = (float) $costo->CostoPromedio;
+
+        $nuevaCantidad = $cantidadActual + $cantidadCompra;
+
+        // Calcular costo promedio ponderado de toda la empresa.
+        $nuevoCostoPromedio = $nuevaCantidad > 0
+            ? (
+                ($cantidadActual * $costoPromedioActual)
+                + ($cantidadCompra * $costoUnitario)
+            ) / $nuevaCantidad
+            : 0;
+
+        $costo->CostoPromedio = round($nuevoCostoPromedio, 4);
+        $costo->UltimoCosto = round($costoUnitario, 4);
+        $costo->UltimaActualizacion = now();
+
+        $costo->save();
+    }
+
 
     //Registrar Compra
     public function CrearCompra(Request $request)
@@ -144,34 +213,36 @@ class ComprasController extends Controller
                         'Total' => $neto - $descuento + $iva,
                     ]);
 
-                    //Costo real por unidad con descuento y sin iva.
 
+                    // Costo real por unidad con descuento y sin IVA.
                     $costoUnitario = ($neto - $descuento) / $m['Cantidad'];
 
-                    //Funcion para bloquear la filapara que dos compras simultaneas no pisen el promedio.
+                    // Actualizar costo promedio y último costo por empresa.
+                    $this->ActualizarCostoEmpresa(
+                        (int) $m['IDProducto'],
+                        (int) $m['IDAlmacen'],
+                        (float) $m['Cantidad'],
+                        (float) $costoUnitario
+                    );
+
+                    // Buscar existencia del producto en el almacén.
                     $existencia = Existencias::where('IDAlmacen', $m['IDAlmacen'])
-                        ->Where('IDProducto', $m['IDProducto'])->lockForUpdate()->first();
+                        ->where('IDProducto', $m['IDProducto'])
+                        ->lockForUpdate()
+                        ->first();
 
                     if (!$existencia) {
                         $existencia = new Existencias([
                             'IDAlmacen' => $m['IDAlmacen'],
                             'IDProducto' => $m['IDProducto'],
                             'Existencia' => 0,
-                            'CostoPromedio' => 0,
-                            'UltimoCosto' => 0,
                         ]);
                     }
 
-                    $cantidadActual = (float) $existencia->Existencia;
-                    $nuevaCantidad = $cantidadActual + $m['Cantidad'];
+                    // Incrementar únicamente las unidades del almacén.
+                    $existencia->Existencia =
+                        (float) $existencia->Existencia + (float) $m['Cantidad'];
 
-                    $existencia->CostoPromedio = round(
-                        (($cantidadActual * (float) $existencia->CostoPromedio) + ($m['Cantidad'] * $costoUnitario)) / $nuevaCantidad,
-                        4
-                    );
-
-                    $existencia->UltimoCosto = round($costoUnitario, 4);
-                    $existencia->Existencia = $nuevaCantidad;
                     $existencia->UltimaActualizacion = now();
                     $existencia->save();
 
@@ -200,58 +271,138 @@ class ComprasController extends Controller
         }
     }
 
-    //Revertir movimiento de compra
+
+    // Revertir movimiento de compra
     private function RevertirMovimientos(Compras $compra)
     {
         foreach ($compra->detalle()->orderByDesc('IDMovimiento')->get() as $d) {
-            $posterior = CompraDetalle::where('IDProducto', $d->IDProducto)
-                ->where('IDAlmacen', $d->IDAlmacen)
-                ->where('IDMovimiento', '>', $d->IDMovimiento)
-                ->where('IDCompra', '!=', $compra->IDCompra)
-                ->whereHas('compra', fn($q) => $q->where('Estado', '!=', 'cancelada'))
-                ->exists();
 
-            if ($posterior) {
-                throw new \Exception('Existen compras posteriores de este producto en el mismo almacén. Cancelar o editar primero las más recientes');
-            }
+            // Obtener la empresa correspondiente al almacén.
+            $almacen = Almacenes::where('IDAlmacen', $d->IDAlmacen)
+                ->lockForUpdate()
+                ->firstOrFail();
 
+            $IDEmpresa = $almacen->IDEmpresa;
+
+            // Buscar la existencia del producto en el almacén.
             $existencia = Existencias::where('IDProducto', $d->IDProducto)
                 ->where('IDAlmacen', $d->IDAlmacen)
                 ->lockForUpdate()
                 ->first();
 
-            //La existencia debe alcanzar para revertir
-            if (!$existencia || (float) $existencia->Existencia < (float) $d->Cantidad) {
-                throw new \Exception('La existencia actual no alcanza para modificar la compra, el producto ya tuvo movimientos');
+            // Comprobar que exista el registro.
+            if (!$existencia) {
+                throw new \Exception(
+                    'No existe el registro de existencias del producto en el almacén.'
+                );
             }
 
-            $costoUnitario = ($d->Neto - $d->Descuento) / $d->Cantidad;
-            $restante = (float) $existencia->Existencia - (float) $d->Cantidad;
+            // Comprobar que el almacén tenga suficiente cantidad.
+            if ((float) $existencia->Existencia < (float) $d->Cantidad) {
+                throw new \Exception(
+                    'La existencia actual no alcanza para modificar o cancelar la compra.'
+                );
+            }
 
-            //revertir costo promedio
-            $existencia->CostoPromedio = $restante > 0
-                ? round((((float) $existencia->Existencia * (float) $existencia->CostoPromedio) - ($d->Cantidad * $costoUnitario)) / $restante, 4)
-                : 0;
-
-            //Ultimo costo de la compra anterior, en caso de que haya.
-
-            $anterior = CompraDetalle::where('IDProducto', $d->IDProducto)
-                ->where('IDAlmacen', $d->IDAlmacen)
-                ->where('IDMovimiento', '<', $d->IDMovimiento)
-                ->where('IDCompra', '!=', $compra->IDCompra)
-                ->whereHas('compra', fn($q) => $q->where('Estado', '!=', 'cancelada'))
-                ->orderByDesc('IDMovimiento')
+            // Obtener el costo general del producto y empresa.
+            $costo = CostoProductoEmpresa::where('IDProducto', $d->IDProducto)
+                ->where('IDEmpresa', $IDEmpresa)
+                ->lockForUpdate()
                 ->first();
 
-            $existencia->UltimoCosto = $anterior
-                ? round(($anterior->Neto - $anterior->Descuento) / $anterior->Cantidad, 4)
+            if (!$costo) {
+                throw new \Exception(
+                    'No se encontró el costo del producto para la empresa seleccionada.'
+                );
+            }
+
+            // Obtener la existencia total de la empresa antes de revertir.
+            $cantidadActualEmpresa = (float) Existencias::where(
+                'IDProducto',
+                $d->IDProducto
+            )
+                ->whereHas('almacen', function ($query) use ($IDEmpresa) {
+                    $query->where('IDEmpresa', $IDEmpresa);
+                })
+                ->sum('Existencia');
+
+            // Calcular el costo unitario de la compra.
+            $costoUnitario = $d->Cantidad > 0
+                ? ((float) $d->Neto - (float) $d->Descuento) / (float) $d->Cantidad
                 : 0;
 
-            $existencia->Existencia = $restante;
+            // Revertir la cantidad del almacén.
+            $existencia->Existencia =
+                (float) $existencia->Existencia - (float) $d->Cantidad;
+
             $existencia->UltimaActualizacion = now();
             $existencia->save();
+
+            // Calcular la existencia total después de revertir.
+            $nuevaCantidadEmpresa = $cantidadActualEmpresa - (float) $d->Cantidad;
+
+            // Revertir el costo promedio general de la empresa.
+            $costoPromedioActual = (float) $costo->CostoPromedio;
+
+            if ($nuevaCantidadEmpresa > 0) {
+
+                $nuevoCostoPromedio = (
+                    ($cantidadActualEmpresa * $costoPromedioActual)
+                    - ((float) $d->Cantidad * $costoUnitario)
+                ) / $nuevaCantidadEmpresa;
+
+                $costo->CostoPromedio = round($nuevoCostoPromedio, 4);
+            } else {
+
+                $costo->CostoPromedio = 0;
+            }
+
+            // Buscar la compra válida más reciente, sin importar el almacén.
+            // Se excluye la compra que estamos revirtiendo.
+            $ultimaCompra = DB::table('compra_detalle')
+                ->join(
+                    'compras',
+                    'compra_detalle.IDCompra',
+                    '=',
+                    'compras.IDCompra'
+                )
+                ->join(
+                    'almacenes',
+                    'compra_detalle.IDAlmacen',
+                    '=',
+                    'almacenes.IDAlmacen'
+                )
+                ->where('compra_detalle.IDProducto', $d->IDProducto)
+                ->where('almacenes.IDEmpresa', $IDEmpresa)
+                ->where('compras.IDCompra', '!=', $compra->IDCompra)
+                ->whereRaw('LOWER(compras.Estado) != ?', ['cancelada'])
+                ->where('compra_detalle.Cantidad', '>', 0)
+                ->orderByDesc('compras.FechaRegistro')
+                ->orderByDesc('compras.IDCompra')
+                ->orderByDesc('compra_detalle.IDMovimiento')
+                ->select(
+                    'compra_detalle.Neto',
+                    'compra_detalle.Descuento',
+                    'compra_detalle.Cantidad'
+                )
+                ->first();
+
+            // Actualizar último costo.
+            $costo->UltimoCosto = $ultimaCompra
+                ? round(
+                    (
+                        (float) $ultimaCompra->Neto
+                        - (float) $ultimaCompra->Descuento
+                    ) / (float) $ultimaCompra->Cantidad,
+                    4
+                )
+                : 0;
+
+            $costo->UltimaActualizacion = now();
+            $costo->save();
         }
     }
+
 
     //crea los movimientos, actualiza las existencias, calcula costos y actualiza totales de la compra.
     private function AplicarMovimientos(Compras $compra, array $movimientos)
@@ -283,8 +434,19 @@ class ComprasController extends Controller
                 'Total' => $neto - $descuento + $iva,
             ]);
 
+
+            // Costo real por unidad con descuento y sin IVA.
             $costoUnitario = ($neto - $descuento) / $m['Cantidad'];
 
+            // Actualizar costo promedio y último costo por empresa.
+            $this->ActualizarCostoEmpresa(
+                (int) $m['IDProducto'],
+                (int) $m['IDAlmacen'],
+                (float) $m['Cantidad'],
+                (float) $costoUnitario
+            );
+
+            // Buscar existencia del producto en el almacén.
             $existencia = Existencias::where('IDAlmacen', $m['IDAlmacen'])
                 ->where('IDProducto', $m['IDProducto'])
                 ->lockForUpdate()
@@ -295,21 +457,13 @@ class ComprasController extends Controller
                     'IDAlmacen' => $m['IDAlmacen'],
                     'IDProducto' => $m['IDProducto'],
                     'Existencia' => 0,
-                    'CostoPromedio' => 0,
-                    'UltimoCosto' => 0,
                 ]);
             }
 
-            $cantidadActual = (float) $existencia->Existencia;
-            $nuevaCantidad = $cantidadActual + $m['Cantidad'];
+            // Incrementar únicamente las unidades del almacén.
+            $existencia->Existencia =
+                (float) $existencia->Existencia + (float) $m['Cantidad'];
 
-            $existencia->CostoPromedio = round(
-                (($cantidadActual * (float) $existencia->CostoPromedio) + ($m['Cantidad'] * $costoUnitario)) / $nuevaCantidad,
-                4
-            );
-
-            $existencia->UltimoCosto = round($costoUnitario, 4);
-            $existencia->Existencia = $nuevaCantidad;
             $existencia->UltimaActualizacion = now();
             $existencia->save();
 
@@ -446,5 +600,51 @@ class ComprasController extends Controller
         } catch (\Exception $e) {
             return ResponseHelper::error('Error al eliminar la compra: ' . $e->getMessage(), 500);
         }
+    }
+
+    //Historial de costos de un producto por empresa
+    public function HistorialCostos(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'IDProducto' => 'required|integer|exists:productos,IDProducto',
+            'IDEmpresa' => 'required|integer|exists:empresas,IDEmpresa',
+        ]);
+
+        if ($validator->fails()) {
+            return ResponseHelper::error($validator->errors()->first(), 400);
+        }
+
+        $historial = DB::table('compra_detalle')
+            ->join('compras', 'compra_detalle.IDCompra', '=', 'compras.IDCompra')
+            ->join('almacenes', 'compra_detalle.IDAlmacen', '=', 'almacenes.IDAlmacen')
+            ->leftJoin('proveedores', 'compras.IDProveedor', '=', 'proveedores.IDProveedor')
+            ->where('compra_detalle.IDProducto', $request->input('IDProducto'))
+            ->where('almacenes.IDEmpresa', $request->input('IDEmpresa'))
+            ->whereRaw('LOWER(compras.Estado) != ?', ['cancelada'])
+            ->select(
+                'compra_detalle.IDMovimiento',
+                'compras.FechaRegistro',
+                'compras.Serie',
+                'compras.Folio',
+                'proveedores.Nombre as NombreProveedor',
+                'almacenes.Nombre as NombreAlmacen',
+                'compra_detalle.Precio',
+                'compra_detalle.DescuentoPorcentaje',
+                'compra_detalle.Cantidad',
+                'compra_detalle.Neto',
+                'compra_detalle.Descuento'
+            )
+            ->orderByDesc('compras.FechaRegistro')
+            ->orderByDesc('compra_detalle.IDMovimiento')
+            ->get()
+            ->map(function ($item) {
+                $item->CostoUnitario = $item->Cantidad > 0
+                    ? round(($item->Neto - $item->Descuento) / $item->Cantidad, 4)
+                    : 0;
+
+                return $item;
+            });
+
+        return ResponseHelper::success($historial, 'Historial de costos obtenido correctamente');
     }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ConstantsService } from './constants.service';
 import { HttpClient } from '@angular/common/http';
 import { ResponseGet } from '../models/responses';
-import { ExistenciaDto } from '../models/existences';
+import { ExistenciaDto, HistorialCostoDto } from '../models/existences';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -19,4 +19,11 @@ export class ExistencesService {
       this.URL + '?IDProducto=' + IDProducto + '&IDEmpresa=' + IDEmpresa
     );
   }
+
+  getCostHistory(IDProducto: number, IDEmpresa: number): Observable<ResponseGet<HistorialCostoDto[]>>{
+    return this.http.get<ResponseGet<HistorialCostoDto[]>>(
+      this.URL + 'historialcostos?IDProducto=' + IDProducto + '&IDEmpresa=' + IDEmpresa
+    );
+  }
 }
+
