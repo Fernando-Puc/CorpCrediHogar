@@ -1,0 +1,104 @@
+<h2 mat-dialog-title>Historial de costos</h2>
+
+<div mat-dialog-content>
+  <div class="mainContainer">
+    <div class="subExpand">
+      <div class="y">
+        <div class="x">
+          <span class="selected-info"> MODELO: </span>
+          <span class="table__title">{{ productModel }}</span>
+        </div>
+        <div class="x">
+          <span class="selected-info"> PRODUCTO: </span>
+          <span class="table__title">{{ productName }}</span>
+        </div>
+      </div>
+
+      <div class="tableWrap">
+
+        @if (history.length > 0 && loading === false) {
+
+          <div class="table__responsive-container">
+            <table class="table">
+
+              <thead class="table__head">
+                <tr class="table__row">
+                  <th class="table__header">FECHA</th>
+                  <th class="table__header">SERIE</th>
+                  <th class="table__header">FOLIO</th>
+                  <th class="table__header">PROVEEDOR</th>
+                  <th class="table__header">PRECIO</th>
+                  <th class="table__header">DESCUENTO</th>
+                  <th class="table__header">COSTO UNITARIO</th>
+                </tr>
+              </thead>
+
+              <tbody class="table__body">
+                @for (item of history; track item.IDMovimiento) {
+                  <tr class="table__row">
+
+                    <td class="table__data">
+                      {{ item.FechaRegistro | date:'dd/MM/yyyy' }}
+                    </td>
+
+                    <td class="table__data">
+                      {{ item.Serie }}
+                    </td>
+
+                    <td class="table__data">
+                      {{ item.Folio }}
+                    </td>
+
+                    <td class="table__data">
+                      {{ item.NombreProveedor }}
+                    </td>
+
+                    <td class="table__data">
+                      {{ item.Precio | currency:' $' }}
+                    </td>
+
+                    <td class="table__data">
+                      {{ item.DescuentoPorcentaje }}%
+                    </td>
+
+                    <td class="table__data">
+                      {{ item.CostoUnitario | currency:' $' }}
+                    </td>
+
+                  </tr>
+                }
+              </tbody>
+
+            </table>
+          </div>
+
+        } @else {
+
+          @if (errorMessage) {
+            <div class="message message--error">
+              {{ errorMessage }}
+            </div>
+          }
+
+          @if (loading) {
+            <div class="load"></div>
+          } @else {
+            @if (!errorMessage) {
+              <div class="message">
+                No hay historial de costos registrado
+              </div>
+            }
+          }
+
+        }
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div mat-dialog-actions class="action" [align]="'end'">
+  <button mat-raised-button color="warn" [mat-dialog-close]="false">
+    Cerrar
+  </button>
+</div>

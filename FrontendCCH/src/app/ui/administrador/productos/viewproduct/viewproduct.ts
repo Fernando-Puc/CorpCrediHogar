@@ -10,7 +10,7 @@ import { ActionButtonComponent } from "../../../generic components/actionButton/
 @Component({
   selector: 'app-viewproduct',
   standalone: true,
-  imports: [MatIconModule, MatDialogModule, MatButtonModule, CommonModule, ActionButtonComponent],
+  imports: [MatIconModule, MatDialogModule, MatButtonModule, CommonModule],
   templateUrl: './viewproduct.html',
   styleUrl: './viewproduct.scss',
 })
